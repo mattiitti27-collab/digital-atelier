@@ -361,7 +361,7 @@ const AtelierScene = () => {
     <div className="fixed inset-0 z-0">
       <Canvas
         shadows
-        camera={{ position: [0, 0.5, 4.5], fov: 40 }}
+        camera={{ position: [0, 0.8, 5.5], fov: 50 }}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         dpr={[1, 2]}
         style={{ background: '#020202' }}
