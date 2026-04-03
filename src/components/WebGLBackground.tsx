@@ -69,7 +69,7 @@ const fragmentShader = `
     vec4 texNext = texture2D(uTexNext, distortedUv);
     vec4 color = mix(texCurrent, texNext, uProgress);
 
-    gl_FragColor = vec4(color.rgb, 0.14);
+    gl_FragColor = vec4(color.rgb, 0.10);
   }
 `;
 
@@ -110,7 +110,7 @@ function DistortionPlane() {
     materialRef.current.uniforms.uProgress.value = 0;
 
     const startTime = performance.now();
-    const duration = 1700; // 1.7 second dissolve
+    const duration = 2000; // 2 second smooth dissolve
 
     function tick() {
       const elapsed = performance.now() - startTime;
@@ -137,7 +137,7 @@ function DistortionPlane() {
   }, [textures]);
 
   useEffect(() => {
-    const interval = setInterval(animateTransition, 4000); // 4 seconds between images
+    const interval = setInterval(animateTransition, 5000); // 5 seconds between images
     return () => clearInterval(interval);
   }, [animateTransition]);
 
