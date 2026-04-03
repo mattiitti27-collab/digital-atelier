@@ -505,7 +505,7 @@ function SignaturePhase() {
       {activeModules.length > 0 && (
         <div className="p-3 rounded-xl" style={{ background: 'rgba(212,165,116,0.03)', border: '1px solid rgba(212,165,116,0.08)' }}>
           <p className="text-[7px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
-            MODULI ({activeModules.length}) — +€{modulesTotal.toLocaleString()}
+            MODULI ({activeModules.length})
           </p>
           {activeModules.map((m) => (
             <p key={m.id} className="text-[8px] tracking-[0.1em] py-0.5" style={{ color: '#d4a574' }}>◆ {m.name}</p>
