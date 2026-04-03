@@ -121,11 +121,12 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
       </h1>
 
       <p
-        className="text-muted-foreground text-sm md:text-base tracking-widest uppercase"
+        className="text-sm md:text-base tracking-widest uppercase mt-4"
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 300,
           letterSpacing: '0.3em',
+          color: 'rgba(255,255,255,0.4)',
           opacity: visible ? 1 : 0,
           transition: 'opacity 1.5s ease 1.5s',
         }}

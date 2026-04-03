@@ -37,17 +37,27 @@ const Index = () => {
           <HorizontalPortfolio />
 
           {/* FAQ Section */}
-          <FAQSection />
+          <div className="py-16 md:py-24" style={{ background: '#050505' }}>
+            <FAQSection />
+          </div>
 
           {/* Contact CTA */}
-          <section className="py-20 flex items-center justify-center" style={{ background: '#050505' }}>
+          <section className="py-24 md:py-32 flex items-center justify-center" style={{ background: '#050505' }}>
             <button
               onClick={() => setContactOpen(true)}
-              className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase rounded-lg transition-all"
+              className="px-12 py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300"
               style={{
-                background: 'linear-gradient(135deg, rgba(212,165,116,0.15), rgba(212,165,116,0.05))',
-                border: '1px solid rgba(212,165,116,0.4)',
+                background: 'transparent',
+                border: '1px solid rgba(212,165,116,0.3)',
                 color: '#d4a574',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(212,165,116,0.08)';
+                e.currentTarget.style.borderColor = 'rgba(212,165,116,0.5)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
               }}
             >
               CONTATTACI

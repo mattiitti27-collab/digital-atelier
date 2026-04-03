@@ -115,8 +115,8 @@ function ProjectCard({ project }: { project: Project }) {
             {project.title}
           </h3>
           <p
-            className="text-muted-foreground text-xs tracking-[0.2em] uppercase"
-            style={{ fontFamily: 'var(--font-body)' }}
+            className="text-[11px] tracking-[0.2em] uppercase"
+            style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.35)' }}
           >
             {project.subtitle}
           </p>
@@ -188,10 +188,10 @@ const HorizontalPortfolio = () => {
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
       {/* Section heading */}
-      <div ref={headingRef} className="absolute top-12 left-8 md:left-16 z-10">
+      <div ref={headingRef} className="absolute top-16 left-10 md:left-20 z-10">
         <p
-          className="text-muted-foreground text-[10px] tracking-[0.4em] uppercase mb-2"
-          style={{ fontFamily: 'var(--font-body)' }}
+          className="text-[11px] tracking-[0.4em] uppercase mb-3"
+          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.35)' }}
         >
           Portfolio Selezionato
         </p>
