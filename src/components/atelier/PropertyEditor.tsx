@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
-import { useEditorStore } from '@/stores/editorStore';
+import { useEditorStore, ElementOverrides } from '@/stores/editorStore';
+
+const EMPTY_OVERRIDES = Object.freeze({}) as ElementOverrides;
 
 const PropertyEditor = () => {
   const selectedId = useEditorStore((s) => s.selectedElementId);
   const elements = useEditorStore((s) => s.elements);
-  const overrides = useEditorStore((s) => selectedId ? s.overrides[selectedId] || {} : {});
+  const overrides = useEditorStore((s) => (selectedId ? s.overrides[selectedId] : undefined) ?? EMPTY_OVERRIDES);
   const updateOverride = useEditorStore((s) => s.updateOverride);
   const setSelected = useEditorStore((s) => s.setSelectedElement);
 
