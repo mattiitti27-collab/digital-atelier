@@ -1,30 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-}
+const FAQS = [
+  {
+    id: '1',
+    question: 'Come riuscite a mantenere standard così elevati a prezzi così competitivi?',
+    answer: 'Intini Web Atelier opera con una struttura snella e dinamica. Grazie al regime fiscale agevolato e all\'assenza di pesanti costi d\'intermediazione tipici delle grandi agenzie, possiamo trasferire questo vantaggio economico direttamente al cliente, garantendo eccellenza tecnica senza compromessi.',
+  },
+  {
+    id: '2',
+    question: 'Perché scegliere un talento emergente rispetto a un\'agenzia tradizionale?',
+    answer: 'Scegliere la nostra realtà significa investire in dedizione assoluta e innovazione pura. Essendo una realtà giovane e in forte ascesa, ogni progetto è per noi una sfida verso la perfezione, gestita con una cura del dettaglio che solo un rapporto diretto e personale può offrire.',
+  },
+  {
+    id: '3',
+    question: 'Qual è il processo di realizzazione di un sito d\'élite?',
+    answer: 'Ogni ecosistema digitale nasce da una fase di analisi stilistica e tecnica, seguita dalla modellazione delle interazioni 3D e dall\'ottimizzazione del codice per performance fulminee su ogni dispositivo.',
+  },
+  {
+    id: '4',
+    question: 'Fornite supporto continuo dopo il lancio?',
+    answer: 'Certamente. Il lancio è solo l\'inizio. Offriamo consulenza e assistenza tecnica dedicata per assicurarci che la vostra presenza digitale evolva insieme ai vostri obiettivi di business.',
+  },
+];
 
 const FAQSection = () => {
-  const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [openId, setOpenId] = useState<string | null>(null);
-
-  useEffect(() => {
-    supabase
-      .from('faq')
-      .select('id, question, answer')
-      .eq('is_active', true)
-      .order('position')
-      .then(({ data }) => {
-        if (data) setFaqs(data);
-      });
-  }, []);
-
-  if (faqs.length === 0) return null;
 
   return (
     <section className="py-20 px-6" style={{ background: '#050505' }}>
@@ -36,7 +38,7 @@ const FAQSection = () => {
           Domande Frequenti
         </h2>
         <div className="space-y-2">
-          {faqs.map((faq) => (
+          {FAQS.map((faq) => (
             <motion.div
               key={faq.id}
               className="rounded-xl overflow-hidden"

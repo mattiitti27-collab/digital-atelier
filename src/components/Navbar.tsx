@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const NAV_ITEMS = [
   { label: 'Chi Siamo', href: '#chi-siamo' },
   { label: 'I Nostri Lavori', href: '#portfolio' },
+  { label: 'L\'Atelier', href: '/atelier', isRoute: true },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contatti', href: '#contatti' },
 ];

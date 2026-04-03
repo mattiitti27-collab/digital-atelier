@@ -35,6 +35,16 @@ const FooterReveal = () => {
           </p>
           <p className="text-sm leading-[1.8]" style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
             Siti web su misura e di altissimo lusso per clienti esclusivi.
+            <br />
+            <a
+              href="mailto:intiniwebatelier@gmail.com"
+              className="transition-colors duration-300 mt-2 inline-block"
+              style={{ color: 'rgba(255,255,255,0.4)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+            >
+              intiniwebatelier@gmail.com
+            </a>
           </p>
         </div>
 
