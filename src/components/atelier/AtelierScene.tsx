@@ -223,36 +223,71 @@ function SpotlightFixture({ position, target = [0, 0, 0], color = '#fff5e6', int
     return [e.x, e.y, e.z] as [number, number, number];
   }, [dir]);
 
+  // Light cone geometry
+  const coneLength = useMemo(() => {
+    return new THREE.Vector3(...position).distanceTo(new THREE.Vector3(...target)) * 0.7;
+  }, [position, target]);
+
   return (
     <group position={position}>
-      {/* Fixture body — black metal cylinder */}
+      {/* Fixture body — larger black metal cylinder */}
       <group rotation={rotation}>
         <mesh>
-          <cylinderGeometry args={[0.12, 0.18, 0.4, 12]} />
+          <cylinderGeometry args={[0.2, 0.3, 0.6, 16]} />
           <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.3} />
         </mesh>
         {/* Barn door rim */}
-        <mesh position={[0, -0.22, 0]}>
-          <cylinderGeometry args={[0.19, 0.2, 0.06, 12]} />
+        <mesh position={[0, -0.32, 0]}>
+          <cylinderGeometry args={[0.31, 0.33, 0.08, 16]} />
           <meshStandardMaterial color="#0a0a0a" metalness={0.95} roughness={0.2} />
         </mesh>
-        {/* Inner glow lens */}
-        <mesh position={[0, -0.24, 0]}>
-          <circleGeometry args={[0.14, 16]} />
-          <meshBasicMaterial color={color} transparent opacity={0.4} />
+        {/* Inner glow lens — bright */}
+        <mesh position={[0, -0.35, 0]}>
+          <circleGeometry args={[0.24, 20]} />
+          <meshBasicMaterial color={color} transparent opacity={0.8} />
+        </mesh>
+        {/* Outer glow halo */}
+        <mesh position={[0, -0.36, 0]}>
+          <ringGeometry args={[0.24, 0.45, 24]} />
+          <meshBasicMaterial color={color} transparent opacity={0.15} side={THREE.DoubleSide} />
+        </mesh>
+
+        {/* Visible light cone / beam */}
+        <mesh position={[0, -coneLength / 2 - 0.36, 0]}>
+          <coneGeometry args={[coneLength * 0.35, coneLength, 16, 1, true]} />
+          <meshBasicMaterial
+            color={color}
+            transparent
+            opacity={0.04}
+            side={THREE.DoubleSide}
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
+          />
         </mesh>
       </group>
 
-      {/* Mounting arm */}
-      <mesh position={[0, 0.3, 0]}>
-        <cylinderGeometry args={[0.02, 0.02, 0.3, 6]} />
+      {/* Mounting yoke — U-bracket */}
+      <mesh position={[-0.18, 0.15, 0]}>
+        <cylinderGeometry args={[0.015, 0.015, 0.5, 6]} />
+        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
+      </mesh>
+      <mesh position={[0.18, 0.15, 0]}>
+        <cylinderGeometry args={[0.015, 0.015, 0.5, 6]} />
+        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
+      </mesh>
+      {/* Top bar connecting yoke */}
+      <mesh position={[0, 0.42, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.015, 0.015, 0.4, 6]} />
         <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
       </mesh>
       {/* Clamp */}
-      <mesh position={[0, 0.48, 0]}>
-        <boxGeometry args={[0.08, 0.08, 0.08]} />
+      <mesh position={[0, 0.55, 0]}>
+        <boxGeometry args={[0.1, 0.1, 0.1]} />
         <meshStandardMaterial color="#222222" metalness={0.85} roughness={0.3} />
       </mesh>
+
+      {/* Point glow at lens — visible bloom source */}
+      <pointLight position={[0, 0, 0]} intensity={0.5} color={color} distance={1.5} />
 
       {/* Actual spotlight */}
       <spotLight
