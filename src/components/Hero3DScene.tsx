@@ -50,8 +50,8 @@ const Hero3DScene = () => {
         <motion.img
           src={logo3d}
           alt="Intini Web Atelier Logo"
-          className="w-[55vw] max-w-[700px] h-auto select-none"
-          style={{ filter: 'drop-shadow(0 0 40px rgba(119, 51, 204, 0.15))' }}
+          className="w-[38vw] max-w-[480px] h-auto select-none opacity-60"
+          style={{ filter: 'drop-shadow(0 0 60px rgba(119, 51, 204, 0.25))' }}
           animate={{ y: [0, -8, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           draggable={false}
