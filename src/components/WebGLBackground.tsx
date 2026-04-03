@@ -2,7 +2,6 @@ import { useRef, useEffect, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-import bg1 from '@/assets/bg/bg-1.jpg';
 import bg2 from '@/assets/bg/bg-2.jpg';
 import bg3 from '@/assets/bg/bg-3.jpg';
 import bg4 from '@/assets/bg/bg-4.jpg';
@@ -12,8 +11,11 @@ import bg7 from '@/assets/bg/bg-7.jpg';
 import bg8 from '@/assets/bg/bg-8.jpg';
 import bg9 from '@/assets/bg/bg-9.jpg';
 import bg10 from '@/assets/bg/bg-10.jpg';
+import bg11 from '@/assets/bg/bg-11.jpg';
+import bg12 from '@/assets/bg/bg-12.jpg';
+import bg13 from '@/assets/bg/bg-13.jpg';
 
-const imagePaths = [bg1, bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10];
+const imagePaths = [bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13];
 
 const vertexShader = `
   varying vec2 vUv;
@@ -30,7 +32,6 @@ const fragmentShader = `
   uniform float uTime;
   varying vec2 vUv;
 
-  // Simplex-style noise
   vec3 mod289(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
   vec2 mod289(vec2 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
   vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -75,7 +76,6 @@ function DistortionPlane() {
   const materialRef = useRef<THREE.ShaderMaterial>(null);
   const { viewport } = useThree();
   const indexRef = useRef(0);
-  const progressRef = useRef({ value: 0 });
   const animatingRef = useRef(false);
 
   const loader = useMemo(() => new THREE.TextureLoader(), []);
@@ -105,17 +105,15 @@ function DistortionPlane() {
 
     const nextIndex = (indexRef.current + 1) % textures.length;
     materialRef.current.uniforms.uTexNext.value = textures[nextIndex];
-    progressRef.current.value = 0;
     materialRef.current.uniforms.uProgress.value = 0;
 
     const startTime = performance.now();
-    const duration = 1200;
+    const duration = 1000; // 1 second dissolve
 
     function tick() {
       const elapsed = performance.now() - startTime;
       const t = Math.min(elapsed / duration, 1);
-      const eased = t * t * (3 - 2 * t); // smoothstep
-      progressRef.current.value = eased;
+      const eased = t * t * (3 - 2 * t);
 
       if (materialRef.current) {
         materialRef.current.uniforms.uProgress.value = eased;
@@ -137,7 +135,7 @@ function DistortionPlane() {
   }, [textures]);
 
   useEffect(() => {
-    const interval = setInterval(animateTransition, 3000);
+    const interval = setInterval(animateTransition, 4000); // 4 seconds between images
     return () => clearInterval(interval);
   }, [animateTransition]);
 
