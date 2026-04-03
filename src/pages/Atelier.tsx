@@ -37,8 +37,7 @@ const Atelier = () => {
     <div className="relative w-full h-screen overflow-hidden" style={{ background: '#050505' }}>
       {/* Always show the 3D scene */}
       <AtelierScene />
-
-      {/* Always show the HUD — locked state handled inside */}
+      <LiveSitePreview />
       <AtelierHUD locked={false} onUnlockClick={() => setShowPaywall(true)} />
 
       {/* Lock overlay when no access */}
