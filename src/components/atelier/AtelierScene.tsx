@@ -382,10 +382,10 @@ function SceneContent() {
       </Suspense>
 
       <EffectComposer>
-        <DepthOfField focusDistance={0.02} focalLength={0.05} bokehScale={3} />
-        <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} intensity={0.6} />
-        <Noise opacity={0.035} />
-        <Vignette eskil={false} offset={0.15} darkness={0.9} />
+        <DepthOfField focusDistance={0.02} focalLength={0.05} bokehScale={2} />
+        <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.8} intensity={1.2} mipmapBlur />
+        <Noise opacity={0.03} />
+        <Vignette eskil={false} offset={0.15} darkness={0.85} />
       </EffectComposer>
     </>
   );
