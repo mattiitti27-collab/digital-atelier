@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Layers, Settings2, Sliders } from 'lucide-react';
 import {
   useAtelierStore, Phase, MaterialType,
   templates, palettes, typographyPairs, animationStyles, layoutStyles,
 } from '@/stores/atelierStore';
+import { useEditorStore } from '@/stores/editorStore';
+import LayerTree from './LayerTree';
+import PropertyEditor from './PropertyEditor';
 
 const allPhases: { id: Phase; label: string; number: string }[] = [
   { id: 'identity', label: 'IDENTITÀ', number: '01' },
@@ -502,8 +506,16 @@ interface AtelierHUDProps {
 const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
   const phase = useAtelierStore((s) => s.phase);
   const setPhase = useAtelierStore((s) => s.setPhase);
+  const sidebarTab = useEditorStore((s) => s.sidebarTab);
+  const setSidebarTab = useEditorStore((s) => s.setSidebarTab);
 
   if (phase === 'finale' && !locked) return <FinaleOverlay />;
+
+  const tabs = [
+    { id: 'phases' as const, label: 'FASI', icon: Sliders },
+    { id: 'layers' as const, label: 'LIVELLI', icon: Layers },
+    { id: 'properties' as const, label: 'PROPRIETÀ', icon: Settings2 },
+  ];
 
   return (
     <div
@@ -514,28 +526,54 @@ const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
       }}
     >
       {/* Header */}
-      <div className="px-5 pt-5 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
-        <p className="text-[9px] tracking-[0.4em] uppercase mb-4" style={{ color: '#d4a574' }}>
+      <div className="px-5 pt-4 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+        <p className="text-[9px] tracking-[0.4em] uppercase mb-3" style={{ color: '#d4a574' }}>
           INTINI SYSTEM DIGITAL
         </p>
 
-        {/* Phase nav */}
-        <div className="flex flex-wrap gap-x-1 gap-y-0.5">
-          {allPhases.map((p) => (
-            <motion.button
-              key={p.id}
-              onClick={() => setPhase(p.id)}
-              className="flex items-center gap-1 py-1 px-1.5 rounded transition-all"
-              style={{
-                background: phase === p.id ? 'rgba(212,165,116,0.1)' : 'transparent',
-              }}
-              whileHover={{ background: 'rgba(255,255,255,0.03)' }}
-            >
-              <span className="text-[7px] font-mono" style={{ color: phase === p.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }}>{p.number}</span>
-              <span className="text-[7px] tracking-[0.1em]" style={{ color: phase === p.id ? '#ffffff' : 'rgba(255,255,255,0.2)' }}>{p.label}</span>
-            </motion.button>
-          ))}
+        {/* Tab switcher */}
+        <div className="flex gap-0.5 mb-2">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const active = sidebarTab === tab.id;
+            return (
+              <motion.button
+                key={tab.id}
+                onClick={() => setSidebarTab(tab.id)}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-[7px] tracking-[0.15em] uppercase transition-all"
+                style={{
+                  background: active ? 'rgba(212,165,116,0.1)' : 'transparent',
+                  border: `1px solid ${active ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.03)'}`,
+                  color: active ? '#d4a574' : 'rgba(255,255,255,0.25)',
+                }}
+                whileHover={{ background: 'rgba(255,255,255,0.03)' }}
+              >
+                <Icon size={11} />
+                {tab.label}
+              </motion.button>
+            );
+          })}
         </div>
+
+        {/* Phase nav — only visible in phases tab */}
+        {sidebarTab === 'phases' && (
+          <div className="flex flex-wrap gap-x-1 gap-y-0.5 pt-1">
+            {allPhases.map((p) => (
+              <motion.button
+                key={p.id}
+                onClick={() => setPhase(p.id)}
+                className="flex items-center gap-1 py-1 px-1.5 rounded transition-all"
+                style={{
+                  background: phase === p.id ? 'rgba(212,165,116,0.1)' : 'transparent',
+                }}
+                whileHover={{ background: 'rgba(255,255,255,0.03)' }}
+              >
+                <span className="text-[7px] font-mono" style={{ color: phase === p.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }}>{p.number}</span>
+                <span className="text-[7px] tracking-[0.1em]" style={{ color: phase === p.id ? '#ffffff' : 'rgba(255,255,255,0.2)' }}>{p.label}</span>
+              </motion.button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Scrollable content */}
@@ -559,15 +597,29 @@ const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
 
         <div style={{ filter: locked ? 'blur(2px)' : 'none', pointerEvents: locked ? 'none' : 'auto' }}>
           <AnimatePresence mode="wait">
-            {phase === 'identity' && <IdentityPhase key="identity" />}
-            {phase === 'template' && <TemplatePhase key="template" />}
-            {phase === 'essence' && <EssencePhase key="essence" />}
-            {phase === 'palette' && <PalettePhase key="palette" />}
-            {phase === 'typography' && <TypographyPhase key="typography" />}
-            {phase === 'animations' && <AnimationsPhase key="animations" />}
-            {phase === 'layout' && <LayoutPhase key="layout" />}
-            {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
-            {phase === 'signature' && <SignaturePhase key="signature" />}
+            {sidebarTab === 'phases' && (
+              <motion.div key="phases" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                {phase === 'identity' && <IdentityPhase key="identity" />}
+                {phase === 'template' && <TemplatePhase key="template" />}
+                {phase === 'essence' && <EssencePhase key="essence" />}
+                {phase === 'palette' && <PalettePhase key="palette" />}
+                {phase === 'typography' && <TypographyPhase key="typography" />}
+                {phase === 'animations' && <AnimationsPhase key="animations" />}
+                {phase === 'layout' && <LayoutPhase key="layout" />}
+                {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
+                {phase === 'signature' && <SignaturePhase key="signature" />}
+              </motion.div>
+            )}
+            {sidebarTab === 'layers' && (
+              <motion.div key="layers" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <LayerTree />
+              </motion.div>
+            )}
+            {sidebarTab === 'properties' && (
+              <motion.div key="properties" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <PropertyEditor />
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </div>
