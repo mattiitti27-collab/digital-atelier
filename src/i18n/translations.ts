@@ -1,0 +1,144 @@
+export type Lang = 'it' | 'en';
+
+export const translations = {
+  it: {
+    nav: {
+      chiSiamo: 'Chi Siamo',
+      lavori: 'I Nostri Lavori',
+      atelier: "L'Atelier",
+      faq: 'FAQ',
+      contatti: 'Contatti',
+    },
+    hero: {
+      title: "Esperienze Digitali d'Élite",
+      subtitle: 'Creiamo presenze digitali su misura per chi non accetta compromessi',
+      cta1: 'Chi Siamo',
+      cta2: 'I Nostri Lavori',
+    },
+    about: {
+      label: 'Chi Siamo',
+      title1: "L'Arte del Digitale,",
+      title2: "la Precisione dell'Ingegneria",
+      p1: "Dietro ogni grande esperienza digitale c'è un equilibrio perfetto tra creatività e logica. Sono ",
+      p1Name: 'Mattia Intini',
+      p1b: ", fondatore di Intini Web Atelier. Il mio percorso nasce nel mondo dell'ingegneria e si è evoluto attraverso la mia carriera nel trading professionistico e la profonda passione per il business. Questo background mi ha forgiato una mentalità unica: la precisione analitica e la visione strategica di un trader applicate al design di lusso.",
+      p2: 'Intini Web Atelier è una ',
+      p2Bold: 'boutique digitale',
+      p2b: " nata con una missione chiara: rivoluzionare la presenza online dei brand attraverso esperienze web 3D cinematiche e immersive.",
+      p3: "Creiamo siti web che non si limitano a farsi guardare, ma che si fanno vivere. Trattandosi di un progetto nuovo ed esclusivo, ho deciso di rendere accessibile l'eccellenza: offriamo la stessa qualità visiva e tecnologica riservata tipicamente ai top brand internazionali, ma a ",
+      p3Bold: 'condizioni di lancio privilegiate e fuori mercato',
+      p3b: '.',
+      quote: '"Nessun compromesso. Solo estetica premium, performance ingegneristiche e un impatto visivo indimenticabile."',
+    },
+    portfolio: {
+      label: 'Portfolio',
+      title: 'Opere Selezionate',
+      subtitle: "L'ingegneria incontra l'estetica: esplora le nostre esperienze digitali.",
+      cta: 'Esplora il progetto',
+      active: 'Sito Attivo',
+      demo: 'Demo',
+    },
+    faq: {
+      title: 'Domande Frequenti',
+      items: [
+        {
+          question: 'Come riuscite a mantenere standard così elevati a prezzi così competitivi?',
+          answer: "Intini Web Atelier opera con una struttura snella e dinamica. Grazie al regime fiscale agevolato e all'assenza di pesanti costi d'intermediazione tipici delle grandi agenzie, possiamo trasferire questo vantaggio economico direttamente al cliente, garantendo eccellenza tecnica senza compromessi.",
+        },
+        {
+          question: "Perché scegliere un talento emergente rispetto a un'agenzia tradizionale?",
+          answer: 'Scegliere la nostra realtà significa investire in dedizione assoluta e innovazione pura. Essendo una realtà giovane e in forte ascesa, ogni progetto è per noi una sfida verso la perfezione, gestita con una cura del dettaglio che solo un rapporto diretto e personale può offrire.',
+        },
+        {
+          question: "Qual è il processo di realizzazione di un sito d'élite?",
+          answer: "Ogni ecosistema digitale nasce da una fase di analisi stilistica e tecnica, seguita dalla modellazione delle interazioni 3D e dall'ottimizzazione del codice per performance fulminee su ogni dispositivo.",
+        },
+        {
+          question: 'Fornite supporto continuo dopo il lancio?',
+          answer: 'Certamente. Il lancio è solo l\'inizio. Offriamo consulenza e assistenza tecnica dedicata per assicurarci che la vostra presenza digitale evolva insieme ai vostri obiettivi di business.',
+        },
+      ],
+    },
+    footer: {
+      sartoria: 'Sartoria Digitale',
+      sartoriaDesc: 'Siti web su misura e di altissimo lusso per clienti esclusivi.',
+      contatti: 'Contatti',
+      datiLegali: 'Dati Legali',
+      libero: 'Libero Professionista',
+      copyright: 'INTINI WEB ATELIER · Digital Experiences',
+    },
+    contact: {
+      cta: 'CONTATTACI',
+    },
+  },
+  en: {
+    nav: {
+      chiSiamo: 'About Us',
+      lavori: 'Our Works',
+      atelier: 'The Atelier',
+      faq: 'FAQ',
+      contatti: 'Contact',
+    },
+    hero: {
+      title: "Elite Digital Experiences",
+      subtitle: 'We craft bespoke digital presences for those who accept no compromise',
+      cta1: 'About Us',
+      cta2: 'Our Works',
+    },
+    about: {
+      label: 'About Us',
+      title1: 'The Art of Digital,',
+      title2: 'the Precision of Engineering',
+      p1: "Behind every great digital experience lies a perfect balance between creativity and logic. I'm ",
+      p1Name: 'Mattia Intini',
+      p1b: ", founder of Intini Web Atelier. My path began in the world of engineering and evolved through my career in professional trading and a deep passion for business. This background has forged a unique mindset: the analytical precision and strategic vision of a trader applied to luxury design.",
+      p2: 'Intini Web Atelier is a ',
+      p2Bold: 'digital boutique',
+      p2b: " born with a clear mission: to revolutionize the online presence of brands through cinematic and immersive 3D web experiences.",
+      p3: "We create websites that aren't just seen—they're experienced. Being a new and exclusive project, I decided to make excellence accessible: we offer the same visual and technological quality typically reserved for top international brands, but at ",
+      p3Bold: 'privileged and unmatched launch conditions',
+      p3b: '.',
+      quote: '"No compromise. Only premium aesthetics, engineering performance, and an unforgettable visual impact."',
+    },
+    portfolio: {
+      label: 'Portfolio',
+      title: 'Selected Works',
+      subtitle: 'Engineering meets aesthetics: explore our digital experiences.',
+      cta: 'Explore the project',
+      active: 'Active',
+      demo: 'Demo',
+    },
+    faq: {
+      title: 'Frequently Asked Questions',
+      items: [
+        {
+          question: 'How do you maintain such high standards at competitive prices?',
+          answer: "Intini Web Atelier operates with a lean and dynamic structure. Thanks to favorable tax conditions and the absence of heavy intermediation costs typical of large agencies, we can pass this economic advantage directly to the client, ensuring technical excellence without compromise.",
+        },
+        {
+          question: 'Why choose an emerging talent over a traditional agency?',
+          answer: 'Choosing us means investing in absolute dedication and pure innovation. Being a young and rapidly growing reality, every project is a challenge toward perfection, managed with an attention to detail that only a direct and personal relationship can offer.',
+        },
+        {
+          question: "What is the process for creating an elite website?",
+          answer: 'Every digital ecosystem begins with a phase of stylistic and technical analysis, followed by 3D interaction modeling and code optimization for lightning-fast performance on every device.',
+        },
+        {
+          question: 'Do you provide ongoing support after launch?',
+          answer: "Absolutely. The launch is just the beginning. We offer dedicated consulting and technical assistance to ensure your digital presence evolves alongside your business goals.",
+        },
+      ],
+    },
+    footer: {
+      sartoria: 'Digital Tailoring',
+      sartoriaDesc: 'Bespoke luxury websites for exclusive clients.',
+      contatti: 'Contact',
+      datiLegali: 'Legal Info',
+      libero: 'Freelance Professional',
+      copyright: 'INTINI WEB ATELIER · Digital Experiences',
+    },
+    contact: {
+      cta: 'CONTACT US',
+    },
+  },
+} as const;
