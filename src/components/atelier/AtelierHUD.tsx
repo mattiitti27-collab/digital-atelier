@@ -27,10 +27,10 @@ const materials: { id: MaterialType; name: string; subtitle: string; color: stri
 ];
 
 const phaseTransition = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 15 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -20 },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
+  exit: { opacity: 0, y: -15 },
+  transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 function ProceedButton({ onClick, label = 'PROCEDI →' }: { onClick: () => void; label?: string }) {
@@ -53,9 +53,7 @@ function PhaseHeader({ number, title, subtitle }: { number: string; title: strin
         FASE {number} — {title}
       </p>
       {subtitle && (
-        <h2 className="text-xl font-light" style={{ fontFamily: 'var(--font-display)' }}>
-          {subtitle}
-        </h2>
+        <h2 className="text-lg font-light" style={{ fontFamily: 'var(--font-display)' }}>{subtitle}</h2>
       )}
     </div>
   );
@@ -70,42 +68,33 @@ function IdentityPhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
+    <motion.div className="space-y-4" {...phaseTransition}>
       <PhaseHeader number="01" title="L'IDENTITÀ" subtitle="Incidi il tuo Brand" />
-
       <div className="relative">
-        <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
-          NOME DEL BRAND
-        </label>
+        <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>NOME DEL BRAND</label>
         <input
           type="text"
           value={brandName}
           onChange={(e) => setBrandName(e.target.value.toUpperCase())}
           placeholder="IL TUO BRAND"
           maxLength={20}
-          className="w-full bg-transparent text-white text-lg tracking-[0.15em] py-3 border-b outline-none transition-all duration-500 placeholder:text-white/10"
+          className="w-full bg-transparent text-white text-base tracking-[0.15em] py-2.5 border-b outline-none transition-all duration-500 placeholder:text-white/10"
           style={{ borderColor: brandName ? '#d4a574' : 'rgba(255,255,255,0.08)', fontFamily: 'var(--font-display)' }}
         />
-        <span className="absolute right-0 bottom-4 text-[9px] font-mono" style={{ color: 'rgba(255,255,255,0.15)' }}>
-          {brandName.length}/20
-        </span>
+        <span className="absolute right-0 bottom-3 text-[9px] font-mono" style={{ color: 'rgba(255,255,255,0.15)' }}>{brandName.length}/20</span>
       </div>
-
       <div>
-        <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
-          TAGLINE / CLAIM
-        </label>
+        <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>TAGLINE / CLAIM</label>
         <input
           type="text"
           value={tagline}
           onChange={(e) => setTagline(e.target.value)}
           placeholder="La tua promessa in una frase..."
           maxLength={60}
-          className="w-full bg-transparent text-white text-sm py-3 border-b outline-none transition-all duration-500 placeholder:text-white/10"
+          className="w-full bg-transparent text-white text-sm py-2.5 border-b outline-none transition-all duration-500 placeholder:text-white/10"
           style={{ borderColor: tagline ? '#d4a574' : 'rgba(255,255,255,0.08)' }}
         />
       </div>
-
       {brandName.length >= 2 && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <ProceedButton onClick={() => setPhase('template')} />
@@ -123,46 +112,29 @@ function TemplatePhase() {
   const [expanded, setExpanded] = useState<string | null>(null);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
-      <PhaseHeader number="02" title="L'ARCHETIPO" subtitle="Scegli il tuo Template" />
-
-      <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+    <motion.div className="space-y-4" {...phaseTransition}>
+      <PhaseHeader number="02" title="L'ARCHETIPO" subtitle="Scegli il Template" />
+      <div className="space-y-1.5">
         {templates.map((t) => (
           <motion.button
             key={t.id}
             onClick={() => { setTemplate(t.id); setExpanded(expanded === t.id ? null : t.id); }}
-            className="w-full text-left p-3 rounded-lg transition-all duration-500"
+            className="w-full text-left p-2.5 rounded-lg transition-all duration-500"
             style={{
               background: template === t.id ? 'rgba(212,165,116,0.06)' : 'transparent',
               border: `1px solid ${template === t.id ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: 'rgba(255,255,255,0.02)' }}
           >
-            {/* Preview bar */}
-            <div className="w-full h-1 rounded-full mb-2 opacity-60" style={{ background: t.previewGradient }} />
-
-            <p className="text-[10px] tracking-[0.2em] mb-1" style={{ color: template === t.id ? '#d4a574' : 'rgba(255,255,255,0.4)' }}>
-              {t.name}
-            </p>
-
+            <div className="w-full h-1 rounded-full mb-1.5 opacity-60" style={{ background: t.previewGradient }} />
+            <p className="text-[9px] tracking-[0.2em]" style={{ color: template === t.id ? '#d4a574' : 'rgba(255,255,255,0.4)' }}>{t.name}</p>
             <AnimatePresence>
               {expanded === t.id && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <p className="text-[8px] leading-relaxed mt-1 mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
-                    {t.description}
-                  </p>
+                <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
+                  <p className="text-[7px] leading-relaxed mt-1 mb-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>{t.description}</p>
                   <div className="flex gap-1 flex-wrap">
                     {t.tags.map((tag) => (
-                      <span key={tag} className="text-[7px] tracking-[0.15em] px-2 py-0.5 rounded-full"
-                        style={{ background: 'rgba(212,165,116,0.1)', color: '#d4a574', border: '1px solid rgba(212,165,116,0.15)' }}>
-                        {tag}
-                      </span>
+                      <span key={tag} className="text-[6px] tracking-[0.15em] px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(212,165,116,0.1)', color: '#d4a574', border: '1px solid rgba(212,165,116,0.15)' }}>{tag}</span>
                     ))}
                   </div>
                 </motion.div>
@@ -171,35 +143,33 @@ function TemplatePhase() {
           </motion.button>
         ))}
       </div>
-
       {template && <ProceedButton onClick={() => setPhase('essence')} />}
     </motion.div>
   );
 }
 
-// ─── PHASE 3: ESSENCE (Materials) ───
+// ─── PHASE 3: ESSENCE ───
 function EssencePhase() {
   const material = useAtelierStore((s) => s.material);
   const setMaterial = useAtelierStore((s) => s.setMaterial);
   const setPhase = useAtelierStore((s) => s.setPhase);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
-      <PhaseHeader number="03" title="L'ESSENZA" subtitle="Materiali dell'Anima" />
-
-      <div className="space-y-1.5 max-h-[300px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+    <motion.div className="space-y-4" {...phaseTransition}>
+      <PhaseHeader number="03" title="L'ESSENZA" subtitle="Materiali" />
+      <div className="space-y-1">
         {materials.map((m) => (
           <motion.button
             key={m.id}
             onClick={() => setMaterial(m.id)}
-            className="w-full flex items-center gap-3 p-3 rounded-lg transition-all duration-500 text-left"
+            className="w-full flex items-center gap-3 p-2.5 rounded-lg transition-all duration-500 text-left"
             style={{
               background: material === m.id ? 'rgba(255,255,255,0.04)' : 'transparent',
               border: `1px solid ${material === m.id ? 'rgba(212,165,116,0.3)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: 'rgba(255,255,255,0.03)' }}
           >
-            <div className="w-7 h-7 rounded-full border border-white/10 shrink-0"
+            <div className="w-6 h-6 rounded-full border border-white/10 shrink-0"
               style={{
                 background: m.id === 'obsidian' ? 'radial-gradient(circle at 30% 30%, #333, #0a0a0a)'
                   : m.id === 'frosted-glass' ? 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.2))'
@@ -207,18 +177,17 @@ function EssencePhase() {
                   : m.id === 'marble' ? 'radial-gradient(circle at 30% 30%, #f5f5f0, #d0d0c8)'
                   : m.id === 'carbon' ? 'repeating-linear-gradient(45deg, #1a1a1a, #1a1a1a 2px, #2a2a2a 2px, #2a2a2a 4px)'
                   : 'linear-gradient(135deg, #ff6b6b, #c084fc, #60a5fa)',
-                boxShadow: material === m.id ? `0 0 15px ${m.color}33` : 'none',
+                boxShadow: material === m.id ? `0 0 12px ${m.color}33` : 'none',
               }}
             />
             <div className="flex-1 min-w-0">
-              <p className="text-[9px] tracking-[0.2em]" style={{ color: material === m.id ? '#ffffff' : 'rgba(255,255,255,0.35)' }}>{m.name}</p>
-              <p className="text-[7px] tracking-[0.15em] mt-0.5" style={{ color: 'rgba(255,255,255,0.18)' }}>{m.subtitle}</p>
+              <p className="text-[8px] tracking-[0.2em]" style={{ color: material === m.id ? '#ffffff' : 'rgba(255,255,255,0.35)' }}>{m.name}</p>
+              <p className="text-[7px] mt-0.5" style={{ color: 'rgba(255,255,255,0.18)' }}>{m.subtitle}</p>
             </div>
             {material === m.id && <motion.div className="w-1.5 h-1.5 rounded-full" style={{ background: '#d4a574' }} layoutId="matInd" />}
           </motion.button>
         ))}
       </div>
-
       <ProceedButton onClick={() => setPhase('palette')} />
     </motion.div>
   );
@@ -231,36 +200,33 @@ function PalettePhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
-      <PhaseHeader number="04" title="LA CROMIA" subtitle="Palette Cromatica" />
-
-      <div className="space-y-1.5 max-h-[310px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+    <motion.div className="space-y-4" {...phaseTransition}>
+      <PhaseHeader number="04" title="LA CROMIA" subtitle="Palette" />
+      <div className="space-y-1">
         {palettes.map((p) => (
           <motion.button
             key={p.id}
             onClick={() => setPalette(p.id)}
-            className="w-full p-3 rounded-lg text-left transition-all duration-500"
+            className="w-full p-2.5 rounded-lg text-left transition-all duration-500"
             style={{
               background: palette === p.id ? 'rgba(212,165,116,0.06)' : 'transparent',
               border: `1px solid ${palette === p.id ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: 'rgba(255,255,255,0.02)' }}
           >
-            <div className="flex items-center gap-3 mb-1.5">
-              {/* Color swatches */}
+            <div className="flex items-center gap-2.5 mb-1">
               <div className="flex gap-0.5">
                 {p.colors.map((c, i) => (
-                  <div key={i} className="w-4 h-4 rounded-sm border border-white/5" style={{ background: c }} />
+                  <div key={i} className="w-3.5 h-3.5 rounded-sm border border-white/5" style={{ background: c }} />
                 ))}
               </div>
               {palette === p.id && <motion.div className="w-1.5 h-1.5 rounded-full ml-auto" style={{ background: '#d4a574' }} layoutId="palInd" />}
             </div>
-            <p className="text-[9px] tracking-[0.2em]" style={{ color: palette === p.id ? '#ffffff' : 'rgba(255,255,255,0.35)' }}>{p.name}</p>
-            <p className="text-[7px] tracking-[0.1em] mt-0.5" style={{ color: 'rgba(255,255,255,0.18)' }}>{p.mood}</p>
+            <p className="text-[8px] tracking-[0.2em]" style={{ color: palette === p.id ? '#ffffff' : 'rgba(255,255,255,0.35)' }}>{p.name}</p>
+            <p className="text-[6px] mt-0.5" style={{ color: 'rgba(255,255,255,0.18)' }}>{p.mood}</p>
           </motion.button>
         ))}
       </div>
-
       <ProceedButton onClick={() => setPhase('typography')} />
     </motion.div>
   );
@@ -273,31 +239,25 @@ function TypographyPhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
+    <motion.div className="space-y-4" {...phaseTransition}>
       <PhaseHeader number="05" title="LA TIPOGRAFIA" subtitle="Voce Visiva" />
-
-      <div className="space-y-2 max-h-[310px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+      <div className="space-y-1.5">
         {typographyPairs.map((t) => (
           <motion.button
             key={t.id}
             onClick={() => setTypography(t.id)}
-            className="w-full p-3 rounded-lg text-left transition-all duration-500"
+            className="w-full p-2.5 rounded-lg text-left transition-all duration-500"
             style={{
               background: typography === t.id ? 'rgba(212,165,116,0.06)' : 'transparent',
               border: `1px solid ${typography === t.id ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: 'rgba(255,255,255,0.02)' }}
           >
-            <p className="text-sm mb-0.5 tracking-wide" style={{ fontFamily: t.displayFont, color: typography === t.id ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>
-              {t.display}
-            </p>
-            <p className="text-[8px] tracking-[0.1em]" style={{ fontFamily: t.bodyFont, color: 'rgba(255,255,255,0.2)' }}>
-              {t.body} — {t.preview}
-            </p>
+            <p className="text-sm mb-0.5" style={{ fontFamily: t.displayFont, color: typography === t.id ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>{t.display}</p>
+            <p className="text-[7px]" style={{ fontFamily: t.bodyFont, color: 'rgba(255,255,255,0.2)' }}>{t.body} — {t.preview}</p>
           </motion.button>
         ))}
       </div>
-
       <ProceedButton onClick={() => setPhase('animations')} />
     </motion.div>
   );
@@ -310,37 +270,28 @@ function AnimationsPhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
-      <PhaseHeader number="06" title="LA DINAMICA" subtitle="Stile Animazione" />
-
-      <div className="space-y-1.5 max-h-[310px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+    <motion.div className="space-y-4" {...phaseTransition}>
+      <PhaseHeader number="06" title="LA DINAMICA" subtitle="Animazioni" />
+      <div className="space-y-1">
         {animationStyles.map((a) => (
           <motion.button
             key={a.id}
             onClick={() => setAnimationStyle(a.id)}
-            className="w-full p-3 rounded-lg text-left transition-all duration-500"
+            className="w-full p-2.5 rounded-lg text-left transition-all duration-500"
             style={{
               background: animationStyle === a.id ? 'rgba(212,165,116,0.06)' : 'transparent',
               border: `1px solid ${animationStyle === a.id ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: 'rgba(255,255,255,0.02)' }}
           >
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-[9px] tracking-[0.2em]" style={{ color: animationStyle === a.id ? '#d4a574' : 'rgba(255,255,255,0.35)' }}>
-                {a.name}
-              </p>
-              <span className="text-[7px] tracking-[0.15em] px-2 py-0.5 rounded-full"
-                style={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.25)' }}>
-                {a.intensity}
-              </span>
+            <div className="flex items-center justify-between mb-0.5">
+              <p className="text-[8px] tracking-[0.2em]" style={{ color: animationStyle === a.id ? '#d4a574' : 'rgba(255,255,255,0.35)' }}>{a.name}</p>
+              <span className="text-[6px] tracking-[0.15em] px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.25)' }}>{a.intensity}</span>
             </div>
-            <p className="text-[7px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.18)' }}>
-              {a.description}
-            </p>
+            <p className="text-[6px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.18)' }}>{a.description}</p>
           </motion.button>
         ))}
       </div>
-
       <ProceedButton onClick={() => setPhase('layout')} />
     </motion.div>
   );
@@ -353,46 +304,43 @@ function LayoutPhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
-      <PhaseHeader number="07" title="L'ARCHITETTURA" subtitle="Struttura Spaziale" />
-
-      <div className="space-y-1.5 max-h-[310px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+    <motion.div className="space-y-4" {...phaseTransition}>
+      <PhaseHeader number="07" title="L'ARCHITETTURA" subtitle="Layout" />
+      <div className="space-y-1">
         {layoutStyles.map((l) => (
           <motion.button
             key={l.id}
             onClick={() => setLayoutStyle(l.id)}
-            className="w-full p-3 rounded-lg text-left transition-all duration-500"
+            className="w-full p-2.5 rounded-lg text-left transition-all duration-500"
             style={{
               background: layoutStyle === l.id ? 'rgba(212,165,116,0.06)' : 'transparent',
               border: `1px solid ${layoutStyle === l.id ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: 'rgba(255,255,255,0.02)' }}
           >
-            <div className="flex items-center gap-3">
-              {/* Column preview icon */}
-              <div className="w-8 h-6 rounded border border-white/10 flex items-center justify-center gap-[1px] shrink-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
-                {l.columns === '1' && <div className="w-5 h-3 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />}
-                {l.columns === '2' && <>{[0, 1].map((i) => <div key={i} className="w-2 h-3 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />)}</>}
-                {l.columns === '2-3' && <>{[0, 1, 2].map((i) => <div key={i} className="h-3 rounded-sm" style={{ width: i === 0 ? 3 : 2, background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />)}</>}
-                {l.columns === '3-4' && <>{[0, 1, 2, 3].map((i) => <div key={i} className="w-1 h-3 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />)}</>}
-                {l.columns === 'H' && <div className="w-5 h-2 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />}
-                {l.columns === '∞' && <span className="text-[8px]" style={{ color: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.2)' }}>∞</span>}
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-5 rounded border border-white/10 flex items-center justify-center gap-[1px] shrink-0" style={{ background: 'rgba(255,255,255,0.02)' }}>
+                {l.columns === '1' && <div className="w-4 h-2.5 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />}
+                {l.columns === '2' && <>{[0, 1].map((i) => <div key={i} className="w-1.5 h-2.5 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />)}</>}
+                {l.columns === '2-3' && <>{[0, 1, 2].map((i) => <div key={i} className="h-2.5 rounded-sm" style={{ width: i === 0 ? 3 : 2, background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />)}</>}
+                {l.columns === '3-4' && <>{[0, 1, 2, 3].map((i) => <div key={i} className="w-1 h-2.5 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />)}</>}
+                {l.columns === 'H' && <div className="w-4 h-1.5 rounded-sm" style={{ background: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }} />}
+                {l.columns === '∞' && <span className="text-[7px]" style={{ color: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.2)' }}>∞</span>}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-[9px] tracking-[0.2em]" style={{ color: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.35)' }}>{l.name}</p>
-                <p className="text-[7px] leading-relaxed mt-0.5 truncate" style={{ color: 'rgba(255,255,255,0.18)' }}>{l.description}</p>
+                <p className="text-[8px] tracking-[0.2em]" style={{ color: layoutStyle === l.id ? '#d4a574' : 'rgba(255,255,255,0.35)' }}>{l.name}</p>
+                <p className="text-[6px] mt-0.5 truncate" style={{ color: 'rgba(255,255,255,0.18)' }}>{l.description}</p>
               </div>
             </div>
           </motion.button>
         ))}
       </div>
-
       <ProceedButton onClick={() => setPhase('arsenal')} />
     </motion.div>
   );
 }
 
-// ─── PHASE 8: ARSENAL (Modules) ───
+// ─── PHASE 8: ARSENAL ───
 function ArsenalPhase() {
   const modules = useAtelierStore((s) => s.modules);
   const toggleModule = useAtelierStore((s) => s.toggleModule);
@@ -400,54 +348,47 @@ function ArsenalPhase() {
   const activeCount = modules.filter((m) => m.active).length;
 
   return (
-    <motion.div className="space-y-5" {...phaseTransition}>
+    <motion.div className="space-y-4" {...phaseTransition}>
       <PhaseHeader number="08" title="L'ARSENALE" subtitle="Moduli d'Élite" />
-
-      <p className="text-[9px] tracking-[0.15em]" style={{ color: 'rgba(255,255,255,0.25)' }}>
-        {activeCount} MODULI ATTIVATI
-      </p>
-
-      <div className="space-y-1 max-h-[280px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+      <p className="text-[8px] tracking-[0.15em]" style={{ color: 'rgba(255,255,255,0.25)' }}>{activeCount} MODULI ATTIVATI</p>
+      <div className="space-y-1">
         {modules.map((mod) => (
           <motion.button
             key={mod.id}
             onClick={() => toggleModule(mod.id)}
-            className="w-full flex items-center gap-2.5 p-2.5 rounded-lg transition-all duration-500 text-left"
+            className="w-full flex items-center gap-2 p-2 rounded-lg transition-all duration-500 text-left"
             style={{
               background: mod.active ? 'rgba(212,165,116,0.06)' : 'transparent',
               border: `1px solid ${mod.active ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.04)'}`,
             }}
             whileHover={{ background: mod.active ? 'rgba(212,165,116,0.08)' : 'rgba(255,255,255,0.02)' }}
           >
-            <div className="w-7 h-3.5 rounded-full relative shrink-0 transition-colors duration-500"
+            <div className="w-6 h-3 rounded-full relative shrink-0 transition-colors duration-500"
               style={{ background: mod.active ? 'rgba(212,165,116,0.3)' : 'rgba(255,255,255,0.06)', border: `1px solid ${mod.active ? 'rgba(212,165,116,0.5)' : 'rgba(255,255,255,0.1)'}` }}>
-              <motion.div className="absolute top-0.5 w-2 h-2 rounded-full"
+              <motion.div className="absolute top-[2px] w-[8px] h-[8px] rounded-full"
                 style={{ background: mod.active ? '#d4a574' : 'rgba(255,255,255,0.2)' }}
                 animate={{ left: mod.active ? '12px' : '2px' }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[8px] tracking-[0.15em]" style={{ color: mod.active ? '#d4a574' : 'rgba(255,255,255,0.3)' }}>{mod.name}</p>
-              <p className="text-[7px] mt-0.5 truncate" style={{ color: 'rgba(255,255,255,0.12)' }}>{mod.description}</p>
+              <p className="text-[7px] tracking-[0.15em]" style={{ color: mod.active ? '#d4a574' : 'rgba(255,255,255,0.3)' }}>{mod.name}</p>
+              <p className="text-[6px] mt-0.5 truncate" style={{ color: 'rgba(255,255,255,0.12)' }}>{mod.description}</p>
             </div>
           </motion.button>
         ))}
       </div>
-
-      {/* Notes */}
       <div>
-        <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>NOTE AGGIUNTIVE</label>
+        <label className="block text-[7px] tracking-[0.3em] uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>NOTE AGGIUNTIVE</label>
         <textarea
           value={useAtelierStore.getState().notes}
           onChange={(e) => useAtelierStore.getState().setNotes(e.target.value)}
-          placeholder="Descrivi la tua visione, riferimenti, ispirazioni..."
+          placeholder="Descrivi la tua visione..."
           rows={2}
-          className="w-full bg-transparent text-white text-[10px] p-3 rounded-lg border outline-none resize-none placeholder:text-white/10"
+          className="w-full bg-transparent text-white text-[9px] p-2.5 rounded-lg border outline-none resize-none placeholder:text-white/10"
           style={{ borderColor: 'rgba(255,255,255,0.06)' }}
         />
       </div>
-
       <ProceedButton onClick={() => setPhase('signature')} />
     </motion.div>
   );
@@ -467,55 +408,42 @@ function SignaturePhase() {
   const modules = useAtelierStore((s) => s.modules);
   const activeModules = modules.filter((m) => m.active);
 
-  const templateLabel = templates.find((t) => t.id === template)?.name || '—';
-  const materialLabel = materials.find((m) => m.id === material)?.name || '—';
-  const paletteLabel = palettes.find((p) => p.id === palette)?.name || '—';
-  const typoLabel = typographyPairs.find((t) => t.id === typography)?.display || '—';
-  const animLabel = animationStyles.find((a) => a.id === animationStyle)?.name || '—';
-  const layoutLabel = layoutStyles.find((l) => l.id === layoutStyle)?.name || '—';
-
   const rows = [
     ['BRAND', brandName || '—'],
     ['TAGLINE', tagline || '—'],
-    ['ARCHETIPO', templateLabel],
-    ['MATERIALE', materialLabel],
-    ['CROMIA', paletteLabel],
-    ['TIPOGRAFIA', typoLabel],
-    ['ANIMAZIONE', animLabel],
-    ['LAYOUT', layoutLabel],
+    ['ARCHETIPO', templates.find((t) => t.id === template)?.name || '—'],
+    ['MATERIALE', materials.find((m) => m.id === material)?.name || '—'],
+    ['CROMIA', palettes.find((p) => p.id === palette)?.name || '—'],
+    ['TIPOGRAFIA', typographyPairs.find((t) => t.id === typography)?.display || '—'],
+    ['ANIMAZIONE', animationStyles.find((a) => a.id === animationStyle)?.name || '—'],
+    ['LAYOUT', layoutStyles.find((l) => l.id === layoutStyle)?.name || '—'],
   ];
 
   return (
-    <motion.div className="space-y-4" {...phaseTransition}>
-      <PhaseHeader number="10" title="LA FIRMA" subtitle="Riepilogo Creazione" />
-
-      <div className="p-3 rounded-xl space-y-2" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
+    <motion.div className="space-y-3" {...phaseTransition}>
+      <PhaseHeader number="09" title="LA FIRMA" subtitle="Riepilogo" />
+      <div className="p-2.5 rounded-xl space-y-1.5" style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
         {rows.map(([label, value], i) => (
           <div key={i}>
             <div className="flex justify-between items-center py-0.5">
-              <span className="text-[7px] tracking-[0.3em] uppercase" style={{ color: 'rgba(255,255,255,0.25)' }}>{label}</span>
-              <span className="text-[9px] tracking-[0.1em] text-right max-w-[55%] truncate">{value}</span>
+              <span className="text-[6px] tracking-[0.3em] uppercase" style={{ color: 'rgba(255,255,255,0.25)' }}>{label}</span>
+              <span className="text-[8px] tracking-[0.1em] text-right max-w-[55%] truncate">{value}</span>
             </div>
             {i < rows.length - 1 && <div className="h-[1px]" style={{ background: 'rgba(255,255,255,0.03)' }} />}
           </div>
         ))}
       </div>
-
-      {/* Modules summary */}
       {activeModules.length > 0 && (
-        <div className="p-3 rounded-xl" style={{ background: 'rgba(212,165,116,0.03)', border: '1px solid rgba(212,165,116,0.08)' }}>
-          <p className="text-[7px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
-            MODULI ({activeModules.length})
-          </p>
+        <div className="p-2.5 rounded-xl" style={{ background: 'rgba(212,165,116,0.03)', border: '1px solid rgba(212,165,116,0.08)' }}>
+          <p className="text-[6px] tracking-[0.3em] uppercase mb-1.5" style={{ color: 'rgba(255,255,255,0.25)' }}>MODULI ({activeModules.length})</p>
           {activeModules.map((m) => (
-            <p key={m.id} className="text-[8px] tracking-[0.1em] py-0.5" style={{ color: '#d4a574' }}>◆ {m.name}</p>
+            <p key={m.id} className="text-[7px] py-0.5" style={{ color: '#d4a574' }}>◆ {m.name}</p>
           ))}
         </div>
       )}
-
       <motion.button
         onClick={() => setPhase('finale')}
-        className="w-full py-4 text-[11px] tracking-[0.3em] uppercase rounded-lg"
+        className="w-full py-3 text-[10px] tracking-[0.3em] uppercase rounded-lg"
         style={{
           background: 'linear-gradient(135deg, rgba(212,165,116,0.15), rgba(212,165,116,0.05))',
           border: '1px solid rgba(212,165,116,0.3)',
@@ -530,7 +458,7 @@ function SignaturePhase() {
   );
 }
 
-// ─── FINALE OVERLAY ───
+// ─── FINALE ───
 function FinaleOverlay() {
   return (
     <motion.div
@@ -546,81 +474,26 @@ function FinaleOverlay() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
       >
-        <motion.div
-          className="w-16 h-[1px] mx-auto mb-10"
-          style={{ background: 'linear-gradient(90deg, transparent, #d4a574, transparent)' }}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ delay: 1.2, duration: 1.5 }}
-        />
-        <h2 className="text-3xl md:text-4xl font-light mb-6 leading-[1.2]" style={{ fontFamily: 'var(--font-display)', color: '#ffffff' }}>
-          La Tua Visione è Pronta.
-        </h2>
-        <p className="text-[11px] tracking-[0.1em] leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>
-          Un'opera di questo calibro richiede una direzione artistica dedicata.
-        </p>
-        <p className="text-sm mb-10" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
-          Il valore di partenza per le nostre creazioni su misura è di <strong>5.000€</strong>.
-        </p>
+        <motion.div className="w-16 h-[1px] mx-auto mb-10" style={{ background: 'linear-gradient(90deg, transparent, #d4a574, transparent)' }} initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ delay: 1.2, duration: 1.5 }} />
+        <h2 className="text-3xl md:text-4xl font-light mb-6 leading-[1.2]" style={{ fontFamily: 'var(--font-display)', color: '#ffffff' }}>La Tua Visione è Pronta.</h2>
+        <p className="text-[11px] tracking-[0.1em] leading-relaxed mb-4" style={{ color: 'rgba(255,255,255,0.45)' }}>Un'opera di questo calibro richiede una direzione artistica dedicata.</p>
+        <p className="text-sm mb-10" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>Il valore di partenza per le nostre creazioni su misura è di <strong>5.000€</strong>.</p>
         <motion.a
           href="mailto:info@intinisystem.digital?subject=Richiesta%20Accesso%20-%20L'Atelier"
           className="inline-block px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500"
-          style={{
-            background: 'linear-gradient(135deg, rgba(212,165,116,0.2), rgba(212,165,116,0.05))',
-            border: '1px solid rgba(212,165,116,0.4)',
-            color: '#d4a574',
-          }}
+          style={{ background: 'linear-gradient(135deg, rgba(212,165,116,0.2), rgba(212,165,116,0.05))', border: '1px solid rgba(212,165,116,0.4)', color: '#d4a574' }}
           whileHover={{ scale: 1.03, boxShadow: '0 0 40px rgba(212,165,116,0.15)' }}
           whileTap={{ scale: 0.98 }}
         >
           RICHIEDI ACCESSO E CALL PRIVATA
         </motion.a>
-        <p className="text-[8px] tracking-[0.2em] uppercase mt-8" style={{ color: 'rgba(255,255,255,0.12)' }}>
-          INTINI SYSTEM DIGITAL · MONACO · DUBAI · MILANO
-        </p>
+        <p className="text-[8px] tracking-[0.2em] uppercase mt-8" style={{ color: 'rgba(255,255,255,0.12)' }}>INTINI SYSTEM DIGITAL · MONACO · DUBAI · MILANO</p>
       </motion.div>
     </motion.div>
   );
 }
 
-// ─── NAV ───
-function PhaseNav() {
-  const phase = useAtelierStore((s) => s.phase);
-  const setPhase = useAtelierStore((s) => s.setPhase);
-
-  return (
-    <div className="fixed top-6 left-6 z-30">
-      <p className="text-[9px] tracking-[0.4em] uppercase mb-4" style={{ color: '#d4a574' }}>
-        INTINI SYSTEM DIGITAL
-      </p>
-      <div className="space-y-0.5">
-        {allPhases.map((p) => (
-          <motion.button
-            key={p.id}
-            onClick={() => setPhase(p.id)}
-            className="flex items-center gap-2 py-1 w-full text-left"
-            whileHover={{ x: 3 }}
-            transition={{ type: 'spring', stiffness: 400 }}
-          >
-            <span className="text-[8px] font-mono w-4 transition-colors duration-300"
-              style={{ color: phase === p.id ? '#d4a574' : 'rgba(255,255,255,0.12)' }}>
-              {p.number}
-            </span>
-            <span className="text-[8px] tracking-[0.2em] transition-colors duration-300"
-              style={{ color: phase === p.id ? '#ffffff' : 'rgba(255,255,255,0.15)' }}>
-              {p.label}
-            </span>
-            {phase === p.id && (
-              <motion.div className="h-[1px] flex-1 ml-1" style={{ background: 'linear-gradient(90deg, #d4a574, transparent)' }} layoutId="phaseIndicator" />
-            )}
-          </motion.button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ─── MAIN HUD ───
+// ─── MAIN HUD (Sidebar) ───
 interface AtelierHUDProps {
   locked?: boolean;
   onUnlockClick?: () => void;
@@ -628,74 +501,77 @@ interface AtelierHUDProps {
 
 const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
   const phase = useAtelierStore((s) => s.phase);
+  const setPhase = useAtelierStore((s) => s.setPhase);
 
   if (phase === 'finale' && !locked) return <FinaleOverlay />;
 
   return (
-    <>
-      <PhaseNav />
+    <div
+      className="w-[360px] h-screen flex flex-col shrink-0"
+      style={{
+        background: 'rgba(8,8,8,0.95)',
+        borderRight: '1px solid rgba(255,255,255,0.05)',
+      }}
+    >
+      {/* Header */}
+      <div className="px-5 pt-5 pb-3" style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+        <p className="text-[9px] tracking-[0.4em] uppercase mb-4" style={{ color: '#d4a574' }}>
+          INTINI SYSTEM DIGITAL
+        </p>
 
-      <motion.div
-        className="fixed right-6 top-6 bottom-16 z-30 w-[330px] flex flex-col"
-        initial={{ x: 60, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="relative p-5 rounded-2xl overflow-y-auto flex-1"
-          style={{
-            background: 'rgba(10,10,10,0.75)',
-            border: '1px solid rgba(255,255,255,0.05)',
-            backdropFilter: 'blur(40px)',
-            boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
-            scrollbarWidth: 'none',
-          }}
-        >
-          {locked && (
-            <motion.div
-              className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-2xl cursor-pointer"
-              style={{ background: 'rgba(5,5,5,0.6)', backdropFilter: 'blur(6px)' }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
-              onClick={onUnlockClick}
+        {/* Phase nav */}
+        <div className="flex flex-wrap gap-x-1 gap-y-0.5">
+          {allPhases.map((p) => (
+            <motion.button
+              key={p.id}
+              onClick={() => setPhase(p.id)}
+              className="flex items-center gap-1 py-1 px-1.5 rounded transition-all"
+              style={{
+                background: phase === p.id ? 'rgba(212,165,116,0.1)' : 'transparent',
+              }}
+              whileHover={{ background: 'rgba(255,255,255,0.03)' }}
             >
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a574" strokeWidth="1" className="mb-3 opacity-60">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
-              <p className="text-[9px] tracking-[0.3em] uppercase" style={{ color: '#d4a574' }}>SBLOCCA PER CONFIGURARE</p>
-              <p className="text-[8px] tracking-[0.15em] mt-1" style={{ color: 'rgba(255,255,255,0.2)' }}>€9,90 · ACCESSO SINGOLO</p>
-            </motion.div>
-          )}
-
-          <div style={{ filter: locked ? 'blur(2px)' : 'none', pointerEvents: locked ? 'none' : 'auto' }}>
-            <AnimatePresence mode="wait">
-              {phase === 'identity' && <IdentityPhase key="identity" />}
-              {phase === 'template' && <TemplatePhase key="template" />}
-              {phase === 'essence' && <EssencePhase key="essence" />}
-              {phase === 'palette' && <PalettePhase key="palette" />}
-              {phase === 'typography' && <TypographyPhase key="typography" />}
-              {phase === 'animations' && <AnimationsPhase key="animations" />}
-              {phase === 'layout' && <LayoutPhase key="layout" />}
-              {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
-              {phase === 'signature' && <SignaturePhase key="signature" />}
-            </AnimatePresence>
-          </div>
+              <span className="text-[7px] font-mono" style={{ color: phase === p.id ? '#d4a574' : 'rgba(255,255,255,0.15)' }}>{p.number}</span>
+              <span className="text-[7px] tracking-[0.1em]" style={{ color: phase === p.id ? '#ffffff' : 'rgba(255,255,255,0.2)' }}>{p.label}</span>
+            </motion.button>
+          ))}
         </div>
-      </motion.div>
-
-      {/* Bottom HUD */}
-      <div className="fixed bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-5">
-        <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: locked ? '#666' : '#d4a574' }} />
-          <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: 'rgba(255,255,255,0.2)' }}>
-            {locked ? 'MODALITÀ ANTEPRIMA' : 'CANVAS ATTIVO'}
-          </span>
-        </div>
-        <div className="w-[1px] h-3" style={{ background: 'rgba(255,255,255,0.08)' }} />
-        <span className="text-[8px] font-mono" style={{ color: 'rgba(255,255,255,0.15)' }}>INTINI.SYS.DIG v4.0</span>
       </div>
-    </>
+
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-y-auto px-5 py-4" style={{ scrollbarWidth: 'none' }}>
+        {locked && (
+          <motion.div
+            className="absolute inset-0 z-10 flex flex-col items-center justify-center cursor-pointer"
+            style={{ background: 'rgba(5,5,5,0.6)', backdropFilter: 'blur(6px)' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            onClick={onUnlockClick}
+          >
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a574" strokeWidth="1" className="mb-3 opacity-60">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+            <p className="text-[9px] tracking-[0.3em] uppercase" style={{ color: '#d4a574' }}>SBLOCCA PER CONFIGURARE</p>
+          </motion.div>
+        )}
+
+        <div style={{ filter: locked ? 'blur(2px)' : 'none', pointerEvents: locked ? 'none' : 'auto' }}>
+          <AnimatePresence mode="wait">
+            {phase === 'identity' && <IdentityPhase key="identity" />}
+            {phase === 'template' && <TemplatePhase key="template" />}
+            {phase === 'essence' && <EssencePhase key="essence" />}
+            {phase === 'palette' && <PalettePhase key="palette" />}
+            {phase === 'typography' && <TypographyPhase key="typography" />}
+            {phase === 'animations' && <AnimationsPhase key="animations" />}
+            {phase === 'layout' && <LayoutPhase key="layout" />}
+            {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
+            {phase === 'signature' && <SignaturePhase key="signature" />}
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
   );
 };
 
