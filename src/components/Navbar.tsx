@@ -39,7 +39,7 @@ const Navbar = () => {
       style={{
         background: scrolled
           ? 'rgba(5,5,5,0.9)'
-          : 'linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0.15) 90%, transparent 100%)',
+          : 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 20%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.1) 80%, transparent 100%)',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
       }}
     >
