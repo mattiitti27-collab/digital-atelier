@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_ITEMS = [
-  { label: 'Chi Siamo', href: '#hero' },
+  { label: 'Chi Siamo', href: '#chi-siamo' },
   { label: 'I Nostri Lavori', href: '#portfolio' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contatti', href: '#contatti' },

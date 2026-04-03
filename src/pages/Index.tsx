@@ -12,6 +12,7 @@ import ContactModal from '@/components/ContactModal';
 import FooterReveal from '@/components/FooterReveal';
 import FloatingButler from '@/components/FloatingButler';
 import Navbar from '@/components/Navbar';
+import AboutSection from '@/components/AboutSection';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,9 @@ const Index = () => {
             <Hero3DScene />
             <HeroTitle visible={loaded} />
           </section>
+
+          {/* Chi Siamo Section */}
+          <AboutSection />
 
           {/* Portfolio Section */}
           <div id="portfolio">
