@@ -12,6 +12,9 @@ import FooterReveal from '@/components/FooterReveal';
 import FloatingButler from '@/components/FloatingButler';
 import Navbar from '@/components/Navbar';
 import AboutSection from '@/components/AboutSection';
+import CustomCursor from '@/components/CustomCursor';
+import Marquee from '@/components/Marquee';
+import ParallaxElements from '@/components/ParallaxElements';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -25,7 +28,8 @@ const Index = () => {
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
-      {/* CustomCursor removed */}
+      <CustomCursor />
+      <ParallaxElements />
       <Navbar />
       <SmoothScroll>
         <main className="relative z-10">
@@ -35,8 +39,14 @@ const Index = () => {
             <HeroTitle visible={loaded} />
           </section>
 
+          {/* Marquee Ticker */}
+          <Marquee />
+
           {/* Chi Siamo Section */}
           <AboutSection />
+
+          {/* Marquee before Portfolio */}
+          <Marquee />
 
           {/* Portfolio Section */}
           <PortfolioSection />

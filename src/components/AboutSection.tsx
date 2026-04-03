@@ -14,6 +14,13 @@ const AboutSection = () => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      // Parallax on the gold orb
+      gsap.to('.about-orb', {
+        y: -120,
+        ease: 'none',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
+      });
+
       gsap.from(titleRef.current, {
         y: 60, opacity: 0, duration: 1.2, ease: 'power3.out',
         scrollTrigger: { trigger: titleRef.current, start: 'top 85%', once: true },
@@ -45,7 +52,7 @@ const AboutSection = () => {
 
       {/* Subtle gold glow orb */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
+        className="about-orb absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(212,165,116,0.06) 0%, transparent 70%)',
           filter: 'blur(80px)',

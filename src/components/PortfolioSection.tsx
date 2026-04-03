@@ -52,14 +52,14 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Background image */}
+      {/* Background image with parallax */}
       <div
-        className="absolute inset-0 transition-transform duration-700 ease-out"
+        className="absolute inset-[-20px] transition-transform duration-700 ease-out parallax-card-img"
         style={{
           backgroundImage: `url(${project.image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          transform: hovered ? 'scale(1.06)' : 'scale(1)',
+          transform: hovered ? 'scale(1.08)' : 'scale(1.02)',
         }}
       />
 
@@ -181,6 +181,21 @@ const PortfolioSection = () => {
             scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', end: 'top 50%', scrub: 1 },
           }
         );
+
+        // Parallax on card images
+        const images = cardsRef.current.querySelectorAll('.parallax-card-img');
+        images.forEach((img) => {
+          gsap.to(img, {
+            y: -30,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5,
+            },
+          });
+        });
       }
     }, sectionRef);
     return () => ctx.revert();
