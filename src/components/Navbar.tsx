@@ -40,7 +40,7 @@ const Navbar = () => {
           className="text-xs tracking-[0.4em] uppercase"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
-          IWA
+          INTINIWEBATELIER
         </button>
 
         {/* Desktop links */}
