@@ -53,8 +53,12 @@ const Index = () => {
               CONTATTACI
             </button>
           </section>
+
+          {/* Footer Reveal */}
+          <FooterReveal />
         </main>
       </SmoothScroll>
+      <FloatingButler />
       <CookieBanner />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
