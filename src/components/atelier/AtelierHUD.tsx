@@ -14,8 +14,7 @@ const allPhases: { id: Phase; label: string; number: string }[] = [
   { id: 'animations', label: 'DINAMICA', number: '06' },
   { id: 'layout', label: 'ARCHITETTURA', number: '07' },
   { id: 'arsenal', label: 'ARSENALE', number: '08' },
-  { id: 'budget', label: 'INVESTIMENTO', number: '09' },
-  { id: 'signature', label: 'FIRMA', number: '10' },
+  { id: 'signature', label: 'FIRMA', number: '09' },
 ];
 
 const materials: { id: MaterialType; name: string; subtitle: string; color: string }[] = [
