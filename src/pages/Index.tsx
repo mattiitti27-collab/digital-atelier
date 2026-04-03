@@ -20,9 +20,12 @@ const Index = () => {
           {/* Phase 2: Hero 3D will go here */}
           <section className="flex min-h-screen items-center justify-center">
             <h1
-              className="text-foreground font-light tracking-tight text-center px-6"
+              className="text-foreground tracking-tight text-center px-6"
               style={{
-                fontSize: 'clamp(2rem, 6vw, 5rem)',
+                fontFamily: 'var(--font-display)',
+                fontWeight: 300,
+                letterSpacing: '0.02em',
+                fontSize: 'clamp(2.2rem, 6vw, 5.5rem)',
                 opacity: loaded ? 1 : 0,
                 transition: 'opacity 1s ease 0.3s',
               }}
