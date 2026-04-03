@@ -190,19 +190,20 @@ function ModuleParticles() {
   );
 }
 
-// ─── Physical Spotlight Fixture ───
-function SpotlightFixture({ position, target = [0, 0, 0], color = '#fff5e6', intensity = 2.5 }: {
-  position: [number, number, number];
-  target?: [number, number, number];
-  color?: string;
-  intensity?: number;
-}) {
-  const lightRef = useRef<THREE.SpotLight>(null);
-  const targetObj = useMemo(() => {
-    const t = new THREE.Object3D();
-    t.position.set(...target);
-    return t;
-  }, [target]);
+// ─── Simple Lighting ───
+function SimpleLighting() {
+  return (
+    <>
+      <spotLight position={[4, 6, 3]} intensity={2.5} angle={0.35} penumbra={0.9} color="#fff5e6" castShadow shadow-mapSize={1024} />
+      <spotLight position={[-5, 4, 2]} intensity={1.2} angle={0.4} penumbra={1} color="#d4e5ff" />
+      <spotLight position={[0, 3, -5]} intensity={1.8} angle={0.5} penumbra={0.8} color="#d4a574" />
+      <spotLight position={[-6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      <spotLight position={[6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      <pointLight position={[0, -2, 0]} intensity={0.15} color="#1a1a2e" />
+      <ambientLight intensity={0.06} />
+    </>
+  );
+}
 
   useFrame(() => {
     if (lightRef.current) {
