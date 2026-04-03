@@ -406,10 +406,15 @@ function FinaleOverlay() {
   );
 }
 
-const AtelierHUD = () => {
+interface AtelierHUDProps {
+  locked?: boolean;
+  onUnlockClick?: () => void;
+}
+
+const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
   const phase = useAtelierStore((s) => s.phase);
 
-  if (phase === 'finale') return <FinaleOverlay />;
+  if (phase === 'finale' && !locked) return <FinaleOverlay />;
 
   return (
     <>
@@ -423,7 +428,7 @@ const AtelierHUD = () => {
         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <div
-          className="p-6 rounded-2xl"
+          className="relative p-6 rounded-2xl overflow-hidden"
           style={{
             background: 'rgba(10,10,10,0.7)',
             border: '1px solid rgba(255,255,255,0.05)',
@@ -431,21 +436,50 @@ const AtelierHUD = () => {
             boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
           }}
         >
-          <AnimatePresence mode="wait">
-            {phase === 'identity' && <IdentityPhase key="identity" />}
-            {phase === 'essence' && <EssencePhase key="essence" />}
-            {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
-            {phase === 'signature' && <SignaturePhase key="signature" />}
-          </AnimatePresence>
+          {/* Locked overlay */}
+          {locked && (
+            <motion.div
+              className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-2xl cursor-pointer"
+              style={{
+                background: 'rgba(5,5,5,0.6)',
+                backdropFilter: 'blur(6px)',
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              onClick={onUnlockClick}
+            >
+              {/* Lock icon */}
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a574" strokeWidth="1" className="mb-3 opacity-60">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+              <p className="text-[9px] tracking-[0.3em] uppercase" style={{ color: '#d4a574' }}>
+                SBLOCCA PER CONFIGURARE
+              </p>
+              <p className="text-[8px] tracking-[0.15em] mt-1" style={{ color: 'rgba(255,255,255,0.2)' }}>
+                €9,90 · ACCESSO SINGOLO
+              </p>
+            </motion.div>
+          )}
+
+          <div style={{ filter: locked ? 'blur(2px)' : 'none', pointerEvents: locked ? 'none' : 'auto' }}>
+            <AnimatePresence mode="wait">
+              {phase === 'identity' && <IdentityPhase key="identity" />}
+              {phase === 'essence' && <EssencePhase key="essence" />}
+              {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
+              {phase === 'signature' && <SignaturePhase key="signature" />}
+            </AnimatePresence>
+          </div>
         </div>
       </motion.div>
 
       {/* Bottom HUD bar */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 flex items-center gap-6">
         <div className="flex items-center gap-2">
-          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#d4a574' }} />
+          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: locked ? '#666' : '#d4a574' }} />
           <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: 'rgba(255,255,255,0.2)' }}>
-            CANVAS ATTIVO
+            {locked ? 'MODALITÀ ANTEPRIMA' : 'CANVAS ATTIVO'}
           </span>
         </div>
         <div className="w-[1px] h-3" style={{ background: 'rgba(255,255,255,0.08)' }} />
