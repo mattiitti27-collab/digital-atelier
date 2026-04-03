@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectImage from './ProjectImage';
-import bgPortfolio from '@/assets/bg-portfolio.jpg';
+
 
 import ripetiamo from '@/assets/projects/ripetiamo.jpg';
 import intinimonaco from '@/assets/projects/intinimonaco.jpg';
@@ -203,24 +203,6 @@ const HorizontalPortfolio = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
-      {/* Photographic background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `url(${bgPortfolio})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-
-      {/* Subtle overlay */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.3) 50%, rgba(5,5,5,0.45) 100%)',
-        }}
-      />
 
       {/* Section heading */}
       <div ref={headingRef} className="absolute top-16 left-10 md:left-20 z-10">

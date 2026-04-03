@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import bgAbout from '@/assets/bg-about.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,24 +42,6 @@ const AboutSection = () => {
       ref={sectionRef}
       className="relative py-32 md:py-48 overflow-hidden"
     >
-      {/* Photographic background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `url(${bgAbout})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-
-      {/* Subtle overlay for text readability */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: 'linear-gradient(180deg, rgba(5,5,5,0.45) 0%, rgba(5,5,5,0.35) 50%, rgba(5,5,5,0.5) 100%)',
-        }}
-      />
 
       {/* Subtle gold glow orb */}
       <div
