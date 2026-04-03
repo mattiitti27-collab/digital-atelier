@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 interface HeroTitleProps {
   visible: boolean;
@@ -8,6 +9,7 @@ interface HeroTitleProps {
 const HeroTitle = ({ visible }: HeroTitleProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!visible || hasAnimated.current || !containerRef.current) return;
@@ -21,18 +23,17 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
     });
   }, [visible]);
 
-  const title = "Esperienze Digitali d'Élite";
-  const words = title.split(' ');
+  const words = t.hero.title.split(' ');
 
   return (
-    <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
+    <div className="relative z-20 text-center px-4 md:px-6 max-w-5xl mx-auto">
       <h1
         ref={containerRef}
-        className="text-foreground leading-[1.1] mb-8"
+        className="text-foreground leading-[1.1] mb-6 md:mb-8"
         style={{
           fontFamily: 'var(--font-display)',
           fontWeight: 300,
-          fontSize: 'clamp(2.4rem, 7vw, 6rem)',
+          fontSize: 'clamp(2rem, 7vw, 6rem)',
           perspective: '600px',
         }}
       >
@@ -48,7 +49,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
       </h1>
 
       <p
-        className="text-sm md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto"
+        className="text-xs md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto"
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 300,
@@ -59,16 +60,16 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
           transition: 'opacity 1.5s ease 1.5s',
         }}
       >
-        Creiamo presenze digitali su misura per chi non accetta compromessi
+        {t.hero.subtitle}
       </p>
 
-      <div className="flex gap-6 justify-center mt-10">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mt-8 md:mt-10">
         <button
           onClick={() => {
             const el = document.querySelector('#chi-siamo');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full"
+          className="px-8 md:px-10 py-3.5 md:py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
@@ -89,14 +90,14 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          Chi Siamo
+          {t.hero.cta1}
         </button>
         <button
           onClick={() => {
             const el = document.querySelector('#portfolio');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full"
+          className="px-8 md:px-10 py-3.5 md:py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
@@ -117,7 +118,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             e.currentTarget.style.boxShadow = 'none';
           }}
         >
-          I Nostri Lavori
+          {t.hero.cta2}
         </button>
       </div>
     </div>

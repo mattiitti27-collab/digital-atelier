@@ -12,13 +12,14 @@ import FooterReveal from '@/components/FooterReveal';
 import FloatingButler from '@/components/FloatingButler';
 import Navbar from '@/components/Navbar';
 import AboutSection from '@/components/AboutSection';
-import CustomCursor from '@/components/CustomCursor';
 import Marquee from '@/components/Marquee';
 import ParallaxElements from '@/components/ParallaxElements';
+import { useLanguage } from '@/i18n/LanguageContext';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const { t } = useLanguage();
 
   const handlePreloaderComplete = useCallback(() => {
     setLoaded(true);
@@ -28,39 +29,31 @@ const Index = () => {
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
-      <CustomCursor />
       <ParallaxElements />
       <Navbar />
       <SmoothScroll>
         <main className="relative z-10">
-          {/* Hero Section */}
           <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
             <Hero3DScene />
             <HeroTitle visible={loaded} />
           </section>
 
-          {/* Marquee Ticker */}
           <Marquee />
 
-          {/* Chi Siamo Section */}
           <AboutSection />
 
-          {/* Marquee before Portfolio */}
           <Marquee />
 
-          {/* Portfolio Section */}
           <PortfolioSection />
 
-          {/* FAQ Section */}
-          <div id="faq" className="py-16 md:py-24 relative">
+          <div id="faq" className="py-12 md:py-24 relative">
             <FAQSection />
           </div>
 
-          {/* Contact CTA */}
-          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center relative">
+          <section id="contatti" className="py-16 md:py-32 flex items-center justify-center relative">
             <button
               onClick={() => setContactOpen(true)}
-              className="px-12 py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300"
+              className="px-10 md:px-12 py-4 md:py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300 min-h-[48px]"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(212,165,116,0.3)',
@@ -75,11 +68,10 @@ const Index = () => {
                 e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
               }}
             >
-              CONTATTACI
+              {t.contact.cta}
             </button>
           </section>
 
-          {/* Footer Reveal */}
           <FooterReveal />
         </main>
       </SmoothScroll>

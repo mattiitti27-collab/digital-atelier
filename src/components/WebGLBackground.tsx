@@ -3,9 +3,6 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
 import bg3 from '@/assets/bg/bg-3.jpg';
-import bg4 from '@/assets/bg/bg-4.jpg';
-import bg5 from '@/assets/bg/bg-5.jpg';
-import bg6 from '@/assets/bg/bg-6.jpg';
 import bg7 from '@/assets/bg/bg-7.jpg';
 import bg8 from '@/assets/bg/bg-8.jpg';
 import bg9 from '@/assets/bg/bg-9.jpg';
@@ -13,11 +10,9 @@ import bg10 from '@/assets/bg/bg-10.jpg';
 import bg11 from '@/assets/bg/bg-11.jpg';
 import bg12 from '@/assets/bg/bg-12.jpg';
 import bg13 from '@/assets/bg/bg-13.jpg';
-import bg14 from '@/assets/bg/bg-14.jpg';
-import bg15 from '@/assets/bg/bg-15.jpg';
 import bg16 from '@/assets/bg/bg-16.jpg';
 
-const imagePaths = [bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13, bg14, bg15, bg16];
+const imagePaths = [bg3, bg7, bg8, bg9, bg10, bg11, bg12, bg13, bg16];
 
 const vertexShader = `
   varying vec2 vUv;
@@ -110,7 +105,7 @@ function DistortionPlane() {
     materialRef.current.uniforms.uProgress.value = 0;
 
     const startTime = performance.now();
-    const duration = 2000; // 2 second smooth dissolve
+    const duration = 2000;
 
     function tick() {
       const elapsed = performance.now() - startTime;
@@ -137,7 +132,7 @@ function DistortionPlane() {
   }, [textures]);
 
   useEffect(() => {
-    const interval = setInterval(animateTransition, 5000); // 5 seconds between images
+    const interval = setInterval(animateTransition, 5000);
     return () => clearInterval(interval);
   }, [animateTransition]);
 

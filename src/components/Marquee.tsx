@@ -2,17 +2,22 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import ripetiamoLogo from '@/assets/logos/ripetiamo.png';
+import lumiereLogo from '@/assets/logos/lumiere.png';
+import marchettiLogo from '@/assets/logos/marchetti.png';
+import monacoLogo from '@/assets/logos/monaco.png';
+import intiniJournalLogo from '@/assets/logos/intini-journal.png';
+import yachtLogo from '@/assets/logos/yacht.png';
+
 gsap.registerPlugin(ScrollTrigger);
 
-const ITEMS = [
-  'Web Design',
-  '3D Experiences',
-  'Brand Identity',
-  'UI / UX',
-  'Motion Design',
-  'Digital Strategy',
-  'E-Commerce',
-  'Luxury Web',
+const LOGOS = [
+  { src: ripetiamoLogo, alt: 'Ripetiamo Online' },
+  { src: intiniJournalLogo, alt: 'Intini Journal Suite' },
+  { src: monacoLogo, alt: 'Monaco Luxury Experience' },
+  { src: marchettiLogo, alt: 'Marchetti Concessionario' },
+  { src: lumiereLogo, alt: 'Lumière' },
+  { src: yachtLogo, alt: 'Yacht Charter' },
 ];
 
 const Marquee = () => {
@@ -24,7 +29,6 @@ const Marquee = () => {
     const track = trackRef.current;
     const totalWidth = track.scrollWidth / 2;
 
-    // Infinite loop
     gsap.to(track, {
       x: -totalWidth,
       duration: 30,
@@ -35,7 +39,6 @@ const Marquee = () => {
       },
     });
 
-    // Speed up on scroll
     gsap.to(track, {
       scrollTrigger: {
         trigger: track,
@@ -55,31 +58,24 @@ const Marquee = () => {
   }, []);
 
   const renderItems = () =>
-    ITEMS.map((item, i) => (
-      <span
-        key={i}
-        className="flex items-center gap-8 whitespace-nowrap"
-      >
+    LOGOS.map((logo, i) => (
+      <span key={i} className="flex items-center gap-8 md:gap-12 whitespace-nowrap px-4 md:px-6">
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          className="h-10 md:h-14 lg:h-16 w-auto object-contain"
+          style={{ filter: 'brightness(0.6) contrast(1.2)', opacity: 0.35 }}
+          loading="lazy"
+        />
         <span
-          className="text-3xl md:text-5xl lg:text-6xl tracking-tight"
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 300,
-            color: 'rgba(255,255,255,0.06)',
-            WebkitTextStroke: '1px rgba(212,165,116,0.15)',
-          }}
-        >
-          {item}
-        </span>
-        <span
-          className="w-2 h-2 rounded-full flex-shrink-0"
+          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
           style={{ background: 'rgba(212,165,116,0.3)' }}
         />
       </span>
     ));
 
   return (
-    <div className="relative py-12 md:py-16 overflow-hidden pointer-events-none select-none">
+    <div className="relative py-8 md:py-16 overflow-hidden pointer-events-none select-none">
       <div ref={trackRef} className="flex items-center gap-8" style={{ width: 'max-content' }}>
         {renderItems()}
         {renderItems()}
