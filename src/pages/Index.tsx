@@ -4,8 +4,7 @@ import SmoothScroll from '@/components/SmoothScroll';
 import WebGLBackground from '@/components/WebGLBackground';
 import Hero3DScene from '@/components/Hero3DScene';
 import HeroTitle from '@/components/HeroTitle';
-import HorizontalPortfolio from '@/components/HorizontalPortfolio';
-import CustomCursor from '@/components/CustomCursor';
+import PortfolioSection from '@/components/PortfolioSection';
 import CookieBanner from '@/components/CookieBanner';
 import FAQSection from '@/components/FAQSection';
 import ContactModal from '@/components/ContactModal';
@@ -40,9 +39,7 @@ const Index = () => {
           <AboutSection />
 
           {/* Portfolio Section */}
-          <div id="portfolio">
-            <HorizontalPortfolio />
-          </div>
+          <PortfolioSection />
 
           {/* FAQ Section */}
           <div id="faq" className="py-16 md:py-24 relative">
