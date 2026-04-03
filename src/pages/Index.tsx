@@ -26,7 +26,7 @@ const Index = () => {
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
-      <CustomCursor />
+      {/* CustomCursor removed */}
       <Navbar />
       <SmoothScroll>
         <main className="relative z-10">
