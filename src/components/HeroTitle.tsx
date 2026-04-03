@@ -21,64 +21,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
     });
   }, [visible]);
 
-  // Spawn particles on hover
-  useEffect(() => {
-    if (!hovered) return;
-    const interval = setInterval(() => {
-      const angle = Math.random() * Math.PI * 2;
-      const newParticle: Particle = {
-        id: particleId.current++,
-        x: 50 + (Math.random() - 0.5) * 80,
-        y: 50 + (Math.random() - 0.5) * 60,
-        size: 1.5 + Math.random() * 2.5,
-        duration: 0.8 + Math.random() * 1.2,
-        delay: 0,
-        angle,
-        distance: 30 + Math.random() * 50,
-      };
-      setParticles((p) => [...p.slice(-25), newParticle]);
-    }, 60);
-    return () => clearInterval(interval);
-  }, [hovered]);
-
-  // Glow pulse via GSAP
-  const onEnter = useCallback(() => {
-    setHovered(true);
-    if (!btnRef.current) return;
-    gsap.killTweensOf(btnRef.current);
-    gsap.to(btnRef.current, {
-      boxShadow: '0 0 60px rgba(212,165,116,0.25), 0 0 120px rgba(212,165,116,0.1), inset 0 0 30px rgba(212,165,116,0.06)',
-      background: 'rgba(212,165,116,0.12)',
-      borderColor: 'rgba(212,165,116,0.6)',
-      duration: 0.5,
-      ease: 'power2.out',
-    });
-    // Pulsing glow loop
-    gsap.to(btnRef.current, {
-      boxShadow: '0 0 80px rgba(212,165,116,0.35), 0 0 160px rgba(212,165,116,0.12), inset 0 0 40px rgba(212,165,116,0.08)',
-      duration: 1.2,
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: 0.5,
-    });
-  }, []);
-
-  const onLeave = useCallback(() => {
-    setHovered(false);
-    setParticles([]);
-    if (!btnRef.current) return;
-    gsap.killTweensOf(btnRef.current);
-    gsap.to(btnRef.current, {
-      boxShadow: '0 0 30px rgba(212,165,116,0)',
-      background: 'rgba(212,165,116,0.04)',
-      borderColor: 'rgba(212,165,116,0.35)',
-      duration: 0.6,
-      ease: 'power2.inOut',
-    });
-  }, []);
-
-  const title = 'Esperienze Digitali d\'Élite';
+  const title = "Esperienze Digitali d'Élite";
   const words = title.split(' ');
 
   return (
@@ -177,17 +120,6 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
           I Nostri Lavori
         </button>
       </div>
-
-      <style>{`
-        @keyframes atelier-particle {
-          0% { opacity: 1; transform: translate(0, 0) scale(1); }
-          100% { opacity: 0; transform: translate(var(--particle-x), var(--particle-y)) scale(0); }
-        }
-        @keyframes atelier-sweep {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
     </div>
   );
 };
