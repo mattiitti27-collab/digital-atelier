@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLanguage } from '@/i18n/LanguageContext';
 import ripetiamoImg from '@/assets/projects/ripetiamo-bg.jpg';
 import monacoImg from '@/assets/projects/monaco-bg.jpg';
+import intiniJournalImg from '@/assets/projects/intini-journal-bg.png';
+import marchettiImg from '@/assets/projects/marchetti-bg.png';
+import lumiereImg from '@/assets/projects/lumiere-bg.jpg';
+import yachtImg from '@/assets/projects/yacht-bg.jpg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,8 +16,7 @@ interface Project {
   subtitle: string;
   url: string;
   image: string;
-  statusLabel: string;
-  statusColor: string;
+  isActive: boolean;
 }
 
 const projects: Project[] = [
@@ -21,22 +25,52 @@ const projects: Project[] = [
     subtitle: 'EdTech & E-Learning Platform',
     url: 'https://www.ripetiamo.online',
     image: ripetiamoImg,
-    statusLabel: 'Sito Attivo',
-    statusColor: '#22c55e',
+    isActive: true,
+  },
+  {
+    title: 'Intini Journal Suite',
+    subtitle: 'Professional Trading Journal',
+    url: 'https://intinijournalsuite.vercel.app',
+    image: intiniJournalImg,
+    isActive: true,
   },
   {
     title: 'Monaco Luxury Experience',
     subtitle: 'Premium Brand Demo',
     url: 'https://intinimonacodemo.vercel.app',
     image: monacoImg,
-    statusLabel: 'Demo',
-    statusColor: '#ef4444',
+    isActive: false,
+  },
+  {
+    title: 'Marchetti Concessionario',
+    subtitle: 'Automotive Dealership',
+    url: 'https://marchetticoncessionario.vercel.app',
+    image: marchettiImg,
+    isActive: false,
+  },
+  {
+    title: 'Lumière',
+    subtitle: 'Luxury Wellness & Spa',
+    url: 'https://lumieredemo.vercel.app',
+    image: lumiereImg,
+    isActive: false,
+  },
+  {
+    title: 'Yacht Charter',
+    subtitle: 'Premium Maritime Experience',
+    url: 'https://yachtcharter.vercel.app',
+    image: yachtImg,
+    isActive: false,
   },
 ];
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLAnchorElement>(null);
+  const { t } = useLanguage();
+
+  const statusLabel = project.isActive ? t.portfolio.active : t.portfolio.demo;
+  const statusColor = project.isActive ? '#22c55e' : '#ef4444';
 
   return (
     <a
@@ -44,15 +78,12 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
+      data-magnetic
       className="group relative block overflow-hidden rounded-2xl"
-      style={{
-        gridRow: index === 0 ? 'span 1' : 'span 1',
-        aspectRatio: '16/10',
-      }}
+      style={{ aspectRatio: '16/10' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Background image with parallax */}
       <div
         className="absolute inset-[-20px] transition-transform duration-700 ease-out parallax-card-img"
         style={{
@@ -62,8 +93,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           transform: hovered ? 'scale(1.08)' : 'scale(1.02)',
         }}
       />
-
-      {/* Glass overlay */}
       <div
         className="absolute inset-0 transition-all duration-500"
         style={{
@@ -72,8 +101,6 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             : 'linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.65) 100%)',
         }}
       />
-
-      {/* Border glow on hover */}
       <div
         className="absolute inset-0 rounded-2xl transition-all duration-500 pointer-events-none"
         style={{
@@ -83,33 +110,25 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
             : 'none',
         }}
       />
-
-      {/* Status Badge */}
-      <div className="absolute top-5 left-5 z-10 flex items-center gap-2">
+      <div className="absolute top-4 left-4 md:top-5 md:left-5 z-10 flex items-center gap-2">
         <span
           className="block w-2 h-2 rounded-full"
           style={{
-            backgroundColor: project.statusColor,
-            boxShadow: `0 0 8px ${project.statusColor}, 0 0 16px ${project.statusColor}80`,
+            backgroundColor: statusColor,
+            boxShadow: `0 0 8px ${statusColor}, 0 0 16px ${statusColor}80`,
             animation: 'pulse-led 2s ease-in-out infinite',
           }}
         />
         <span
           className="text-[10px] tracking-[0.2em] uppercase"
-          style={{
-            fontFamily: 'var(--font-body)',
-            color: 'rgba(255,255,255,0.7)',
-            fontWeight: 400,
-          }}
+          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.7)', fontWeight: 400 }}
         >
-          {project.statusLabel}
+          {statusLabel}
         </span>
       </div>
-
-      {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 p-7 md:p-9 z-10">
+      <div className="absolute bottom-0 left-0 right-0 p-5 md:p-9 z-10">
         <h3
-          className="text-2xl md:text-3xl lg:text-4xl mb-2"
+          className="text-xl md:text-3xl lg:text-4xl mb-2"
           style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 300,
@@ -120,16 +139,11 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           {project.title}
         </h3>
         <p
-          className="text-[11px] tracking-[0.2em] uppercase mb-6"
-          style={{
-            fontFamily: 'var(--font-body)',
-            color: 'rgba(220,218,214,0.5)',
-          }}
+          className="text-[10px] md:text-[11px] tracking-[0.2em] uppercase mb-4 md:mb-6"
+          style={{ fontFamily: 'var(--font-body)', color: 'rgba(220,218,214,0.5)' }}
         >
           {project.subtitle}
         </p>
-
-        {/* CTA button on hover */}
         <div
           className="transition-all duration-500"
           style={{
@@ -138,7 +152,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
           }}
         >
           <span
-            className="inline-block px-8 py-3 text-[10px] tracking-[0.3em] uppercase rounded-sm"
+            className="inline-block px-6 py-2.5 md:px-8 md:py-3 text-[10px] tracking-[0.3em] uppercase rounded-sm"
             style={{
               border: '1px solid rgba(212,165,116,0.4)',
               color: '#d4a574',
@@ -147,7 +161,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
               fontFamily: 'var(--font-body)',
             }}
           >
-            Esplora il progetto
+            {t.portfolio.cta}
           </span>
         </div>
       </div>
@@ -159,6 +173,7 @@ const PortfolioSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -181,8 +196,6 @@ const PortfolioSection = () => {
             scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', end: 'top 50%', scrub: 1 },
           }
         );
-
-        // Parallax on card images
         const images = cardsRef.current.querySelectorAll('.parallax-card-img');
         images.forEach((img) => {
           gsap.to(img, {
@@ -202,17 +215,16 @@ const PortfolioSection = () => {
   }, []);
 
   return (
-    <section id="portfolio" ref={sectionRef} className="relative py-32 md:py-44 px-6 md:px-16 lg:px-24">
-      {/* Heading */}
-      <div ref={headingRef} className="max-w-5xl mx-auto text-center mb-20 md:mb-28">
+    <section id="portfolio" ref={sectionRef} className="relative py-20 md:py-44 px-4 md:px-16 lg:px-24">
+      <div ref={headingRef} className="max-w-5xl mx-auto text-center mb-12 md:mb-28">
         <p
-          className="text-[11px] tracking-[0.5em] uppercase mb-5"
+          className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4 md:mb-5"
           style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.5)' }}
         >
-          Portfolio
+          {t.portfolio.label}
         </p>
         <h2
-          className="text-4xl md:text-6xl lg:text-7xl mb-6"
+          className="text-3xl md:text-6xl lg:text-7xl mb-4 md:mb-6"
           style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 300,
@@ -220,10 +232,10 @@ const PortfolioSection = () => {
             lineHeight: 1.1,
           }}
         >
-          Opere Selezionate
+          {t.portfolio.title}
         </h2>
         <p
-          className="text-sm md:text-base max-w-xl mx-auto"
+          className="text-xs md:text-base max-w-xl mx-auto"
           style={{
             fontFamily: 'var(--font-body)',
             fontWeight: 300,
@@ -232,21 +244,17 @@ const PortfolioSection = () => {
             lineHeight: 1.8,
           }}
         >
-          L'ingegneria incontra l'estetica: esplora le nostre esperienze digitali.
+          {t.portfolio.subtitle}
         </p>
       </div>
-
-      {/* Project Grid */}
       <div
         ref={cardsRef}
-        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10"
+        className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-10"
       >
         {projects.map((project, i) => (
           <ProjectCard key={project.title} project={project} index={i} />
         ))}
       </div>
-
-      {/* LED pulse animation */}
       <style>{`
         @keyframes pulse-led {
           0%, 100% { opacity: 1; }
