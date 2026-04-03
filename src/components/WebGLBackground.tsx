@@ -107,7 +107,7 @@ function DistortionPlane() {
     materialRef.current.uniforms.uProgress.value = 0;
 
     const startTime = performance.now();
-    const duration = 1000; // 1 second dissolve
+    const duration = 2000; // 2 second dissolve
 
     function tick() {
       const elapsed = performance.now() - startTime;
