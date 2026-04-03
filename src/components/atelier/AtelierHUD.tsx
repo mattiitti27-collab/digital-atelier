@@ -14,8 +14,7 @@ const allPhases: { id: Phase; label: string; number: string }[] = [
   { id: 'animations', label: 'DINAMICA', number: '06' },
   { id: 'layout', label: 'ARCHITETTURA', number: '07' },
   { id: 'arsenal', label: 'ARSENALE', number: '08' },
-  { id: 'budget', label: 'INVESTIMENTO', number: '09' },
-  { id: 'signature', label: 'FIRMA', number: '10' },
+  { id: 'signature', label: 'FIRMA', number: '09' },
 ];
 
 const materials: { id: MaterialType; name: string; subtitle: string; color: string }[] = [
@@ -399,22 +398,16 @@ function ArsenalPhase() {
   const toggleModule = useAtelierStore((s) => s.toggleModule);
   const setPhase = useAtelierStore((s) => s.setPhase);
   const activeCount = modules.filter((m) => m.active).length;
-  const totalPrice = modules.filter((m) => m.active).reduce((sum, m) => sum + m.price, 0);
 
   return (
     <motion.div className="space-y-5" {...phaseTransition}>
       <PhaseHeader number="08" title="L'ARSENALE" subtitle="Moduli d'Élite" />
 
-      <div className="flex items-center justify-between">
-        <p className="text-[9px] tracking-[0.15em]" style={{ color: 'rgba(255,255,255,0.25)' }}>
-          {activeCount} ATTIVATI
-        </p>
-        <p className="text-[9px] font-mono" style={{ color: '#d4a574' }}>
-          +€{totalPrice.toLocaleString()}
-        </p>
-      </div>
+      <p className="text-[9px] tracking-[0.15em]" style={{ color: 'rgba(255,255,255,0.25)' }}>
+        {activeCount} MODULI ATTIVATI
+      </p>
 
-      <div className="space-y-1 max-h-[260px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
+      <div className="space-y-1 max-h-[280px] overflow-y-auto pr-1" style={{ scrollbarWidth: 'none' }}>
         {modules.map((mod) => (
           <motion.button
             key={mod.id}
@@ -435,116 +428,21 @@ function ArsenalPhase() {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between">
-                <p className="text-[8px] tracking-[0.15em]" style={{ color: mod.active ? '#d4a574' : 'rgba(255,255,255,0.3)' }}>{mod.name}</p>
-                <span className="text-[7px] font-mono shrink-0 ml-2" style={{ color: 'rgba(255,255,255,0.2)' }}>€{mod.price.toLocaleString()}</span>
-              </div>
+              <p className="text-[8px] tracking-[0.15em]" style={{ color: mod.active ? '#d4a574' : 'rgba(255,255,255,0.3)' }}>{mod.name}</p>
               <p className="text-[7px] mt-0.5 truncate" style={{ color: 'rgba(255,255,255,0.12)' }}>{mod.description}</p>
             </div>
           </motion.button>
         ))}
       </div>
 
-      <ProceedButton onClick={() => setPhase('budget')} />
-    </motion.div>
-  );
-}
-
-// ─── PHASE 9: BUDGET ───
-function BudgetPhase() {
-  const budgetRange = useAtelierStore((s) => s.budgetRange);
-  const setBudgetRange = useAtelierStore((s) => s.setBudgetRange);
-  const timeline = useAtelierStore((s) => s.timeline);
-  const setTimeline = useAtelierStore((s) => s.setTimeline);
-  const notes = useAtelierStore((s) => s.notes);
-  const setNotes = useAtelierStore((s) => s.setNotes);
-  const setPhase = useAtelierStore((s) => s.setPhase);
-  const modules = useAtelierStore((s) => s.modules);
-
-  const modulesTotal = modules.filter((m) => m.active).reduce((sum, m) => sum + m.price, 0);
-  const basePrice = 5000;
-  const estimatedTotal = basePrice + modulesTotal;
-
-  const timelines = [
-    { id: '4-weeks', label: '4 SETTIMANE', desc: 'Fast-track · Priorità assoluta' },
-    { id: '8-weeks', label: '8 SETTIMANE', desc: 'Standard · Ritmo ottimale' },
-    { id: '12-weeks', label: '12+ SETTIMANE', desc: 'Meticoloso · Perfezione artigianale' },
-  ];
-
-  return (
-    <motion.div className="space-y-5" {...phaseTransition}>
-      <PhaseHeader number="09" title="L'INVESTIMENTO" subtitle="Budget & Tempistiche" />
-
-      {/* Price estimate HUD */}
-      <div className="p-3 rounded-xl" style={{ background: 'rgba(212,165,116,0.04)', border: '1px solid rgba(212,165,116,0.1)' }}>
-        <div className="flex items-end justify-between mb-2">
-          <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: 'rgba(255,255,255,0.3)' }}>STIMA PROGETTO</span>
-          <span className="text-xl font-light" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
-            €{estimatedTotal.toLocaleString()}
-          </span>
-        </div>
-        <div className="flex justify-between text-[7px]" style={{ color: 'rgba(255,255,255,0.2)' }}>
-          <span>Base: €{basePrice.toLocaleString()}</span>
-          <span>Moduli: +€{modulesTotal.toLocaleString()}</span>
-        </div>
-      </div>
-
-      {/* Budget slider */}
-      <div>
-        <label className="block text-[8px] tracking-[0.3em] uppercase mb-3" style={{ color: 'rgba(255,255,255,0.25)' }}>
-          IL TUO BUDGET — €{budgetRange.toLocaleString()}
-        </label>
-        <input
-          type="range"
-          min={5000}
-          max={50000}
-          step={500}
-          value={budgetRange}
-          onChange={(e) => setBudgetRange(Number(e.target.value))}
-          className="w-full h-[2px] appearance-none cursor-pointer"
-          style={{
-            background: `linear-gradient(to right, #d4a574 ${((budgetRange - 5000) / 45000) * 100}%, rgba(255,255,255,0.08) ${((budgetRange - 5000) / 45000) * 100}%)`,
-            accentColor: '#d4a574',
-          }}
-        />
-        <div className="flex justify-between text-[7px] mt-1" style={{ color: 'rgba(255,255,255,0.15)' }}>
-          <span>€5.000</span>
-          <span>€50.000</span>
-        </div>
-      </div>
-
-      {/* Timeline */}
-      <div>
-        <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>TEMPISTICA</label>
-        <div className="space-y-1">
-          {timelines.map((t) => (
-            <motion.button
-              key={t.id}
-              onClick={() => setTimeline(t.id)}
-              className="w-full flex items-center justify-between p-2.5 rounded-lg text-left transition-all"
-              style={{
-                background: timeline === t.id ? 'rgba(212,165,116,0.06)' : 'transparent',
-                border: `1px solid ${timeline === t.id ? 'rgba(212,165,116,0.2)' : 'rgba(255,255,255,0.04)'}`,
-              }}
-            >
-              <div>
-                <p className="text-[9px] tracking-[0.15em]" style={{ color: timeline === t.id ? '#d4a574' : 'rgba(255,255,255,0.3)' }}>{t.label}</p>
-                <p className="text-[7px] mt-0.5" style={{ color: 'rgba(255,255,255,0.15)' }}>{t.desc}</p>
-              </div>
-              {timeline === t.id && <div className="w-1.5 h-1.5 rounded-full" style={{ background: '#d4a574' }} />}
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
       {/* Notes */}
       <div>
         <label className="block text-[8px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>NOTE AGGIUNTIVE</label>
         <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
+          value={useAtelierStore.getState().notes}
+          onChange={(e) => useAtelierStore.getState().setNotes(e.target.value)}
           placeholder="Descrivi la tua visione, riferimenti, ispirazioni..."
-          rows={3}
+          rows={2}
           className="w-full bg-transparent text-white text-[10px] p-3 rounded-lg border outline-none resize-none placeholder:text-white/10"
           style={{ borderColor: 'rgba(255,255,255,0.06)' }}
         />
@@ -555,7 +453,7 @@ function BudgetPhase() {
   );
 }
 
-// ─── PHASE 10: SIGNATURE ───
+// ─── PHASE 9: SIGNATURE ───
 function SignaturePhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
   const brandName = useAtelierStore((s) => s.brandName);
@@ -567,10 +465,7 @@ function SignaturePhase() {
   const animationStyle = useAtelierStore((s) => s.animationStyle);
   const layoutStyle = useAtelierStore((s) => s.layoutStyle);
   const modules = useAtelierStore((s) => s.modules);
-  const budgetRange = useAtelierStore((s) => s.budgetRange);
-  const timeline = useAtelierStore((s) => s.timeline);
   const activeModules = modules.filter((m) => m.active);
-  const modulesTotal = activeModules.reduce((sum, m) => sum + m.price, 0);
 
   const templateLabel = templates.find((t) => t.id === template)?.name || '—';
   const materialLabel = materials.find((m) => m.id === material)?.name || '—';
@@ -588,8 +483,6 @@ function SignaturePhase() {
     ['TIPOGRAFIA', typoLabel],
     ['ANIMAZIONE', animLabel],
     ['LAYOUT', layoutLabel],
-    ['BUDGET', `€${budgetRange.toLocaleString()}`],
-    ['TIMELINE', timeline ? timeline.replace('-', ' ').toUpperCase() : '—'],
   ];
 
   return (
@@ -612,7 +505,7 @@ function SignaturePhase() {
       {activeModules.length > 0 && (
         <div className="p-3 rounded-xl" style={{ background: 'rgba(212,165,116,0.03)', border: '1px solid rgba(212,165,116,0.08)' }}>
           <p className="text-[7px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(255,255,255,0.25)' }}>
-            MODULI ({activeModules.length}) — +€{modulesTotal.toLocaleString()}
+            MODULI ({activeModules.length})
           </p>
           {activeModules.map((m) => (
             <p key={m.id} className="text-[8px] tracking-[0.1em] py-0.5" style={{ color: '#d4a574' }}>◆ {m.name}</p>
@@ -787,7 +680,7 @@ const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
               {phase === 'animations' && <AnimationsPhase key="animations" />}
               {phase === 'layout' && <LayoutPhase key="layout" />}
               {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
-              {phase === 'budget' && <BudgetPhase key="budget" />}
+              {phase === 'signature' && <SignaturePhase key="signature" />}
               {phase === 'signature' && <SignaturePhase key="signature" />}
             </AnimatePresence>
           </div>

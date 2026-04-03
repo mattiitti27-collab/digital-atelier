@@ -1,9 +1,9 @@
 import { useRef, useMemo, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Text3D, Center, Float, Environment, ContactShadows } from '@react-three/drei';
-import { EffectComposer, Bloom, Noise, Vignette } from '@react-three/postprocessing';
+import { Text3D, Center, Float, Environment, ContactShadows, RoundedBox } from '@react-three/drei';
+import { EffectComposer, Bloom, Noise, Vignette, DepthOfField } from '@react-three/postprocessing';
 import * as THREE from 'three';
-import { useAtelierStore, MaterialType } from '@/stores/atelierStore';
+import { useAtelierStore, MaterialType, palettes } from '@/stores/atelierStore';
 
 function getMaterial(type: MaterialType) {
   switch (type) {
@@ -22,6 +22,103 @@ function getMaterial(type: MaterialType) {
   }
 }
 
+// ─── Floating Device / Site Preview Card ───
+function FloatingDevice() {
+  const groupRef = useRef<THREE.Group>(null);
+  const brandName = useAtelierStore((s) => s.brandName);
+  const palette = useAtelierStore((s) => s.palette);
+  const material = useAtelierStore((s) => s.material);
+
+  const paletteColors = palettes.find((p) => p.id === palette)?.colors || palettes[0].colors;
+
+  useFrame((state) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.2) * 0.12;
+      groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.15) * 0.04;
+      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.4) * 0.06;
+    }
+  });
+
+  return (
+    <Float speed={0.8} rotationIntensity={0.05} floatIntensity={0.15}>
+      <group ref={groupRef}>
+        {/* Device Frame — like a floating MacBook/iPad screen */}
+        <RoundedBox args={[2.8, 1.7, 0.04]} radius={0.04} smoothness={8} position={[0, 0, 0]}>
+          <meshPhysicalMaterial
+            color="#111111"
+            metalness={0.95}
+            roughness={0.1}
+            clearcoat={1}
+            clearcoatRoughness={0.05}
+            envMapIntensity={1.5}
+          />
+        </RoundedBox>
+
+        {/* Screen surface */}
+        <mesh position={[0, 0, 0.021]}>
+          <planeGeometry args={[2.6, 1.5]} />
+          <meshPhysicalMaterial
+            color={paletteColors[0]}
+            metalness={0.1}
+            roughness={0.8}
+            envMapIntensity={0.3}
+          />
+        </mesh>
+
+        {/* Nav bar mockup */}
+        <mesh position={[0, 0.62, 0.022]}>
+          <planeGeometry args={[2.5, 0.06]} />
+          <meshBasicMaterial color={paletteColors[2]} transparent opacity={0.5} />
+        </mesh>
+
+        {/* Hero text area */}
+        <mesh position={[-0.5, 0.2, 0.022]}>
+          <planeGeometry args={[1.2, 0.04]} />
+          <meshBasicMaterial color={paletteColors[4]} transparent opacity={0.7} />
+        </mesh>
+        <mesh position={[-0.65, 0.1, 0.022]}>
+          <planeGeometry args={[0.9, 0.025]} />
+          <meshBasicMaterial color={paletteColors[3]} transparent opacity={0.4} />
+        </mesh>
+        <mesh position={[-0.75, 0.0, 0.022]}>
+          <planeGeometry args={[0.7, 0.025]} />
+          <meshBasicMaterial color={paletteColors[3]} transparent opacity={0.25} />
+        </mesh>
+
+        {/* CTA button mockup */}
+        <RoundedBox args={[0.5, 0.1, 0.005]} radius={0.02} smoothness={4} position={[-0.65, -0.12, 0.022]}>
+          <meshBasicMaterial color={paletteColors[3]} transparent opacity={0.6} />
+        </RoundedBox>
+
+        {/* Image placeholder on right */}
+        <RoundedBox args={[0.8, 0.7, 0.005]} radius={0.02} smoothness={4} position={[0.8, 0.05, 0.022]}>
+          <meshPhysicalMaterial color={paletteColors[1]} metalness={0.2} roughness={0.6} />
+        </RoundedBox>
+
+        {/* Bottom grid cards */}
+        {[-0.85, -0.15, 0.55].map((x, i) => (
+          <RoundedBox key={i} args={[0.6, 0.35, 0.005]} radius={0.015} smoothness={4} position={[x, -0.45, 0.022]}>
+            <meshPhysicalMaterial color={paletteColors[i === 1 ? 2 : 1]} metalness={0.1} roughness={0.7} transparent opacity={0.4} />
+          </RoundedBox>
+        ))}
+
+        {/* Screen reflection/gloss overlay */}
+        <mesh position={[0, 0, 0.025]}>
+          <planeGeometry args={[2.6, 1.5]} />
+          <meshPhysicalMaterial
+            transparent
+            opacity={0.03}
+            color="#ffffff"
+            metalness={1}
+            roughness={0}
+          />
+        </mesh>
+      </group>
+    </Float>
+  );
+}
+
+// ─── Brand Text 3D ───
 function BrandText3D() {
   const brandName = useAtelierStore((s) => s.brandName);
   const material = useAtelierStore((s) => s.material);
@@ -29,48 +126,45 @@ function BrandText3D() {
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
-      groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.05;
+      groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.3) * 0.08;
     }
   });
 
-  const displayText = brandName || 'ATELIER';
+  if (!brandName) return null;
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.3}>
-      <group ref={groupRef}>
-        <Center>
-          <Text3D
-            font="/fonts/inter_bold.json"
-            size={0.5}
-            height={0.15}
-            bevelEnabled
-            bevelThickness={0.02}
-            bevelSize={0.01}
-            bevelSegments={5}
-            curveSegments={32}
-          >
-            {displayText}
-            {getMaterial(material)}
-          </Text3D>
-        </Center>
-      </group>
-    </Float>
+    <group ref={groupRef} position={[0, 1.4, 0]}>
+      <Center>
+        <Text3D
+          font="/fonts/inter_bold.json"
+          size={0.2}
+          height={0.06}
+          bevelEnabled
+          bevelThickness={0.01}
+          bevelSize={0.005}
+          bevelSegments={3}
+          curveSegments={16}
+        >
+          {brandName}
+          {getMaterial(material)}
+        </Text3D>
+      </Center>
+    </group>
   );
 }
 
+// ─── Module Particles ───
 function ModuleParticles() {
   const modules = useAtelierStore((s) => s.modules);
   const activeCount = modules.filter((m) => m.active).length;
   const particlesRef = useRef<THREE.Points>(null);
-
-  const particleCount = activeCount * 120;
+  const particleCount = activeCount * 80;
 
   const positions = useMemo(() => {
     const pos = new Float32Array(Math.max(particleCount, 3) * 3);
     for (let i = 0; i < pos.length; i += 3) {
       const angle = Math.random() * Math.PI * 2;
-      const radius = 1.5 + Math.random() * 2;
+      const radius = 2 + Math.random() * 2.5;
       pos[i] = Math.cos(angle) * radius;
       pos[i + 1] = (Math.random() - 0.5) * 3;
       pos[i + 2] = Math.sin(angle) * radius;
@@ -80,8 +174,7 @@ function ModuleParticles() {
 
   useFrame((state) => {
     if (particlesRef.current) {
-      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-      particlesRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.05;
+      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.03;
     }
   });
 
@@ -90,45 +183,71 @@ function ModuleParticles() {
   return (
     <points ref={particlesRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          array={positions}
-          count={positions.length / 3}
-          itemSize={3}
-        />
+        <bufferAttribute attach="attributes-position" array={positions} count={positions.length / 3} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial
-        size={0.015}
-        color="#d4a574"
-        transparent
-        opacity={0.6}
-        sizeAttenuation
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
+      <pointsMaterial size={0.012} color="#d4a574" transparent opacity={0.5} sizeAttenuation blending={THREE.AdditiveBlending} depthWrite={false} />
     </points>
+  );
+}
+
+// ─── Cinema Spotlights ───
+function CinemaSpotlights() {
+  return (
+    <>
+      {/* Key light — warm from top-right */}
+      <spotLight position={[4, 6, 3]} intensity={2.5} angle={0.35} penumbra={0.9} color="#fff5e6" castShadow shadow-mapSize={1024} />
+      {/* Fill light — cool from left */}
+      <spotLight position={[-5, 4, 2]} intensity={1.2} angle={0.4} penumbra={1} color="#d4e5ff" />
+      {/* Rim light — gold from behind */}
+      <spotLight position={[0, 3, -5]} intensity={1.8} angle={0.5} penumbra={0.8} color="#d4a574" />
+      {/* Floor bounce — subtle */}
+      <pointLight position={[0, -2, 0]} intensity={0.15} color="#1a1a2e" />
+      {/* Accent spots — left and right like theater */}
+      <spotLight position={[-6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      <spotLight position={[6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      {/* Ambient — very low */}
+      <ambientLight intensity={0.06} />
+    </>
+  );
+}
+
+// ─── Dark Room Floor ───
+function DarkRoomFloor() {
+  return (
+    <>
+      {/* Reflective dark floor */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.3, 0]} receiveShadow>
+        <planeGeometry args={[20, 20]} />
+        <meshPhysicalMaterial
+          color="#050505"
+          metalness={0.8}
+          roughness={0.15}
+          envMapIntensity={0.5}
+        />
+      </mesh>
+      <ContactShadows position={[0, -1.29, 0]} opacity={0.6} scale={10} blur={3} far={4} />
+    </>
   );
 }
 
 function SceneContent() {
   return (
     <>
-      <ambientLight intensity={0.15} />
-      <spotLight position={[5, 8, 5]} intensity={1.5} angle={0.3} penumbra={0.8} color="#ffffff" />
-      <spotLight position={[-5, 5, -5]} intensity={0.8} angle={0.4} penumbra={1} color="#d4a574" />
-      <pointLight position={[0, -3, 0]} intensity={0.3} color="#1a1a2e" />
-      
+      <CinemaSpotlights />
+
       <Suspense fallback={null}>
+        <FloatingDevice />
         <BrandText3D />
         <ModuleParticles />
+        <DarkRoomFloor />
         <Environment preset="city" background={false} />
-        <ContactShadows position={[0, -1.2, 0]} opacity={0.4} scale={8} blur={2.5} far={3} />
       </Suspense>
 
       <EffectComposer>
-        <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.9} intensity={0.8} />
-        <Noise opacity={0.04} />
-        <Vignette eskil={false} offset={0.1} darkness={0.8} />
+        <DepthOfField focusDistance={0.02} focalLength={0.05} bokehScale={3} />
+        <Bloom luminanceThreshold={0.5} luminanceSmoothing={0.9} intensity={0.6} />
+        <Noise opacity={0.035} />
+        <Vignette eskil={false} offset={0.15} darkness={0.9} />
       </EffectComposer>
     </>
   );
@@ -138,10 +257,11 @@ const AtelierScene = () => {
   return (
     <div className="fixed inset-0 z-0">
       <Canvas
-        camera={{ position: [0, 0, 4], fov: 45 }}
+        shadows
+        camera={{ position: [0, 0.5, 4.5], fov: 40 }}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         dpr={[1, 2]}
-        style={{ background: '#050505' }}
+        style={{ background: '#020202' }}
       >
         <SceneContent />
       </Canvas>
