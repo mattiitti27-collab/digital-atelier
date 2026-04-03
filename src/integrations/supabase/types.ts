@@ -14,7 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      atelier_access: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          stripe_customer_id: string | null
+          stripe_session_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          stripe_customer_id?: string | null
+          stripe_session_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          stripe_customer_id?: string | null
+          stripe_session_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

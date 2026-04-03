@@ -1,0 +1,1 @@
+DROP POLICY "Service role can insert atelier access" ON public.atelier_access;
