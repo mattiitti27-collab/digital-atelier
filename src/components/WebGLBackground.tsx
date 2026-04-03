@@ -137,7 +137,7 @@ function DistortionPlane() {
   }, [textures]);
 
   useEffect(() => {
-    const interval = setInterval(animateTransition, 4000); // 4 seconds between images
+    const interval = setInterval(animateTransition, 5000); // 5 seconds between images
     return () => clearInterval(interval);
   }, [animateTransition]);
 
