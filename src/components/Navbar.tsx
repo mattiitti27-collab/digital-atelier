@@ -112,7 +112,7 @@ const Navbar = () => {
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.label}
-                onClick={() => scrollTo(item.href)}
+                onClick={() => handleNav(item)}
                 className="text-xs tracking-[0.3em] uppercase"
                 style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
               >
