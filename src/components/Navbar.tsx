@@ -35,15 +35,20 @@ const Navbar = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        background: scrolled
-          ? 'linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 22%, rgba(0,0,0,0.52) 46%, rgba(0,0,0,0.28) 68%, rgba(0,0,0,0.08) 88%, transparent 100%)'
-          : 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 20%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.1) 80%, transparent 100%)',
-        backdropFilter: scrolled ? 'blur(20px)' : 'none',
-      }}
+      className="fixed top-0 left-0 right-0 z-50"
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-8 md:px-16 py-6">
+      {/* Gradient overlay that fades smoothly */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+        style={{
+          height: '180%',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 75%, transparent 100%)',
+          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
+        }}
+      />
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between px-8 md:px-16 py-6">
         {/* Logo */}
         <button
           onClick={() => handleNav({ label: 'Home', href: '#hero' })}
