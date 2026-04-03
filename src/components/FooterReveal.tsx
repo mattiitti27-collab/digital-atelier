@@ -17,7 +17,7 @@ const FooterReveal = () => {
       >
         {/* Brand */}
         <motion.p
-          className="text-xs md:text-sm tracking-[0.45em] uppercase mb-14"
+          className="text-base md:text-lg tracking-[0.45em] uppercase mb-14"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -38,13 +38,13 @@ const FooterReveal = () => {
           {/* Column 1 — About */}
           <div>
             <p
-              className="text-[10px] tracking-[0.3em] uppercase mb-4"
+              className="text-xs tracking-[0.3em] uppercase mb-4"
               style={{ color: 'rgba(212,165,116,0.55)' }}
             >
               Sartoria Digitale
             </p>
             <p
-              className="text-[11px] md:text-xs leading-[1.8]"
+              className="text-sm leading-[1.8]"
               style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
               Siti web su misura e di altissimo lusso per clienti esclusivi.
@@ -54,13 +54,13 @@ const FooterReveal = () => {
           {/* Column 2 — Contatti */}
           <div>
             <p
-              className="text-[10px] tracking-[0.3em] uppercase mb-4"
+              className="text-xs tracking-[0.3em] uppercase mb-4"
               style={{ color: 'rgba(212,165,116,0.55)' }}
             >
               Contatti
             </p>
             <p
-              className="text-[11px] md:text-xs leading-[2]"
+              className="text-sm leading-[2]"
               style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
               <a
@@ -82,13 +82,13 @@ const FooterReveal = () => {
           {/* Column 3 — Dati Legali */}
           <div>
             <p
-              className="text-[10px] tracking-[0.3em] uppercase mb-4"
+              className="text-xs tracking-[0.3em] uppercase mb-4"
               style={{ color: 'rgba(212,165,116,0.55)' }}
             >
               Dati Legali
             </p>
             <p
-              className="text-[11px] md:text-xs leading-[2]"
+              className="text-sm leading-[2]"
               style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
               Mattia Intini
@@ -112,7 +112,7 @@ const FooterReveal = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <p
-            className="text-[9px] tracking-[0.25em] uppercase"
+            className="text-[11px] tracking-[0.25em] uppercase"
             style={{ color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
           >
             © {new Date().getFullYear()} INTINIWEBATELIER · All Rights Reserved
