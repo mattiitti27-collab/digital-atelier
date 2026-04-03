@@ -45,7 +45,7 @@ const Index = () => {
           </div>
 
           {/* FAQ Section */}
-          <div id="faq" className="py-16 md:py-24" style={{ background: '#050505' }}>
+          <div id="faq" className="py-16 md:py-24 relative">
             <FAQSection />
           </div>
 
