@@ -65,7 +65,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
       <div className="flex gap-6 justify-center mt-10">
         <button
           onClick={() => {
-            const el = document.querySelector('#hero');
+            const el = document.querySelector('#chi-siamo');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
           className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500"

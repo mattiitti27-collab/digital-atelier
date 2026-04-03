@@ -36,6 +36,9 @@ const Index = () => {
             <HeroTitle visible={loaded} />
           </section>
 
+          {/* Chi Siamo Section */}
+          <AboutSection />
+
           {/* Portfolio Section */}
           <div id="portfolio">
             <HorizontalPortfolio />
