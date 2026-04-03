@@ -191,7 +191,6 @@ function SceneContent() {
       <SimpleLighting />
 
       <Suspense fallback={null}>
-        <FloatingDevice />
         <BrandText3D />
         <ModuleParticles />
         <DarkRoomFloor />

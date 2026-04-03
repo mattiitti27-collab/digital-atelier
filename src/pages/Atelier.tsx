@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import AtelierScene from '@/components/atelier/AtelierScene';
 import AtelierHUD from '@/components/atelier/AtelierHUD';
 import AtelierPaywall from '@/components/atelier/AtelierPaywall';
+import LiveSitePreview from '@/components/atelier/LiveSitePreview';
 
 const Atelier = () => {
   const [searchParams] = useSearchParams();
@@ -36,8 +37,7 @@ const Atelier = () => {
     <div className="relative w-full h-screen overflow-hidden" style={{ background: '#050505' }}>
       {/* Always show the 3D scene */}
       <AtelierScene />
-
-      {/* Always show the HUD — locked state handled inside */}
+      <LiveSitePreview />
       <AtelierHUD locked={false} onUnlockClick={() => setShowPaywall(true)} />
 
       {/* Lock overlay when no access */}
