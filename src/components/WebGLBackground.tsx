@@ -69,7 +69,7 @@ const fragmentShader = `
     vec4 texNext = texture2D(uTexNext, distortedUv);
     vec4 color = mix(texCurrent, texNext, uProgress);
 
-    gl_FragColor = vec4(color.rgb, 0.08);
+    gl_FragColor = vec4(color.rgb, 0.14);
   }
 `;
 
