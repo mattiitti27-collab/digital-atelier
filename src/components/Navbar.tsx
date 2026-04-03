@@ -21,10 +21,16 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const navigate = useNavigate();
+
+  const handleNav = (item: typeof NAV_ITEMS[0]) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    if ('isRoute' in item && item.isRoute) {
+      navigate(item.href);
+    } else {
+      const el = document.querySelector(item.href);
+      el?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
