@@ -4,65 +4,59 @@ import { Float, Environment } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
-/* ── Trefoil Knot with Möbius Twist ── */
-function SilkKnot() {
+/* ── Flowing Silk Ribbon (wide, flat, organic) ── */
+function SilkRibbon() {
   const meshRef = useRef<THREE.Mesh>(null);
 
   const geometry = useMemo(() => {
-    // Parametric trefoil knot curve
+    // Long, flowing ribbon path — more open and stretched than a knot
     const points: THREE.Vector3[] = [];
-    const segments = 300;
+    const segments = 400;
 
     for (let i = 0; i <= segments; i++) {
       const t = (i / segments) * Math.PI * 2;
 
-      // Trefoil knot parametric equations
-      const x = Math.sin(t) + 2 * Math.sin(2 * t);
-      const y = Math.cos(t) - 2 * Math.cos(2 * t);
-      const z = -Math.sin(3 * t);
+      // Stretched lemniscate / figure-8 with z-depth for 3D flow
+      const x = Math.sin(t) * 1.8 + Math.sin(2 * t) * 0.6;
+      const y = Math.cos(t) * 0.5 - Math.cos(3 * t) * 0.35;
+      const z = Math.sin(2 * t) * 0.7 + Math.cos(t) * 0.3;
 
-      points.push(new THREE.Vector3(x * 0.22, y * 0.22, z * 0.22));
+      points.push(new THREE.Vector3(x * 0.35, y * 0.35, z * 0.35));
     }
 
     const curve = new THREE.CatmullRomCurve3(points, true, 'catmullrom', 0.5);
 
-    // Create tube with ribbon-like cross section (flattened)
-    const tubeGeo = new THREE.TubeGeometry(curve, 256, 0.028, 12, true);
+    // Wide, flat ribbon tube
+    const tubeGeo = new THREE.TubeGeometry(curve, 300, 0.06, 8, true);
 
-    // Flatten the tube into a ribbon by modifying normals direction
+    // Flatten into ribbon shape
     const pos = tubeGeo.attributes.position;
-    const normals = tubeGeo.attributes.normal;
     const count = pos.count;
-    const radialSegments = 13; // 12 + 1
-    const tubularSegments = 257; // 256 + 1
+    const radial = 9; // 8 + 1
+    const tubular = 301;
 
-    for (let i = 0; i < tubularSegments; i++) {
-      const t = (i / (tubularSegments - 1)) * Math.PI * 2;
-      // Möbius twist: rotate the cross-section as we go along
-      const twist = t * 1.5;
+    for (let i = 0; i < tubular; i++) {
+      const tParam = i / (tubular - 1);
+      const twist = tParam * Math.PI * 3; // Möbius-like twist
 
-      for (let j = 0; j < radialSegments; j++) {
-        const idx = i * radialSegments + j;
+      for (let j = 0; j < radial; j++) {
+        const idx = i * radial + j;
         if (idx >= count) continue;
 
-        const angle = (j / (radialSegments - 1)) * Math.PI * 2;
+        const angle = (j / (radial - 1)) * Math.PI * 2;
+        const curvePoint = curve.getPointAt(tParam);
 
-        // Get point on curve
-        const curvePoint = curve.getPointAt(i / (tubularSegments - 1));
-        const tangent = curve.getTangentAt(i / (tubularSegments - 1));
+        const dx = pos.getX(idx) - curvePoint.x;
+        const dy = pos.getY(idx) - curvePoint.y;
+        const dz = pos.getZ(idx) - curvePoint.z;
 
-        // Current position relative to curve center
-        const px = pos.getX(idx) - curvePoint.x;
-        const py = pos.getY(idx) - curvePoint.y;
-        const pz = pos.getZ(idx) - curvePoint.z;
+        // Flatten dramatically — keep width, squash height
+        const flatness = Math.cos(angle + twist);
+        const ribbonScale = 0.15 + 0.85 * Math.abs(flatness);
 
-        // Flatten: reduce one dimension to create ribbon
-        const flatFactor = Math.cos(angle + twist);
-        const scale = 0.3 + 0.7 * Math.abs(flatFactor);
-
-        pos.setX(idx, curvePoint.x + px * (1 + 0.3 * Math.sin(twist)));
-        pos.setY(idx, curvePoint.y + py * scale);
-        pos.setZ(idx, curvePoint.z + pz * (1 + 0.2 * Math.cos(twist)));
+        pos.setX(idx, curvePoint.x + dx * 1.4);
+        pos.setY(idx, curvePoint.y + dy * ribbonScale * 0.4);
+        pos.setZ(idx, curvePoint.z + dz * 1.2);
       }
     }
 
@@ -73,49 +67,50 @@ function SilkKnot() {
 
   useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.003;
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.08;
-      meshRef.current.rotation.z = Math.cos(state.clock.elapsedTime * 0.15) * 0.04;
+      meshRef.current.rotation.y += 0.002;
+      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.15) * 0.06;
+      meshRef.current.rotation.z = Math.cos(state.clock.elapsedTime * 0.12) * 0.03;
     }
   });
 
   return (
-    <Float speed={0.8} rotationIntensity={0.1} floatIntensity={0.2}>
-      <mesh ref={meshRef} geometry={geometry} scale={0.85}>
+    <Float speed={0.6} rotationIntensity={0.06} floatIntensity={0.12}>
+      <mesh ref={meshRef} geometry={geometry} scale={0.9}>
         <meshPhysicalMaterial
-          color="#1a1a2e"
-          metalness={0.7}
-          roughness={0.15}
+          color="#0a0a14"
+          metalness={0.8}
+          roughness={0.12}
           clearcoat={1}
-          clearcoatRoughness={0.05}
+          clearcoatRoughness={0.04}
           sheen={1}
-          sheenRoughness={0.3}
-          sheenColor={new THREE.Color('#6633cc')}
+          sheenRoughness={0.25}
+          sheenColor={new THREE.Color('#5522aa')}
           iridescence={1}
-          iridescenceIOR={1.5}
-          iridescenceThicknessRange={[100, 800]}
+          iridescenceIOR={1.4}
+          iridescenceThicknessRange={[100, 600]}
           reflectivity={1}
           transparent
-          opacity={0.45}
+          opacity={0.22}
           side={THREE.DoubleSide}
-          envMapIntensity={1.5}
+          envMapIntensity={2}
+          depthWrite={false}
         />
       </mesh>
     </Float>
   );
 }
 
-/* ── Subtle Particles ── */
+/* ── Particles ── */
 function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = 40;
+  const count = 30;
 
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
-      const r = 1.2 + Math.random() * 0.6;
+      const r = 1.0 + Math.random() * 0.5;
       pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       pos[i * 3 + 2] = r * Math.cos(phi);
@@ -125,7 +120,7 @@ function Particles() {
 
   useFrame((state) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.025;
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
     }
   });
 
@@ -134,7 +129,7 @@ function Particles() {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} count={count} />
       </bufferGeometry>
-      <pointsMaterial size={0.006} color="#7755cc" transparent opacity={0.35} sizeAttenuation depthWrite={false} />
+      <pointsMaterial size={0.004} color="#6644aa" transparent opacity={0.25} sizeAttenuation depthWrite={false} />
     </points>
   );
 }
@@ -165,8 +160,8 @@ function CameraParallax() {
   }, []);
 
   useFrame(() => {
-    target.current.x += (mouse.current.x * 0.1 - target.current.x) * 0.04;
-    target.current.y += (-mouse.current.y * 0.07 - target.current.y) * 0.04;
+    target.current.x += (mouse.current.x * 0.08 - target.current.x) * 0.03;
+    target.current.y += (-mouse.current.y * 0.06 - target.current.y) * 0.03;
     camera.position.x = target.current.x;
     camera.position.y = target.current.y;
     camera.lookAt(0, 0, 0);
@@ -176,29 +171,26 @@ function CameraParallax() {
 }
 
 const Hero3DScene = () => (
-  <div className="absolute inset-0 -z-10 pointer-events-none">
+  <div className="absolute inset-0 -z-10 pointer-events-none" style={{ opacity: 0.7 }}>
     <Canvas
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-      camera={{ position: [0, 0, 3.2], fov: 40 }}
+      camera={{ position: [0, 0, 3], fov: 42 }}
       style={{ background: 'transparent' }}
       dpr={[1, 1.5]}
     >
-      {/* Environment for reflections */}
       <Environment preset="night" />
+      <ambientLight intensity={0.08} />
+      <directionalLight position={[4, 3, 4]} intensity={0.4} />
+      <pointLight position={[-3, 2, -2]} intensity={0.7} color="#4466ff" distance={7} />
+      <pointLight position={[3, -1, 3]} intensity={0.4} color="#5522aa" distance={7} />
 
-      <ambientLight intensity={0.1} />
-      <directionalLight position={[5, 3, 5]} intensity={0.6} color="#ffffff" />
-      <pointLight position={[-3, 2, -2]} intensity={1} color="#4466ff" distance={8} />
-      <pointLight position={[3, -1, 3]} intensity={0.6} color="#6633cc" distance={8} />
-      <pointLight position={[0, -2, 1]} intensity={0.3} color="#9944ff" distance={6} />
-
-      <SilkKnot />
+      <SilkRibbon />
       <Particles />
       <CameraParallax />
 
       <EffectComposer>
-        <Bloom intensity={0.45} luminanceThreshold={0.3} luminanceSmoothing={0.9} mipmapBlur />
-        <Noise opacity={0.02} />
+        <Bloom intensity={0.3} luminanceThreshold={0.35} luminanceSmoothing={0.9} mipmapBlur />
+        <Noise opacity={0.015} />
       </EffectComposer>
     </Canvas>
   </div>
