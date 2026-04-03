@@ -85,7 +85,7 @@ const FooterReveal = () => {
         transition={{ duration: 0.8, delay: 0.3 }}
       >
         <p className="text-[11px] tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-          © {new Date().getFullYear()} INTINIWEBATELIER · All Rights Reserved
+          © {new Date().getFullYear()} INTINI WEB ATELIER · Digital Experiences
         </p>
       </motion.div>
     </footer>
