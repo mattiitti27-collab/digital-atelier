@@ -25,9 +25,7 @@ function getMaterial(type: MaterialType) {
 // ─── Floating Device / Site Preview Card ───
 function FloatingDevice() {
   const groupRef = useRef<THREE.Group>(null);
-  const brandName = useAtelierStore((s) => s.brandName);
   const palette = useAtelierStore((s) => s.palette);
-  const material = useAtelierStore((s) => s.material);
 
   const paletteColors = palettes.find((p) => p.id === palette)?.colors || palettes[0].colors;
 
@@ -42,36 +40,20 @@ function FloatingDevice() {
   return (
     <Float speed={0.8} rotationIntensity={0.05} floatIntensity={0.15}>
       <group ref={groupRef}>
-        {/* Device Frame — like a floating MacBook/iPad screen */}
         <RoundedBox args={[2.8, 1.7, 0.04]} radius={0.04} smoothness={8} position={[0, 0, 0]}>
-          <meshPhysicalMaterial
-            color="#111111"
-            metalness={0.95}
-            roughness={0.1}
-            clearcoat={1}
-            clearcoatRoughness={0.05}
-            envMapIntensity={1.5}
-          />
+          <meshPhysicalMaterial color="#111111" metalness={0.95} roughness={0.1} clearcoat={1} clearcoatRoughness={0.05} envMapIntensity={1.5} />
         </RoundedBox>
 
-        {/* Screen surface */}
         <mesh position={[0, 0, 0.021]}>
           <planeGeometry args={[2.6, 1.5]} />
-          <meshPhysicalMaterial
-            color={paletteColors[0]}
-            metalness={0.1}
-            roughness={0.8}
-            envMapIntensity={0.3}
-          />
+          <meshPhysicalMaterial color={paletteColors[0]} metalness={0.1} roughness={0.8} envMapIntensity={0.3} />
         </mesh>
 
-        {/* Nav bar mockup */}
         <mesh position={[0, 0.62, 0.022]}>
           <planeGeometry args={[2.5, 0.06]} />
           <meshBasicMaterial color={paletteColors[2]} transparent opacity={0.5} />
         </mesh>
 
-        {/* Hero text area */}
         <mesh position={[-0.5, 0.2, 0.022]}>
           <planeGeometry args={[1.2, 0.04]} />
           <meshBasicMaterial color={paletteColors[4]} transparent opacity={0.7} />
@@ -85,33 +67,23 @@ function FloatingDevice() {
           <meshBasicMaterial color={paletteColors[3]} transparent opacity={0.25} />
         </mesh>
 
-        {/* CTA button mockup */}
         <RoundedBox args={[0.5, 0.1, 0.005]} radius={0.02} smoothness={4} position={[-0.65, -0.12, 0.022]}>
           <meshBasicMaterial color={paletteColors[3]} transparent opacity={0.6} />
         </RoundedBox>
 
-        {/* Image placeholder on right */}
         <RoundedBox args={[0.8, 0.7, 0.005]} radius={0.02} smoothness={4} position={[0.8, 0.05, 0.022]}>
           <meshPhysicalMaterial color={paletteColors[1]} metalness={0.2} roughness={0.6} />
         </RoundedBox>
 
-        {/* Bottom grid cards */}
         {[-0.85, -0.15, 0.55].map((x, i) => (
           <RoundedBox key={i} args={[0.6, 0.35, 0.005]} radius={0.015} smoothness={4} position={[x, -0.45, 0.022]}>
             <meshPhysicalMaterial color={paletteColors[i === 1 ? 2 : 1]} metalness={0.1} roughness={0.7} transparent opacity={0.4} />
           </RoundedBox>
         ))}
 
-        {/* Screen reflection/gloss overlay */}
         <mesh position={[0, 0, 0.025]}>
           <planeGeometry args={[2.6, 1.5]} />
-          <meshPhysicalMaterial
-            transparent
-            opacity={0.03}
-            color="#ffffff"
-            metalness={1}
-            roughness={0}
-          />
+          <meshPhysicalMaterial transparent opacity={0.03} color="#ffffff" metalness={1} roughness={0} />
         </mesh>
       </group>
     </Float>
@@ -135,16 +107,7 @@ function BrandText3D() {
   return (
     <group ref={groupRef} position={[0, 1.4, 0]}>
       <Center>
-        <Text3D
-          font="/fonts/inter_bold.json"
-          size={0.2}
-          height={0.06}
-          bevelEnabled
-          bevelThickness={0.01}
-          bevelSize={0.005}
-          bevelSegments={3}
-          curveSegments={16}
-        >
+        <Text3D font="/fonts/inter_bold.json" size={0.2} height={0.06} bevelEnabled bevelThickness={0.01} bevelSize={0.005} bevelSegments={3} curveSegments={16}>
           {brandName}
           {getMaterial(material)}
         </Text3D>
@@ -190,156 +153,17 @@ function ModuleParticles() {
   );
 }
 
-// ─── Physical Spotlight Fixture ───
-function SpotlightFixture({ position, target = [0, 0, 0], color = '#fff5e6', intensity = 2.5 }: {
-  position: [number, number, number];
-  target?: [number, number, number];
-  color?: string;
-  intensity?: number;
-}) {
-  const lightRef = useRef<THREE.SpotLight>(null);
-  const targetObj = useMemo(() => {
-    const t = new THREE.Object3D();
-    t.position.set(...target);
-    return t;
-  }, [target]);
-
-  useFrame(() => {
-    if (lightRef.current) {
-      lightRef.current.target = targetObj;
-    }
-  });
-
-  // Direction from position to target for fixture rotation
-  const dir = useMemo(() => {
-    const d = new THREE.Vector3(...target).sub(new THREE.Vector3(...position)).normalize();
-    return d;
-  }, [position, target]);
-
-  const rotation = useMemo(() => {
-    const q = new THREE.Quaternion();
-    q.setFromUnitVectors(new THREE.Vector3(0, -1, 0), dir);
-    const e = new THREE.Euler().setFromQuaternion(q);
-    return [e.x, e.y, e.z] as [number, number, number];
-  }, [dir]);
-
-  // Light cone geometry
-  const coneLength = useMemo(() => {
-    return new THREE.Vector3(...position).distanceTo(new THREE.Vector3(...target)) * 0.7;
-  }, [position, target]);
-
-  return (
-    <group position={position}>
-      {/* Fixture body — larger black metal cylinder */}
-      <group rotation={rotation}>
-        <mesh>
-          <cylinderGeometry args={[0.2, 0.3, 0.6, 16]} />
-          <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.3} />
-        </mesh>
-        {/* Barn door rim */}
-        <mesh position={[0, -0.32, 0]}>
-          <cylinderGeometry args={[0.31, 0.33, 0.08, 16]} />
-          <meshStandardMaterial color="#0a0a0a" metalness={0.95} roughness={0.2} />
-        </mesh>
-        {/* Inner glow lens — bright */}
-        <mesh position={[0, -0.35, 0]}>
-          <circleGeometry args={[0.24, 20]} />
-          <meshBasicMaterial color={color} transparent opacity={0.8} />
-        </mesh>
-        {/* Outer glow halo */}
-        <mesh position={[0, -0.36, 0]}>
-          <ringGeometry args={[0.24, 0.45, 24]} />
-          <meshBasicMaterial color={color} transparent opacity={0.15} side={THREE.DoubleSide} />
-        </mesh>
-
-        {/* Visible light cone / beam */}
-        <mesh position={[0, -coneLength / 2 - 0.36, 0]}>
-          <coneGeometry args={[coneLength * 0.35, coneLength, 16, 1, true]} />
-          <meshBasicMaterial
-            color={color}
-            transparent
-            opacity={0.04}
-            side={THREE.DoubleSide}
-            blending={THREE.AdditiveBlending}
-            depthWrite={false}
-          />
-        </mesh>
-      </group>
-
-      {/* Mounting yoke — U-bracket */}
-      <mesh position={[-0.18, 0.15, 0]}>
-        <cylinderGeometry args={[0.015, 0.015, 0.5, 6]} />
-        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
-      </mesh>
-      <mesh position={[0.18, 0.15, 0]}>
-        <cylinderGeometry args={[0.015, 0.015, 0.5, 6]} />
-        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
-      </mesh>
-      {/* Top bar connecting yoke */}
-      <mesh position={[0, 0.42, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.015, 0.015, 0.4, 6]} />
-        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
-      </mesh>
-      {/* Clamp */}
-      <mesh position={[0, 0.55, 0]}>
-        <boxGeometry args={[0.1, 0.1, 0.1]} />
-        <meshStandardMaterial color="#222222" metalness={0.85} roughness={0.3} />
-      </mesh>
-
-      {/* Point glow at lens — visible bloom source */}
-      <pointLight position={[0, 0, 0]} intensity={0.5} color={color} distance={1.5} />
-
-      {/* Actual spotlight */}
-      <spotLight
-        ref={lightRef}
-        intensity={intensity}
-        angle={0.4}
-        penumbra={0.8}
-        color={color}
-        castShadow
-        shadow-mapSize={1024}
-        distance={15}
-      />
-      <primitive object={targetObj} />
-    </group>
-  );
-}
-
-// ─── Cinema Rig (visible fixtures + lights) ───
-function CinemaRig() {
+// ─── Simple Lighting ───
+function SimpleLighting() {
   return (
     <>
-      {/* Front-left key light — visible in frame */}
-      <SpotlightFixture position={[-2.2, 2, 2]} target={[0, 0, 0]} color="#fff5e6" intensity={3} />
-      {/* Front-right fill */}
-      <SpotlightFixture position={[2.2, 2, 2]} target={[0, 0, 0]} color="#d4e5ff" intensity={1.8} />
-      {/* Back-left rim */}
-      <SpotlightFixture position={[-2.5, 2.2, -2]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
-      {/* Back-right rim */}
-      <SpotlightFixture position={[2.5, 2.2, -2]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
-      {/* Top center — hero spot */}
-      <SpotlightFixture position={[0, 3.2, 0.5]} target={[0, 0, 0]} color="#ffffff" intensity={2.5} />
-      {/* Low side accents — on floor level */}
-      <SpotlightFixture position={[-3, 0.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
-      <SpotlightFixture position={[3, 0.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
-
-      {/* Ceiling truss — lower to be visible */}
-      {[-2, 0, 2].map((z) => (
-        <mesh key={z} position={[0, 3, z]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.02, 0.02, 7, 6]} />
-          <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
-        </mesh>
-      ))}
-      {[-3, -1.5, 0, 1.5, 3].map((x) => (
-        <mesh key={x} position={[x, 3, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.015, 0.015, 4.5, 6]} />
-          <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
-        </mesh>
-      ))}
-
-      {/* Floor bounce */}
-      <pointLight position={[0, -2, 0]} intensity={0.1} color="#1a1a2e" />
-      <ambientLight intensity={0.04} />
+      <spotLight position={[4, 6, 3]} intensity={2.5} angle={0.35} penumbra={0.9} color="#fff5e6" castShadow shadow-mapSize={1024} />
+      <spotLight position={[-5, 4, 2]} intensity={1.2} angle={0.4} penumbra={1} color="#d4e5ff" />
+      <spotLight position={[0, 3, -5]} intensity={1.8} angle={0.5} penumbra={0.8} color="#d4a574" />
+      <spotLight position={[-6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      <spotLight position={[6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      <pointLight position={[0, -2, 0]} intensity={0.15} color="#1a1a2e" />
+      <ambientLight intensity={0.06} />
     </>
   );
 }
@@ -348,17 +172,10 @@ function CinemaRig() {
 function DarkRoomFloor() {
   return (
     <>
-      {/* Reflective dark floor */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.3, 0]} receiveShadow>
         <planeGeometry args={[20, 20]} />
-        <meshPhysicalMaterial
-          color="#050505"
-          metalness={0.85}
-          roughness={0.1}
-          envMapIntensity={0.6}
-        />
+        <meshPhysicalMaterial color="#050505" metalness={0.85} roughness={0.1} envMapIntensity={0.6} />
       </mesh>
-      {/* Back wall — barely visible */}
       <mesh position={[0, 1.5, -5]} receiveShadow>
         <planeGeometry args={[20, 8]} />
         <meshStandardMaterial color="#030303" metalness={0.2} roughness={0.9} />
@@ -371,7 +188,7 @@ function DarkRoomFloor() {
 function SceneContent() {
   return (
     <>
-      <CinemaRig />
+      <SimpleLighting />
 
       <Suspense fallback={null}>
         <FloatingDevice />
@@ -383,7 +200,7 @@ function SceneContent() {
 
       <EffectComposer>
         <DepthOfField focusDistance={0.02} focalLength={0.05} bokehScale={2} />
-        <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.8} intensity={1.2} mipmapBlur />
+        <Bloom luminanceThreshold={0.4} luminanceSmoothing={0.9} intensity={0.6} />
         <Noise opacity={0.03} />
         <Vignette eskil={false} offset={0.15} darkness={0.85} />
       </EffectComposer>
@@ -396,7 +213,7 @@ const AtelierScene = () => {
     <div className="fixed inset-0 z-0">
       <Canvas
         shadows
-        camera={{ position: [0, 0.8, 5.5], fov: 50 }}
+        camera={{ position: [0, 0.5, 4.5], fov: 40 }}
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
         dpr={[1, 2]}
         style={{ background: '#020202' }}
