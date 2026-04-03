@@ -1,62 +1,107 @@
-import { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import logo3d from '@/assets/logo-3d.png';
+import { useRef, useMemo } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Float } from '@react-three/drei';
+import * as THREE from 'three';
 
-const Hero3DScene = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const currentRef = useRef({ x: 0, y: 0, rotX: 0, rotY: 0 });
-  const rafRef = useRef<number>(0);
+const RibbonKnot = () => {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.MeshPhysicalMaterial>(null);
 
-  useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseRef.current.y = (e.clientY / window.innerHeight - 0.5) * 2;
-    };
-
-    const animate = () => {
-      const c = currentRef.current;
-      const m = mouseRef.current;
-      c.rotY += (m.x * 8 - c.rotY) * 0.03;
-      c.rotX += (-m.y * 5 - c.rotX) * 0.03;
-      c.x += (m.x * 15 - c.x) * 0.02;
-      c.y += (m.y * 10 - c.y) * 0.02;
-
-      if (containerRef.current) {
-        containerRef.current.style.transform =
-          `translate(${c.x}px, ${c.y}px) rotateY(${c.rotY}deg) rotateX(${c.rotX}deg)`;
-      }
-      rafRef.current = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener('mousemove', onMove);
-    rafRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      cancelAnimationFrame(rafRef.current);
-    };
+  const geometry = useMemo(() => {
+    const curve = new THREE.CatmullRomCurve3(
+      [
+        new THREE.Vector3(0, 0, 0),
+        new THREE.Vector3(1.5, 1, 0.8),
+        new THREE.Vector3(2.5, 0.3, -0.5),
+        new THREE.Vector3(1.8, -1.2, 0.6),
+        new THREE.Vector3(0, -1.5, -0.3),
+        new THREE.Vector3(-1.8, -1.2, 0.8),
+        new THREE.Vector3(-2.5, 0.3, -0.6),
+        new THREE.Vector3(-1.5, 1, 0.5),
+        new THREE.Vector3(-0.5, 1.8, -0.4),
+        new THREE.Vector3(0.8, 2, 0.3),
+        new THREE.Vector3(1.5, 1.2, -0.8),
+        new THREE.Vector3(0.5, -0.2, -1),
+        new THREE.Vector3(-0.8, -0.8, 0.5),
+        new THREE.Vector3(-1.2, 0.5, 1),
+        new THREE.Vector3(0, 0, 0),
+      ],
+      true,
+      'catmullrom',
+      0.5
+    );
+    return new THREE.TubeGeometry(curve, 200, 0.08, 12, true);
   }, []);
 
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = clock.getElapsedTime() * 0.15;
+      meshRef.current.rotation.x = Math.sin(clock.getElapsedTime() * 0.1) * 0.1;
+    }
+    if (materialRef.current) {
+      materialRef.current.iridescenceIOR = 1.3 + Math.sin(clock.getElapsedTime() * 0.5) * 0.15;
+    }
+  });
+
   return (
-    <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none" style={{ marginTop: '-4vh' }}>
-      <motion.div
-        ref={containerRef}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-        style={{ perspective: '1000px', willChange: 'transform' }}
-      >
-        <motion.img
-          src={logo3d}
-          alt="Intini Web Atelier Logo"
-          className="w-[38vw] max-w-[480px] h-auto select-none opacity-60"
-          style={{ filter: 'drop-shadow(0 0 60px rgba(119, 51, 204, 0.25))' }}
-          animate={{ y: [0, -8, 0] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          draggable={false}
+    <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.5}>
+      <mesh ref={meshRef} geometry={geometry} scale={1.1}>
+        <meshPhysicalMaterial
+          ref={materialRef}
+          color="#6a3d99"
+          metalness={0.2}
+          roughness={0.15}
+          transmission={0.6}
+          thickness={1.5}
+          ior={1.5}
+          iridescence={1}
+          iridescenceIOR={1.3}
+          clearcoat={1}
+          clearcoatRoughness={0.05}
+          envMapIntensity={2}
+          transparent
+          opacity={0.85}
         />
-      </motion.div>
+      </mesh>
+    </Float>
+  );
+};
+
+const GoldSphere = () => {
+  const ref = useRef<THREE.Mesh>(null);
+
+  useFrame(({ clock }) => {
+    if (ref.current) {
+      const t = clock.getElapsedTime() * 0.4;
+      ref.current.position.x = Math.cos(t) * 1.2;
+      ref.current.position.y = Math.sin(t * 1.3) * 0.8;
+      ref.current.position.z = Math.sin(t * 0.7) * 0.5;
+    }
+  });
+
+  return (
+    <mesh ref={ref}>
+      <sphereGeometry args={[0.12, 32, 32]} />
+      <meshStandardMaterial color="#d4a574" metalness={0.9} roughness={0.1} />
+    </mesh>
+  );
+};
+
+const Hero3DScene = () => {
+  return (
+    <div className="absolute inset-0 -z-10 pointer-events-none" style={{ marginTop: '-4vh' }}>
+      <Canvas
+        camera={{ position: [0, 0, 6], fov: 45 }}
+        gl={{ antialias: true, alpha: true }}
+        style={{ background: 'transparent' }}
+      >
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <directionalLight position={[-3, -2, 4]} intensity={0.5} color="#7733cc" />
+        <pointLight position={[0, 0, 3]} intensity={0.8} color="#d4a574" />
+        <RibbonKnot />
+        <GoldSphere />
+      </Canvas>
     </div>
   );
 };
