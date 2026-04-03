@@ -17,26 +17,62 @@ const CookieBanner = () => {
 
   return (
     <div
-      className="fixed bottom-6 left-6 z-[100] max-w-sm rounded-2xl border border-border p-5"
+      className="fixed z-[90] max-w-xs rounded-xl p-5"
       style={{
-        background: 'rgba(255,255,255,0.04)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
+        bottom: 'calc(24px + env(safe-area-inset-bottom, 0px))',
+        left: 'calc(24px + env(safe-area-inset-left, 0px))',
+        background: 'rgba(10,10,10,0.7)',
+        backdropFilter: 'blur(30px)',
+        WebkitBackdropFilter: 'blur(30px)',
+        border: '1px solid rgba(255,255,255,0.06)',
       }}
     >
-      <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-        Utilizziamo cookie per migliorare la tua esperienza. Scegli le tue preferenze.
+      <p
+        className="text-[11px] leading-[1.7] mb-5"
+        style={{ color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
+      >
+        Utilizziamo cookie per migliorare la tua esperienza.
       </p>
       <div className="flex gap-3">
         <button
           onClick={() => accept('all')}
-          className="flex-1 rounded-lg bg-foreground text-background text-xs font-medium py-2.5 px-4 transition-opacity hover:opacity-80"
+          className="flex-1 rounded-md text-[10px] tracking-[0.15em] uppercase py-2.5 px-4 transition-all duration-300"
+          style={{
+            background: 'transparent',
+            border: '1px solid rgba(212,165,116,0.35)',
+            color: '#d4a574',
+            fontFamily: 'var(--font-body)',
+            fontWeight: 400,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(212,165,116,0.1)';
+            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'transparent';
+            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
+          }}
         >
           Accetta
         </button>
         <button
           onClick={() => accept('necessary')}
-          className="flex-1 rounded-lg border border-border text-foreground text-xs font-medium py-2.5 px-4 transition-opacity hover:opacity-80"
+          className="flex-1 rounded-md text-[10px] tracking-[0.15em] uppercase py-2.5 px-4 transition-all duration-300"
+          style={{
+            background: 'transparent',
+            border: '1px solid rgba(255,255,255,0.08)',
+            color: 'rgba(255,255,255,0.35)',
+            fontFamily: 'var(--font-body)',
+            fontWeight: 400,
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+            e.currentTarget.style.color = 'rgba(255,255,255,0.6)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+            e.currentTarget.style.color = 'rgba(255,255,255,0.35)';
+          }}
         >
           Necessari
         </button>

@@ -115,7 +115,8 @@ function ProjectCard({ project }: { project: Project }) {
             {project.title}
           </h3>
           <p
-            className="text-muted-foreground text-xs tracking-[0.2em] uppercase"
+          className="text-[11px] tracking-[0.2em] uppercase"
+          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.35)' }}
             style={{ fontFamily: 'var(--font-body)' }}
           >
             {project.subtitle}

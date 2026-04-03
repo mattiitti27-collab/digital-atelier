@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const FOOTER_HEIGHT = 420;
+const FOOTER_HEIGHT = 520;
 
 const FooterReveal = () => {
   return (
@@ -9,17 +9,16 @@ const FooterReveal = () => {
       <div style={{ height: FOOTER_HEIGHT }} />
 
       <footer
-        className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center justify-center px-6 py-12 md:py-16"
+        className="fixed bottom-0 left-0 right-0 z-0 flex flex-col items-center justify-center px-8 md:px-16"
         style={{
           height: FOOTER_HEIGHT,
           background: '#050505',
-          borderTop: '1px solid rgba(255,255,255,0.04)',
         }}
       >
         {/* Brand */}
         <motion.p
-          className="text-[10px] md:text-[11px] tracking-[0.4em] uppercase mb-10"
-          style={{ color: '#d4a574', fontFamily: 'var(--font-display)' }}
+          className="text-xs md:text-sm tracking-[0.45em] uppercase mb-14"
+          style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -30,7 +29,7 @@ const FooterReveal = () => {
 
         {/* Main info grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 text-center md:text-left max-w-3xl w-full mb-10"
+          className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 text-center max-w-4xl w-full mb-14"
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -39,14 +38,14 @@ const FooterReveal = () => {
           {/* Column 1 — About */}
           <div>
             <p
-              className="text-[8px] tracking-[0.25em] uppercase mb-3"
-              style={{ color: 'rgba(212,165,116,0.6)' }}
+              className="text-[10px] tracking-[0.3em] uppercase mb-4"
+              style={{ color: 'rgba(212,165,116,0.55)' }}
             >
               Sartoria Digitale
             </p>
             <p
-              className="text-[9px] leading-relaxed"
-              style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)' }}
+              className="text-[11px] md:text-xs leading-[1.8]"
+              style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
               Siti web su misura e di altissimo lusso per clienti esclusivi.
             </p>
@@ -55,13 +54,24 @@ const FooterReveal = () => {
           {/* Column 2 — Contatti */}
           <div>
             <p
-              className="text-[8px] tracking-[0.25em] uppercase mb-3"
-              style={{ color: 'rgba(212,165,116,0.6)' }}
+              className="text-[10px] tracking-[0.3em] uppercase mb-4"
+              style={{ color: 'rgba(212,165,116,0.55)' }}
             >
               Contatti
             </p>
-            <p className="text-[9px] leading-loose" style={{ color: 'rgba(255,255,255,0.35)' }}>
-              <a href="https://wa.me/393345415707" target="_blank" rel="noopener noreferrer" className="hover:text-[#d4a574] transition-colors">
+            <p
+              className="text-[11px] md:text-xs leading-[2]"
+              style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
+            >
+              <a
+                href="https://wa.me/393345415707"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors duration-300"
+                style={{ color: 'rgba(255,255,255,0.4)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+              >
                 +39 334 541 5707 · WhatsApp
               </a>
               <br />
@@ -72,12 +82,15 @@ const FooterReveal = () => {
           {/* Column 3 — Dati Legali */}
           <div>
             <p
-              className="text-[8px] tracking-[0.25em] uppercase mb-3"
-              style={{ color: 'rgba(212,165,116,0.6)' }}
+              className="text-[10px] tracking-[0.3em] uppercase mb-4"
+              style={{ color: 'rgba(212,165,116,0.55)' }}
             >
               Dati Legali
             </p>
-            <p className="text-[9px] leading-loose" style={{ color: 'rgba(255,255,255,0.35)' }}>
+            <p
+              className="text-[11px] md:text-xs leading-[2]"
+              style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
+            >
               Mattia Intini
               <br />
               Libero Professionista
@@ -87,17 +100,22 @@ const FooterReveal = () => {
           </div>
         </motion.div>
 
+        {/* Divider */}
+        <div className="w-full max-w-4xl mx-auto" style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }} />
+
         {/* Bottom bar */}
         <motion.div
-          className="pt-6 text-center"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}
+          className="pt-8 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <p className="text-[7px] tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.18)' }}>
-            INTINIWEBATELIER · © {new Date().getFullYear()} · ALL RIGHTS RESERVED
+          <p
+            className="text-[9px] tracking-[0.25em] uppercase"
+            style={{ color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
+          >
+            © {new Date().getFullYear()} INTINIWEBATELIER · All Rights Reserved
           </p>
         </motion.div>
       </footer>

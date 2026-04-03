@@ -7,7 +7,7 @@ const FloatingButler = () => {
 
   return (
     <div
-      className="fixed z-50"
+      className="fixed z-[95]"
       style={{
         bottom: 'calc(24px + env(safe-area-inset-bottom, 0px))',
         right: 'calc(24px + env(safe-area-inset-right, 0px))',
@@ -16,7 +16,7 @@ const FloatingButler = () => {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="absolute bottom-14 right-0 flex flex-col gap-2"
+            className="absolute bottom-16 right-0 flex flex-col gap-2.5"
             initial={{ opacity: 0, y: 10, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.9 }}
@@ -26,10 +26,10 @@ const FloatingButler = () => {
               href="https://wa.me/393345415707"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full text-[9px] tracking-[0.15em] uppercase whitespace-nowrap transition-all hover:scale-105"
+              className="flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase whitespace-nowrap transition-all duration-300 hover:scale-105"
               style={{
-                background: 'rgba(37,211,102,0.12)',
-                border: '1px solid rgba(37,211,102,0.3)',
+                background: 'rgba(37,211,102,0.08)',
+                border: '1px solid rgba(37,211,102,0.2)',
                 color: '#25d366',
                 backdropFilter: 'blur(20px)',
               }}
@@ -39,10 +39,10 @@ const FloatingButler = () => {
             </a>
             <a
               href="mailto:info@intiniwebatelier.com"
-              className="flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full text-[9px] tracking-[0.15em] uppercase whitespace-nowrap transition-all hover:scale-105"
+              className="flex items-center gap-2.5 pl-4 pr-5 py-2.5 rounded-full text-[10px] tracking-[0.15em] uppercase whitespace-nowrap transition-all duration-300 hover:scale-105"
               style={{
-                background: 'rgba(212,165,116,0.1)',
-                border: '1px solid rgba(212,165,116,0.25)',
+                background: 'rgba(212,165,116,0.06)',
+                border: '1px solid rgba(212,165,116,0.2)',
                 color: '#d4a574',
                 backdropFilter: 'blur(20px)',
               }}
@@ -56,27 +56,27 @@ const FloatingButler = () => {
 
       <motion.button
         onClick={() => setOpen((v) => !v)}
-        className="w-12 h-12 rounded-full flex items-center justify-center transition-all"
+        className="w-12 h-12 rounded-full flex items-center justify-center"
         style={{
           background: open
-            ? 'rgba(255,255,255,0.08)'
-            : 'linear-gradient(135deg, rgba(212,165,116,0.2), rgba(212,165,116,0.08))',
-          border: `1px solid ${open ? 'rgba(255,255,255,0.12)' : 'rgba(212,165,116,0.35)'}`,
+            ? 'rgba(255,255,255,0.05)'
+            : 'rgba(212,165,116,0.08)',
+          border: `1px solid ${open ? 'rgba(255,255,255,0.08)' : 'rgba(212,165,116,0.25)'}`,
           backdropFilter: 'blur(20px)',
-          color: open ? 'rgba(255,255,255,0.6)' : '#d4a574',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+          color: open ? 'rgba(255,255,255,0.5)' : '#d4a574',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
         }}
-        whileHover={{ scale: 1.08 }}
+        whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
       >
         <AnimatePresence mode="wait">
           {open ? (
             <motion.span key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-              <X size={18} />
+              <X size={17} />
             </motion.span>
           ) : (
             <motion.span key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-              <MessageCircle size={18} />
+              <MessageCircle size={17} />
             </motion.span>
           )}
         </AnimatePresence>
