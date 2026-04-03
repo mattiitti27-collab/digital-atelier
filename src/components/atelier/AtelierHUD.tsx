@@ -680,7 +680,7 @@ const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
               {phase === 'animations' && <AnimationsPhase key="animations" />}
               {phase === 'layout' && <LayoutPhase key="layout" />}
               {phase === 'arsenal' && <ArsenalPhase key="arsenal" />}
-              {phase === 'budget' && <BudgetPhase key="budget" />}
+              {phase === 'signature' && <SignaturePhase key="signature" />}
               {phase === 'signature' && <SignaturePhase key="signature" />}
             </AnimatePresence>
           </div>
