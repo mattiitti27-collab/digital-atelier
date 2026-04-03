@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Type, Move, Copy, Trash2, Pencil } from 'lucide-react';
-import { useEditorStore, SiteElement, ElementType } from '@/stores/editorStore';
+import { useEditorStore, SiteElement, ElementType, ElementOverrides } from '@/stores/editorStore';
 
 interface EditableElementProps {
   id: string;
@@ -13,17 +13,20 @@ interface EditableElementProps {
   style?: React.CSSProperties;
 }
 
+const EMPTY_OVERRIDES = Object.freeze({}) as ElementOverrides;
+
 // Register element on mount
 function useRegisterElement(el: Omit<SiteElement, 'children'>) {
-  const setElements = useEditorStore((s) => s.setElements);
-
   useEffect(() => {
-    const elements = useEditorStore.getState().elements;
-    const exists = elements.find((e) => e.id === el.id);
-    if (!exists) {
-      setElements([...elements, { ...el }]);
-    }
-  }, [el.id, setElements]);
+    useEditorStore.setState((state) => {
+      const exists = state.elements.some((element) => element.id === el.id);
+      if (exists) return state;
+
+      return {
+        elements: [...state.elements, { ...el }],
+      };
+    });
+  }, [el.id, el.label, el.parentId, el.type]);
 }
 
 export function EditableElement({ id, type, label, parentId, children, className = '', style = {} }: EditableElementProps) {
@@ -31,7 +34,7 @@ export function EditableElement({ id, type, label, parentId, children, className
   const hoveredId = useEditorStore((s) => s.hoveredElementId);
   const setSelected = useEditorStore((s) => s.setSelectedElement);
   const setHovered = useEditorStore((s) => s.setHoveredElement);
-  const overrides = useEditorStore((s) => s.overrides[id] || {});
+  const overrides = useEditorStore((s) => s.overrides[id] ?? EMPTY_OVERRIDES);
   const ref = useRef<HTMLDivElement>(null);
 
   useRegisterElement({ id, type, label, parentId });
