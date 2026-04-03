@@ -29,25 +29,13 @@ const Marquee = () => {
     const track = trackRef.current;
     const totalWidth = track.scrollWidth / 2;
 
+    // Scroll to RIGHT → positive x direction, start from -totalWidth
+    gsap.set(track, { x: -totalWidth });
     gsap.to(track, {
-      x: -totalWidth,
-      duration: 30,
+      x: 0,
+      duration: 40,
       ease: 'none',
       repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize((x: number) => parseFloat(String(x)) % totalWidth),
-      },
-    });
-
-    gsap.to(track, {
-      scrollTrigger: {
-        trigger: track,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1,
-      },
-      x: `-=${totalWidth * 0.3}`,
-      ease: 'none',
     });
 
     return () => {
@@ -59,24 +47,24 @@ const Marquee = () => {
 
   const renderItems = () =>
     LOGOS.map((logo, i) => (
-      <span key={i} className="flex items-center gap-8 md:gap-12 whitespace-nowrap px-4 md:px-6">
+      <span key={i} className="flex items-center gap-16 md:gap-24 whitespace-nowrap px-8 md:px-14">
         <img
           src={logo.src}
           alt={logo.alt}
-          className="h-10 md:h-14 lg:h-16 w-auto object-contain"
-          style={{ filter: 'brightness(0.6) contrast(1.2)', opacity: 0.35 }}
+          className="h-14 md:h-20 lg:h-24 w-auto object-contain transition-opacity duration-500 hover:opacity-100"
+          style={{ filter: 'brightness(0.8) contrast(1.1)', opacity: 0.5 }}
           loading="lazy"
         />
         <span
           className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-          style={{ background: 'rgba(212,165,116,0.3)' }}
+          style={{ background: 'rgba(212,165,116,0.25)' }}
         />
       </span>
     ));
 
   return (
-    <div className="relative py-8 md:py-16 overflow-hidden pointer-events-none select-none">
-      <div ref={trackRef} className="flex items-center gap-8" style={{ width: 'max-content' }}>
+    <div className="relative py-10 md:py-20 overflow-hidden pointer-events-none select-none">
+      <div ref={trackRef} className="flex items-center" style={{ width: 'max-content' }}>
         {renderItems()}
         {renderItems()}
       </div>

@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate();
   const { lang, t, toggleLang } = useLanguage();
 
   const NAV_ITEMS = [
     { label: t.nav.chiSiamo, href: '#chi-siamo' },
     { label: t.nav.lavori, href: '#portfolio' },
-    { label: t.nav.atelier, href: '/atelier', isRoute: true },
+    { label: t.nav.servizi, href: '#servizi' },
+    { label: t.nav.atelier, href: '#atelier' },
     { label: t.nav.faq, href: '#faq' },
     { label: t.nav.contatti, href: '#contatti' },
   ];
@@ -25,12 +24,8 @@ const Navbar = () => {
 
   const handleNav = (item: typeof NAV_ITEMS[0]) => {
     setMobileOpen(false);
-    if ('isRoute' in item && item.isRoute) {
-      navigate(item.href);
-    } else {
-      const el = document.querySelector(item.href);
-      el?.scrollIntoView({ behavior: 'smooth' });
-    }
+    const el = document.querySelector(item.href);
+    el?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -108,30 +103,12 @@ const Navbar = () => {
             {lang === 'it' ? 'EN' : 'IT'}
           </button>
           <button
-            className="flex flex-col gap-[5px]"
+            className="flex flex-col gap-[5px] min-h-[44px] min-w-[44px] items-center justify-center"
             onClick={() => setMobileOpen((v) => !v)}
           >
-            <span
-              className="block w-5 h-px transition-all duration-300"
-              style={{
-                background: '#d4a574',
-                transform: mobileOpen ? 'rotate(45deg) translateY(3px)' : 'none',
-              }}
-            />
-            <span
-              className="block w-5 h-px transition-all duration-300"
-              style={{
-                background: '#d4a574',
-                opacity: mobileOpen ? 0 : 1,
-              }}
-            />
-            <span
-              className="block w-5 h-px transition-all duration-300"
-              style={{
-                background: '#d4a574',
-                transform: mobileOpen ? 'rotate(-45deg) translateY(-3px)' : 'none',
-              }}
-            />
+            <span className="block w-5 h-px transition-all duration-300" style={{ background: '#d4a574', transform: mobileOpen ? 'rotate(45deg) translateY(3px)' : 'none' }} />
+            <span className="block w-5 h-px transition-all duration-300" style={{ background: '#d4a574', opacity: mobileOpen ? 0 : 1 }} />
+            <span className="block w-5 h-px transition-all duration-300" style={{ background: '#d4a574', transform: mobileOpen ? 'rotate(-45deg) translateY(-3px)' : 'none' }} />
           </button>
         </div>
       </div>
@@ -139,7 +116,7 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden flex flex-col items-center gap-8 pb-10"
+            className="md:hidden flex flex-col items-center gap-6 pb-8"
             style={{ background: 'rgba(5,5,5,0.95)', backdropFilter: 'blur(20px)' }}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}

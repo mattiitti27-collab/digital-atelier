@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Preloader from '@/components/Preloader';
 import SmoothScroll from '@/components/SmoothScroll';
 import WebGLBackground from '@/components/WebGLBackground';
@@ -14,29 +15,51 @@ import Navbar from '@/components/Navbar';
 import AboutSection from '@/components/AboutSection';
 import Marquee from '@/components/Marquee';
 import ParallaxElements from '@/components/ParallaxElements';
+import ServicesSection from '@/components/ServicesSection';
+import AtelierPreview from '@/components/AtelierPreview';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [revealed, setRevealed] = useState(false);
   const { t } = useLanguage();
 
   const handlePreloaderComplete = useCallback(() => {
     setLoaded(true);
   }, []);
 
+  useEffect(() => {
+    if (loaded) {
+      const timer = setTimeout(() => setRevealed(true), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [loaded]);
+
   return (
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
       <ParallaxElements />
-      <Navbar />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={revealed ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Navbar />
+      </motion.div>
       <SmoothScroll>
         <main className="relative z-10">
-          <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
+          <motion.section
+            id="hero"
+            className="relative flex min-h-screen items-center justify-center overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={revealed ? { opacity: 1 } : {}}
+            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+          >
             <Hero3DScene />
             <HeroTitle visible={loaded} />
-          </section>
+          </motion.section>
 
           <Marquee />
 
@@ -46,14 +69,18 @@ const Index = () => {
 
           <PortfolioSection />
 
+          <ServicesSection onContact={() => setContactOpen(true)} />
+
+          <AtelierPreview onContact={() => setContactOpen(true)} />
+
           <div id="faq" className="py-12 md:py-24 relative">
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-16 md:py-32 flex items-center justify-center relative">
+          <section id="contatti" className="py-12 md:py-20 flex items-center justify-center relative">
             <button
               onClick={() => setContactOpen(true)}
-              className="px-10 md:px-12 py-4 md:py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300 min-h-[48px]"
+              className="px-10 md:px-12 py-4 md:py-5 text-[10px] tracking-[0.35em] uppercase rounded-full transition-all duration-300 min-h-[48px]"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(212,165,116,0.3)',
