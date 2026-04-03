@@ -4,6 +4,8 @@ import SmoothScroll from '@/components/SmoothScroll';
 import WebGLBackground from '@/components/WebGLBackground';
 import Hero3DScene from '@/components/Hero3DScene';
 import HeroTitle from '@/components/HeroTitle';
+import HorizontalPortfolio from '@/components/HorizontalPortfolio';
+import CustomCursor from '@/components/CustomCursor';
 import CookieBanner from '@/components/CookieBanner';
 
 const Index = () => {
@@ -17,6 +19,7 @@ const Index = () => {
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
+      <CustomCursor />
       <SmoothScroll>
         <main className="relative z-10">
           {/* Hero Section */}
@@ -25,7 +28,10 @@ const Index = () => {
             <HeroTitle visible={loaded} />
           </section>
 
-          {/* Spacer for scroll testing */}
+          {/* Portfolio Section */}
+          <HorizontalPortfolio />
+
+          {/* Spacer for next phases */}
           <section className="min-h-screen" />
         </main>
       </SmoothScroll>
