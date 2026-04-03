@@ -39,9 +39,10 @@ const Navbar = () => {
         {/* Logo */}
         <button
           onClick={() => scrollTo('#hero')}
-          className="flex items-center"
+          className="text-sm tracking-[0.4em] uppercase"
+          style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
-          <img src={logo3d} alt="Intini Web Atelier" className="h-10 w-auto" draggable={false} />
+          INTINI WEB ATELIER
         </button>
 
         {/* Desktop links */}
