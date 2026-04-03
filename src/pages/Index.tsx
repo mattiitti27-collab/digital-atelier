@@ -9,6 +9,8 @@ import CustomCursor from '@/components/CustomCursor';
 import CookieBanner from '@/components/CookieBanner';
 import FAQSection from '@/components/FAQSection';
 import ContactModal from '@/components/ContactModal';
+import FooterReveal from '@/components/FooterReveal';
+import FloatingButler from '@/components/FloatingButler';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
