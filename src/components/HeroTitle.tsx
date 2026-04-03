@@ -135,32 +135,13 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
         Creiamo presenze digitali su misura per chi non accetta compromessi
       </p>
 
-      <div className="relative inline-block mt-10">
-        {/* Particle layer */}
-        <div className="absolute inset-0 pointer-events-none overflow-visible" style={{ zIndex: 1 }}>
-          {particles.map((p) => (
-            <span
-              key={p.id}
-              className="absolute rounded-full"
-              style={{
-                left: `${p.x}%`,
-                top: `${p.y}%`,
-                width: p.size,
-                height: p.size,
-                background: 'radial-gradient(circle, #d4a574, rgba(212,165,116,0))',
-                boxShadow: `0 0 ${p.size * 3}px rgba(212,165,116,0.6)`,
-                animation: `atelier-particle ${p.duration}s ease-out forwards`,
-                '--particle-x': `${Math.cos(p.angle) * p.distance}px`,
-                '--particle-y': `${Math.sin(p.angle) * p.distance}px`,
-              } as React.CSSProperties}
-            />
-          ))}
-        </div>
-
-        <Link
-          ref={btnRef}
-          to="/atelier"
-          className="relative inline-block px-10 py-4 text-[10px] tracking-[0.35em] uppercase"
+      <div className="flex gap-6 justify-center mt-10">
+        <button
+          onClick={() => {
+            const el = document.querySelector('#hero');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
@@ -168,25 +149,49 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             backdropFilter: 'blur(10px)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 1s ease 2s, transform 1s ease 2s, scale 0.3s',
-            boxShadow: '0 0 30px rgba(212,165,116,0)',
-            zIndex: 2,
+            transition: 'opacity 1s ease 2s, transform 1s ease 2s',
           }}
-          onMouseEnter={onEnter}
-          onMouseLeave={onLeave}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(212,165,116,0.12)';
+            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.6)';
+            e.currentTarget.style.boxShadow = '0 0 40px rgba(212,165,116,0.15)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(212,165,116,0.04)';
+            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
         >
-          {/* Sweep highlight */}
-          <span
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: hovered
-                ? 'linear-gradient(105deg, transparent 35%, rgba(212,165,116,0.08) 45%, rgba(212,165,116,0.15) 50%, rgba(212,165,116,0.08) 55%, transparent 65%)'
-                : 'none',
-              animation: hovered ? 'atelier-sweep 2s ease-in-out infinite' : 'none',
-            }}
-          />
-          Accedi all'Atelier
-        </Link>
+          Chi Siamo
+        </button>
+        <button
+          onClick={() => {
+            const el = document.querySelector('#portfolio');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500"
+          style={{
+            border: '1px solid rgba(212,165,116,0.35)',
+            color: '#d4a574',
+            background: 'rgba(212,165,116,0.04)',
+            backdropFilter: 'blur(10px)',
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'opacity 1s ease 2.2s, transform 1s ease 2.2s',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(212,165,116,0.12)';
+            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.6)';
+            e.currentTarget.style.boxShadow = '0 0 40px rgba(212,165,116,0.15)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(212,165,116,0.04)';
+            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
+            e.currentTarget.style.boxShadow = 'none';
+          }}
+        >
+          I Nostri Lavori
+        </button>
       </div>
 
       <style>{`
