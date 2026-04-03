@@ -338,7 +338,7 @@ function DarkRoomFloor() {
 function SceneContent() {
   return (
     <>
-      <CinemaSpotlights />
+      <CinemaRig />
 
       <Suspense fallback={null}>
         <FloatingDevice />
