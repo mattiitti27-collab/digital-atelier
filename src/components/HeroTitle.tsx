@@ -94,14 +94,14 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
     });
   }, []);
 
-  const title = 'Sartoria Digitale Inattaccabile';
+  const title = 'Esperienze Digitali d\'Élite';
   const words = title.split(' ');
 
   return (
     <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
       <h1
         ref={containerRef}
-        className="text-foreground leading-[1.1] mb-6"
+        className="text-foreground leading-[1.1] mb-8"
         style={{
           fontFamily: 'var(--font-display)',
           fontWeight: 300,
@@ -121,17 +121,18 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
       </h1>
 
       <p
-        className="text-sm md:text-base tracking-widest uppercase mt-4"
+        className="text-sm md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto"
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 300,
-          letterSpacing: '0.3em',
-          color: 'rgba(255,255,255,0.4)',
+          letterSpacing: '0.2em',
+          color: 'rgba(255,255,255,0.35)',
+          lineHeight: '1.8',
           opacity: visible ? 1 : 0,
           transition: 'opacity 1.5s ease 1.5s',
         }}
       >
-        Web Atelier — Mattia Intini
+        Creiamo presenze digitali su misura per chi non accetta compromessi
       </p>
 
       <div className="relative inline-block mt-10">

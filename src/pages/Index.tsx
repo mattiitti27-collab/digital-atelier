@@ -11,6 +11,7 @@ import FAQSection from '@/components/FAQSection';
 import ContactModal from '@/components/ContactModal';
 import FooterReveal from '@/components/FooterReveal';
 import FloatingButler from '@/components/FloatingButler';
+import Navbar from '@/components/Navbar';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
@@ -25,24 +26,27 @@ const Index = () => {
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
       <CustomCursor />
+      <Navbar />
       <SmoothScroll>
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+          <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
             <Hero3DScene />
             <HeroTitle visible={loaded} />
           </section>
 
           {/* Portfolio Section */}
-          <HorizontalPortfolio />
+          <div id="portfolio">
+            <HorizontalPortfolio />
+          </div>
 
           {/* FAQ Section */}
-          <div className="py-16 md:py-24" style={{ background: '#050505' }}>
+          <div id="faq" className="py-16 md:py-24" style={{ background: '#050505' }}>
             <FAQSection />
           </div>
 
           {/* Contact CTA */}
-          <section className="py-24 md:py-32 flex items-center justify-center" style={{ background: '#050505' }}>
+          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center" style={{ background: '#050505' }}>
             <button
               onClick={() => setContactOpen(true)}
               className="px-12 py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300"
