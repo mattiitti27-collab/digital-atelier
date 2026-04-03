@@ -48,7 +48,7 @@ const Navbar = () => {
           maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
         }}
       />
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-8 md:px-16 py-6">
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between px-8 md:px-16 py-6">
         {/* Logo */}
         <button
           onClick={() => handleNav({ label: 'Home', href: '#hero' })}
