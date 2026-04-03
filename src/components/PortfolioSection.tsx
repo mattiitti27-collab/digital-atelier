@@ -181,6 +181,21 @@ const PortfolioSection = () => {
             scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', end: 'top 50%', scrub: 1 },
           }
         );
+
+        // Parallax on card images
+        const images = cardsRef.current.querySelectorAll('.parallax-card-img');
+        images.forEach((img) => {
+          gsap.to(img, {
+            y: -30,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5,
+            },
+          });
+        });
       }
     }, sectionRef);
     return () => ctx.revert();
