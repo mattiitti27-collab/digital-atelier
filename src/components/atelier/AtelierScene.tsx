@@ -190,23 +190,123 @@ function ModuleParticles() {
   );
 }
 
-// ─── Cinema Spotlights ───
-function CinemaSpotlights() {
+// ─── Physical Spotlight Fixture ───
+function SpotlightFixture({ position, target = [0, 0, 0], color = '#fff5e6', intensity = 2.5 }: {
+  position: [number, number, number];
+  target?: [number, number, number];
+  color?: string;
+  intensity?: number;
+}) {
+  const lightRef = useRef<THREE.SpotLight>(null);
+  const targetObj = useMemo(() => {
+    const t = new THREE.Object3D();
+    t.position.set(...target);
+    return t;
+  }, [target]);
+
+  useFrame(() => {
+    if (lightRef.current) {
+      lightRef.current.target = targetObj;
+    }
+  });
+
+  // Direction from position to target for fixture rotation
+  const dir = useMemo(() => {
+    const d = new THREE.Vector3(...target).sub(new THREE.Vector3(...position)).normalize();
+    return d;
+  }, [position, target]);
+
+  const rotation = useMemo(() => {
+    const q = new THREE.Quaternion();
+    q.setFromUnitVectors(new THREE.Vector3(0, -1, 0), dir);
+    const e = new THREE.Euler().setFromQuaternion(q);
+    return [e.x, e.y, e.z] as [number, number, number];
+  }, [dir]);
+
+  return (
+    <group position={position}>
+      {/* Fixture body — black metal cylinder */}
+      <group rotation={rotation}>
+        <mesh>
+          <cylinderGeometry args={[0.12, 0.18, 0.4, 12]} />
+          <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.3} />
+        </mesh>
+        {/* Barn door rim */}
+        <mesh position={[0, -0.22, 0]}>
+          <cylinderGeometry args={[0.19, 0.2, 0.06, 12]} />
+          <meshStandardMaterial color="#0a0a0a" metalness={0.95} roughness={0.2} />
+        </mesh>
+        {/* Inner glow lens */}
+        <mesh position={[0, -0.24, 0]}>
+          <circleGeometry args={[0.14, 16]} />
+          <meshBasicMaterial color={color} transparent opacity={0.4} />
+        </mesh>
+      </group>
+
+      {/* Mounting arm */}
+      <mesh position={[0, 0.3, 0]}>
+        <cylinderGeometry args={[0.02, 0.02, 0.3, 6]} />
+        <meshStandardMaterial color="#1a1a1a" metalness={0.8} roughness={0.4} />
+      </mesh>
+      {/* Clamp */}
+      <mesh position={[0, 0.48, 0]}>
+        <boxGeometry args={[0.08, 0.08, 0.08]} />
+        <meshStandardMaterial color="#222222" metalness={0.85} roughness={0.3} />
+      </mesh>
+
+      {/* Actual spotlight */}
+      <spotLight
+        ref={lightRef}
+        intensity={intensity}
+        angle={0.4}
+        penumbra={0.8}
+        color={color}
+        castShadow
+        shadow-mapSize={1024}
+        distance={15}
+      />
+      <primitive object={targetObj} />
+    </group>
+  );
+}
+
+// ─── Cinema Rig (visible fixtures + lights) ───
+function CinemaRig() {
   return (
     <>
-      {/* Key light — warm from top-right */}
-      <spotLight position={[4, 6, 3]} intensity={2.5} angle={0.35} penumbra={0.9} color="#fff5e6" castShadow shadow-mapSize={1024} />
-      {/* Fill light — cool from left */}
-      <spotLight position={[-5, 4, 2]} intensity={1.2} angle={0.4} penumbra={1} color="#d4e5ff" />
-      {/* Rim light — gold from behind */}
-      <spotLight position={[0, 3, -5]} intensity={1.8} angle={0.5} penumbra={0.8} color="#d4a574" />
+      {/* Front-left key light */}
+      <SpotlightFixture position={[-3.5, 3.5, 3]} target={[0, 0, 0]} color="#fff5e6" intensity={3} />
+      {/* Front-right fill */}
+      <SpotlightFixture position={[3.5, 3.5, 3]} target={[0, 0, 0]} color="#d4e5ff" intensity={1.8} />
+      {/* Back-left rim */}
+      <SpotlightFixture position={[-4, 3, -3]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
+      {/* Back-right rim */}
+      <SpotlightFixture position={[4, 3, -3]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
+      {/* Top center — hero spot */}
+      <SpotlightFixture position={[0, 5, 0.5]} target={[0, 0, 0]} color="#ffffff" intensity={2.5} />
+      {/* Low side accents */}
+      <SpotlightFixture position={[-5, 1.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
+      <SpotlightFixture position={[5, 1.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
+
+      {/* Ceiling rail (truss bar) */}
+      {[-3, 0, 3].map((z) => (
+        <mesh key={z} position={[0, 4.2, z]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.025, 0.025, 10, 6]} />
+          <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
+        </mesh>
+      ))}
+      {/* Cross bars */}
+      {[-4, -2, 0, 2, 4].map((x) => (
+        <mesh key={x} position={[x, 4.2, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.02, 0.02, 6.5, 6]} />
+          <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
+        </mesh>
+      ))}
+
       {/* Floor bounce — subtle */}
-      <pointLight position={[0, -2, 0]} intensity={0.15} color="#1a1a2e" />
-      {/* Accent spots — left and right like theater */}
-      <spotLight position={[-6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
-      <spotLight position={[6, 2, -2]} intensity={0.6} angle={0.3} penumbra={1} color="#ffffff" />
+      <pointLight position={[0, -2, 0]} intensity={0.1} color="#1a1a2e" />
       {/* Ambient — very low */}
-      <ambientLight intensity={0.06} />
+      <ambientLight intensity={0.04} />
     </>
   );
 }
@@ -220,12 +320,17 @@ function DarkRoomFloor() {
         <planeGeometry args={[20, 20]} />
         <meshPhysicalMaterial
           color="#050505"
-          metalness={0.8}
-          roughness={0.15}
-          envMapIntensity={0.5}
+          metalness={0.85}
+          roughness={0.1}
+          envMapIntensity={0.6}
         />
       </mesh>
-      <ContactShadows position={[0, -1.29, 0]} opacity={0.6} scale={10} blur={3} far={4} />
+      {/* Back wall — barely visible */}
+      <mesh position={[0, 1.5, -5]} receiveShadow>
+        <planeGeometry args={[20, 8]} />
+        <meshStandardMaterial color="#030303" metalness={0.2} roughness={0.9} />
+      </mesh>
+      <ContactShadows position={[0, -1.29, 0]} opacity={0.7} scale={12} blur={2.5} far={5} />
     </>
   );
 }
@@ -233,7 +338,7 @@ function DarkRoomFloor() {
 function SceneContent() {
   return (
     <>
-      <CinemaSpotlights />
+      <CinemaRig />
 
       <Suspense fallback={null}>
         <FloatingDevice />
