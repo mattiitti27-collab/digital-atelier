@@ -68,7 +68,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             const el = document.querySelector('#chi-siamo');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500"
+          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
@@ -96,7 +96,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             const el = document.querySelector('#portfolio');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500"
+          className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
