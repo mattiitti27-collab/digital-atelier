@@ -214,12 +214,11 @@ const HorizontalPortfolio = () => {
         }}
       />
 
-      {/* Dark overlay */}
+      {/* Subtle overlay */}
       <div
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(180deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.75) 50%, rgba(5,5,5,0.9) 100%)',
-          backdropFilter: 'blur(1px)',
+          background: 'linear-gradient(180deg, rgba(5,5,5,0.4) 0%, rgba(5,5,5,0.3) 50%, rgba(5,5,5,0.45) 100%)',
         }}
       />
 
