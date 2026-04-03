@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Layers, Settings2, Sliders } from 'lucide-react';
 import {
   useAtelierStore, Phase, MaterialType,
   templates, palettes, typographyPairs, animationStyles, layoutStyles,
 } from '@/stores/atelierStore';
+import { useEditorStore } from '@/stores/editorStore';
+import LayerTree from './LayerTree';
+import PropertyEditor from './PropertyEditor';
 
 const allPhases: { id: Phase; label: string; number: string }[] = [
   { id: 'identity', label: 'IDENTITÀ', number: '01' },
