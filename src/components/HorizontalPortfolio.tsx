@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectImage from './ProjectImage';
-import bgPortfolio from '@/assets/bg-portfolio.jpg';
+
 
 import ripetiamo from '@/assets/projects/ripetiamo.jpg';
 import intinimonaco from '@/assets/projects/intinimonaco.jpg';
