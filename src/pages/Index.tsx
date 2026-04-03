@@ -50,7 +50,7 @@ const Index = () => {
           </div>
 
           {/* Contact CTA */}
-          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center" style={{ background: '#050505' }}>
+          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center relative">
             <button
               onClick={() => setContactOpen(true)}
               className="px-12 py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300"
