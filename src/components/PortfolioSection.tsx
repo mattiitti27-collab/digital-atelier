@@ -52,14 +52,14 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Background image */}
+      {/* Background image with parallax */}
       <div
-        className="absolute inset-0 transition-transform duration-700 ease-out"
+        className="absolute inset-[-20px] transition-transform duration-700 ease-out parallax-card-img"
         style={{
           backgroundImage: `url(${project.image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          transform: hovered ? 'scale(1.06)' : 'scale(1)',
+          transform: hovered ? 'scale(1.08)' : 'scale(1.02)',
         }}
       />
 
