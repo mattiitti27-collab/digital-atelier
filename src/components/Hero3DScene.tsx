@@ -4,111 +4,116 @@ import { Float, Environment } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise } from '@react-three/postprocessing';
 import * as THREE from 'three';
 
-/* ── Calligraphic logo monogram curve (IWA-style flowing script) ── */
+/*
+ * Logo shape traced from reference image:
+ * A calligraphic monogram with:
+ * - Large sweeping oval on the left
+ * - Central ascending stroke that crosses the oval
+ * - Upper right decorative loop
+ * - Two descending figure-8 curls at the bottom
+ * - Right-side tail with spiral flourish
+ * - Gold sphere nestled inside the left oval
+ */
 function buildLogoCurve(): THREE.CatmullRomCurve3 {
-  // Approximate the calligraphic monogram from the reference:
-  // A flowing, interconnected cursive with large loops and elegant swirls
   const pts: THREE.Vector3[] = [];
+  const s = 0.9; // overall scale
 
-  const add = (x: number, y: number, z: number) =>
-    pts.push(new THREE.Vector3(x, y, z));
+  // Helper: add a point scaled
+  const p = (x: number, y: number, z: number) =>
+    pts.push(new THREE.Vector3(x * s, y * s, z * s));
 
-  // Large opening loop (left oval of the "I"/first letter)
-  for (let i = 0; i <= 40; i++) {
-    const t = (i / 40) * Math.PI * 2;
-    add(
-      -0.55 + Math.cos(t) * 0.45,
-      Math.sin(t) * 0.25,
-      Math.sin(t * 0.5) * 0.08
-    );
-  }
+  // ─── 1. LARGE OUTER OVAL (left, counterclockwise from top) ───
+  // Top of oval, slightly right of center
+  p(0.05, 0.38, 0.0);
+  p(-0.05, 0.42, 0.02);
+  p(-0.18, 0.43, 0.04);
+  p(-0.32, 0.40, 0.05);
+  p(-0.48, 0.32, 0.04);
+  p(-0.58, 0.20, 0.02);
+  p(-0.64, 0.05, 0.0);
+  p(-0.62, -0.10, -0.02);
+  p(-0.55, -0.20, -0.03);
+  p(-0.42, -0.25, -0.02);
+  p(-0.28, -0.22, -0.01);
+  p(-0.15, -0.12, 0.0);
 
-  // Connecting swirl upward to center
-  for (let i = 0; i <= 20; i++) {
-    const t = i / 20;
-    add(
-      -0.1 + t * 0.15,
-      0.25 - t * 0.15 + Math.sin(t * Math.PI) * 0.2,
-      t * 0.06
-    );
-  }
+  // ─── 2. CENTRAL ASCENDING STROKE (crosses through the oval) ───
+  p(-0.08, 0.0, 0.03);
+  p(-0.04, 0.12, 0.05);
+  p(-0.02, 0.22, 0.06);
+  p(0.0, 0.32, 0.04);
+  p(0.03, 0.38, 0.02);
 
-  // Central ascending loop (top of the monogram)
-  for (let i = 0; i <= 30; i++) {
-    const t = (i / 30) * Math.PI * 1.8;
-    add(
-      0.05 + Math.sin(t) * 0.2,
-      0.3 + Math.cos(t) * 0.15 + Math.sin(t * 0.5) * 0.1,
-      Math.cos(t * 0.7) * 0.1
-    );
-  }
+  // ─── 3. UPPER RIGHT LOOP ───
+  p(0.10, 0.42, 0.0);
+  p(0.20, 0.40, -0.02);
+  p(0.30, 0.34, -0.04);
+  p(0.38, 0.25, -0.05);
+  p(0.40, 0.15, -0.04);
+  p(0.36, 0.06, -0.02);
+  p(0.28, 0.0, 0.0);
 
-  // Descending right stroke with flourish
-  for (let i = 0; i <= 25; i++) {
-    const t = i / 25;
-    add(
-      0.15 + t * 0.25,
-      0.3 - t * 0.55,
-      Math.sin(t * Math.PI) * 0.12
-    );
-  }
+  // ─── 4. CROSSING BACK THROUGH CENTER, DESCENDING ───
+  p(0.18, -0.04, 0.03);
+  p(0.08, -0.06, 0.05);
+  p(0.0, -0.10, 0.04);
+  p(-0.06, -0.18, 0.03);
 
-  // Lower right loop
-  for (let i = 0; i <= 30; i++) {
-    const t = (i / 30) * Math.PI * 1.6;
-    add(
-      0.4 + Math.cos(t) * 0.15,
-      -0.25 + Math.sin(t) * 0.18,
-      Math.sin(t * 0.8) * 0.07
-    );
-  }
+  // ─── 5. LOWER LEFT CURL (figure-8 bottom left) ───
+  p(-0.10, -0.28, 0.02);
+  p(-0.14, -0.38, 0.0);
+  p(-0.12, -0.45, -0.02);
+  p(-0.06, -0.48, -0.03);
+  p(0.0, -0.44, -0.02);
+  p(0.04, -0.36, 0.0);
+  p(0.06, -0.26, 0.02);
 
-  // Crossing back to center with undulating wave
-  for (let i = 0; i <= 20; i++) {
-    const t = i / 20;
-    add(
-      0.3 - t * 0.35,
-      -0.15 + t * 0.1 + Math.sin(t * Math.PI * 2) * 0.08,
-      -0.05 + Math.sin(t * Math.PI) * 0.1
-    );
-  }
+  // ─── 6. CROSS BACK TO RIGHT, LOWER RIGHT CURL ───
+  p(0.10, -0.20, 0.04);
+  p(0.16, -0.18, 0.05);
+  p(0.22, -0.24, 0.04);
+  p(0.24, -0.34, 0.02);
+  p(0.22, -0.42, 0.0);
+  p(0.16, -0.46, -0.02);
+  p(0.10, -0.42, -0.03);
+  p(0.12, -0.34, -0.02);
 
-  // Lower left descending curl
-  for (let i = 0; i <= 25; i++) {
-    const t = (i / 25) * Math.PI * 1.4;
-    add(
-      -0.05 - Math.sin(t) * 0.2,
-      -0.05 - t * 0.06,
-      Math.cos(t) * 0.09
-    );
-  }
+  // ─── 7. RIGHT TAIL WITH SPIRAL FLOURISH ───
+  p(0.18, -0.26, 0.0);
+  p(0.28, -0.20, 0.02);
+  p(0.38, -0.16, 0.03);
+  p(0.48, -0.14, 0.02);
+  p(0.52, -0.10, 0.0);
+  // Spiral tip
+  p(0.50, -0.06, -0.02);
+  p(0.44, -0.04, -0.03);
+  p(0.38, -0.06, -0.02);
+  p(0.34, -0.10, 0.0);
 
-  // Final tail flourish sweeping left
-  for (let i = 0; i <= 20; i++) {
-    const t = i / 20;
-    add(
-      -0.25 - t * 0.3,
-      -0.3 + Math.sin(t * Math.PI) * 0.15,
-      -0.05 + t * 0.08
-    );
-  }
+  // ─── 8. RETURN PATH (subtle arc back to start) ───
+  p(0.28, -0.04, 0.02);
+  p(0.22, 0.06, 0.04);
+  p(0.16, 0.18, 0.05);
+  p(0.12, 0.28, 0.04);
+  p(0.08, 0.35, 0.02);
 
-  return new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0.4);
+  return new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0.35);
 }
 
 /* ── Organic flowing ribbon (dissolved state) ── */
-function buildOrganicCurve(): THREE.CatmullRomCurve3 {
-  const pts: THREE.Vector3[] = [];
-  const N = 200;
-  for (let i = 0; i <= N; i++) {
-    const t = (i / N) * Math.PI * 2;
-    pts.push(new THREE.Vector3(
-      (Math.sin(t * 1.3) * 0.7 + Math.sin(t * 3.1) * 0.2 + Math.cos(t * 0.7) * 0.3) * 0.5,
-      (Math.cos(t * 0.9) * 0.4 + Math.sin(t * 2.3) * 0.25 - Math.cos(t * 1.7) * 0.15) * 0.5,
-      (Math.sin(t * 1.7) * 0.35 + Math.cos(t * 2.9) * 0.2) * 0.5
-    ));
+function buildOrganicCurve(vertexCount: number): Float32Array {
+  // Generate displaced version of logo points for organic dissolution
+  const arr = new Float32Array(vertexCount * 3);
+  for (let i = 0; i < vertexCount; i++) {
+    const t = (i / vertexCount) * Math.PI * 2;
+    const r1 = Math.sin(t * 1.3) * 0.6 + Math.sin(t * 3.7) * 0.15;
+    const r2 = Math.cos(t * 0.9) * 0.4 + Math.sin(t * 2.1) * 0.2;
+    const r3 = Math.sin(t * 1.7) * 0.3 + Math.cos(t * 2.9) * 0.15;
+    arr[i * 3] = r1 * 0.55;
+    arr[i * 3 + 1] = r2 * 0.55;
+    arr[i * 3 + 2] = r3 * 0.4;
   }
-  return new THREE.CatmullRomCurve3(pts, true, 'catmullrom', 0.5);
+  return arr;
 }
 
 /* ── Gold sphere accent ── */
@@ -119,24 +124,24 @@ function GoldSphere() {
   useFrame((_, delta) => {
     timeRef.current += delta;
     if (!ref.current) return;
-    // Orbit slowly around the ribbon
-    const t = timeRef.current * 0.3;
+    const t = timeRef.current * 0.25;
+    // Sits inside the left oval area, gently floating
     ref.current.position.set(
-      Math.sin(t) * 0.35,
-      Math.cos(t * 0.7) * 0.15 + 0.05,
-      Math.cos(t) * 0.2
+      -0.35 * 0.9 + Math.sin(t) * 0.03,
+      0.05 * 0.9 + Math.cos(t * 0.7) * 0.02,
+      Math.sin(t * 1.3) * 0.03
     );
   });
 
   return (
-    <mesh ref={ref} scale={0.025}>
+    <mesh ref={ref} scale={0.035}>
       <sphereGeometry args={[1, 32, 32]} />
       <meshStandardMaterial
         color="#c9a84c"
         metalness={1}
-        roughness={0.15}
+        roughness={0.12}
         emissive="#8b7530"
-        emissiveIntensity={0.3}
+        emissiveIntensity={0.4}
       />
     </mesh>
   );
@@ -147,84 +152,77 @@ function SilkRibbon() {
   const meshRef = useRef<THREE.Mesh>(null);
   const timeRef = useRef(0);
 
-  const { logoCurve, organicCurve } = useMemo(() => ({
-    logoCurve: buildLogoCurve(),
-    organicCurve: buildOrganicCurve(),
-  }), []);
+  const logoCurve = useMemo(() => buildLogoCurve(), []);
 
   const { tubeGeo, logoPositions, organicPositions } = useMemo(() => {
-    const logoTube = new THREE.TubeGeometry(logoCurve, 300, 0.032, 12, true);
-    const organicTube = new THREE.TubeGeometry(organicCurve, 300, 0.032, 12, true);
-
+    const logoTube = new THREE.TubeGeometry(logoCurve, 350, 0.028, 14, true);
     const count = logoTube.attributes.position.count;
 
-    // Sample both tubes to same vertex count
-    const sampleTube = (tube: THREE.TubeGeometry) => {
-      const src = tube.attributes.position;
-      const srcCount = src.count;
-      const arr = new Float32Array(count * 3);
-      for (let i = 0; i < count; i++) {
-        const t = (i / (count - 1)) * (srcCount - 1);
-        const idx = Math.floor(t);
-        const f = t - idx;
-        const next = Math.min(idx + 1, srcCount - 1);
-        arr[i * 3] = src.getX(idx) * (1 - f) + src.getX(next) * f;
-        arr[i * 3 + 1] = src.getY(idx) * (1 - f) + src.getY(next) * f;
-        arr[i * 3 + 2] = src.getZ(idx) * (1 - f) + src.getZ(next) * f;
-      }
-      return arr;
-    };
+    // Extract logo positions
+    const src = logoTube.attributes.position;
+    const lp = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      lp[i * 3] = src.getX(i);
+      lp[i * 3 + 1] = src.getY(i);
+      lp[i * 3 + 2] = src.getZ(i);
+    }
 
-    const lp = sampleTube(logoTube);
-    const op = sampleTube(organicTube);
+    // Build organic displacement for each vertex
+    const op = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const phase = (i / count) * Math.PI * 8;
+      // Displace each vertex outward in a swirling pattern
+      const dx = Math.sin(phase * 1.3 + i * 0.01) * 0.25;
+      const dy = Math.cos(phase * 0.9 + i * 0.007) * 0.2;
+      const dz = Math.sin(phase * 1.7 + i * 0.013) * 0.18;
+      op[i * 3] = lp[i * 3] + dx;
+      op[i * 3 + 1] = lp[i * 3 + 1] + dy;
+      op[i * 3 + 2] = lp[i * 3 + 2] + dz;
+    }
 
     return { tubeGeo: logoTube, logoPositions: lp, organicPositions: op };
-  }, [logoCurve, organicCurve]);
+  }, [logoCurve]);
 
   useFrame((_, delta) => {
     timeRef.current += delta;
     if (!meshRef.current) return;
 
-    // Gentle continuous rotation
-    meshRef.current.rotation.y += 0.003;
-    meshRef.current.rotation.x = Math.sin(timeRef.current * 0.12) * 0.04;
+    // Very slow rotation
+    meshRef.current.rotation.y += 0.002;
+    meshRef.current.rotation.x = Math.sin(timeRef.current * 0.1) * 0.03;
 
-    // Morph cycle: 3s per state
-    // logo(3s) → transition(1s) → organic(2s) → transition(1s) → logo...
-    // Simplified: 6s total cycle
+    // Morph cycle: 6s total
+    // 0-2s: logo composed | 2-3s: dissolve | 3-5s: flowing | 5-6s: recompose
     const cycleDuration = 6;
     const time = timeRef.current % cycleDuration;
 
-    // 0-2s: logo hold, 2-3s: dissolve, 3-5s: organic, 5-6s: recompose
     let morphT: number;
     if (time < 2) {
-      morphT = 0; // logo
+      morphT = 0;
     } else if (time < 3) {
-      const t = (time - 2); // 0→1
-      morphT = t * t * (3 - 2 * t); // smoothstep to organic
+      const t = time - 2;
+      morphT = t * t * (3 - 2 * t);
     } else if (time < 5) {
-      morphT = 1; // organic
+      morphT = 1;
     } else {
-      const t = (time - 5); // 0→1
-      morphT = 1 - t * t * (3 - 2 * t); // smoothstep back to logo
+      const t = time - 5;
+      morphT = 1 - t * t * (3 - 2 * t);
     }
 
     const positions = meshRef.current.geometry.attributes.position;
     const count = positions.count;
-
-    // Add organic motion to dissolved state
-    const drift = timeRef.current * 0.5;
+    const drift = timeRef.current * 0.4;
 
     for (let i = 0; i < count; i++) {
       const lx = logoPositions[i * 3];
       const ly = logoPositions[i * 3 + 1];
       const lz = logoPositions[i * 3 + 2];
 
-      // Add subtle turbulence to organic positions
-      const phase = (i / count) * Math.PI * 4;
-      const ox = organicPositions[i * 3] + Math.sin(drift + phase) * 0.03;
-      const oy = organicPositions[i * 3 + 1] + Math.cos(drift * 0.7 + phase) * 0.02;
-      const oz = organicPositions[i * 3 + 2] + Math.sin(drift * 1.3 + phase * 0.5) * 0.025;
+      // Add subtle turbulence to organic state
+      const phase = (i / count) * Math.PI * 6;
+      const ox = organicPositions[i * 3] + Math.sin(drift + phase) * 0.02;
+      const oy = organicPositions[i * 3 + 1] + Math.cos(drift * 0.7 + phase) * 0.015;
+      const oz = organicPositions[i * 3 + 2] + Math.sin(drift * 1.2 + phase * 0.5) * 0.015;
 
       positions.setXYZ(
         i,
@@ -238,25 +236,25 @@ function SilkRibbon() {
   });
 
   return (
-    <Float speed={0.4} rotationIntensity={0.03} floatIntensity={0.08}>
-      <mesh ref={meshRef} geometry={tubeGeo} scale={1.1}>
+    <Float speed={0.4} rotationIntensity={0.02} floatIntensity={0.06}>
+      <mesh ref={meshRef} geometry={tubeGeo} scale={1.0}>
         <meshPhysicalMaterial
           color="#0a0a18"
-          metalness={0.85}
-          roughness={0.1}
+          metalness={0.88}
+          roughness={0.08}
           clearcoat={1}
           clearcoatRoughness={0.03}
           sheen={1}
-          sheenRoughness={0.2}
+          sheenRoughness={0.18}
           sheenColor={new THREE.Color('#7733cc')}
           iridescence={1}
           iridescenceIOR={1.5}
           iridescenceThicknessRange={[100, 700]}
           reflectivity={1}
           transparent
-          opacity={0.35}
+          opacity={0.4}
           side={THREE.DoubleSide}
-          envMapIntensity={2.5}
+          envMapIntensity={2.8}
           depthWrite={false}
         />
       </mesh>
@@ -332,10 +330,10 @@ function CameraParallax() {
 }
 
 const Hero3DScene = () => (
-  <div className="absolute inset-0 -z-10 pointer-events-none" style={{ opacity: 0.8 }}>
+  <div className="absolute inset-0 -z-10 pointer-events-none" style={{ opacity: 0.85 }}>
     <Canvas
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-      camera={{ position: [0, 0, 2.5], fov: 42 }}
+      camera={{ position: [0, 0, 2.2], fov: 42 }}
       style={{ background: 'transparent' }}
       dpr={[1, 1.5]}
     >
