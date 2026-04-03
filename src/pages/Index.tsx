@@ -7,9 +7,12 @@ import HeroTitle from '@/components/HeroTitle';
 import HorizontalPortfolio from '@/components/HorizontalPortfolio';
 import CustomCursor from '@/components/CustomCursor';
 import CookieBanner from '@/components/CookieBanner';
+import FAQSection from '@/components/FAQSection';
+import ContactModal from '@/components/ContactModal';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const handlePreloaderComplete = useCallback(() => {
     setLoaded(true);
@@ -31,11 +34,27 @@ const Index = () => {
           {/* Portfolio Section */}
           <HorizontalPortfolio />
 
-          {/* Spacer for next phases */}
-          <section className="min-h-screen" />
+          {/* FAQ Section */}
+          <FAQSection />
+
+          {/* Contact CTA */}
+          <section className="py-20 flex items-center justify-center" style={{ background: '#050505' }}>
+            <button
+              onClick={() => setContactOpen(true)}
+              className="px-10 py-4 text-[10px] tracking-[0.35em] uppercase rounded-lg transition-all"
+              style={{
+                background: 'linear-gradient(135deg, rgba(212,165,116,0.15), rgba(212,165,116,0.05))',
+                border: '1px solid rgba(212,165,116,0.4)',
+                color: '#d4a574',
+              }}
+            >
+              CONTATTACI
+            </button>
+          </section>
         </main>
       </SmoothScroll>
       <CookieBanner />
+      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );
 };
