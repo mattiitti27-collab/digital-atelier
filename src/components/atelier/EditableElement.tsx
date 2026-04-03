@@ -16,14 +16,14 @@ interface EditableElementProps {
 // Register element on mount
 function useRegisterElement(el: Omit<SiteElement, 'children'>) {
   const setElements = useEditorStore((s) => s.setElements);
-  const elements = useEditorStore((s) => s.elements);
 
   useEffect(() => {
+    const elements = useEditorStore.getState().elements;
     const exists = elements.find((e) => e.id === el.id);
     if (!exists) {
       setElements([...elements, { ...el }]);
     }
-  }, [el.id]);
+  }, [el.id, setElements]);
 }
 
 export function EditableElement({ id, type, label, parentId, children, className = '', style = {} }: EditableElementProps) {
