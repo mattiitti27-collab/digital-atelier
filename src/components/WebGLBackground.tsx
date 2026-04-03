@@ -2,7 +2,6 @@ import { useRef, useEffect, useMemo, useCallback } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
-import bg2 from '@/assets/bg/bg-2.jpg';
 import bg3 from '@/assets/bg/bg-3.jpg';
 import bg4 from '@/assets/bg/bg-4.jpg';
 import bg5 from '@/assets/bg/bg-5.jpg';
@@ -15,7 +14,7 @@ import bg11 from '@/assets/bg/bg-11.jpg';
 import bg12 from '@/assets/bg/bg-12.jpg';
 import bg13 from '@/assets/bg/bg-13.jpg';
 
-const imagePaths = [bg2, bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13];
+const imagePaths = [bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13];
 
 const vertexShader = `
   varying vec2 vUv;
