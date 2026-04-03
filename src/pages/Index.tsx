@@ -42,12 +42,6 @@ const Index = () => {
 
           {/* FAQ Section */}
           <div id="faq" className="py-16 md:py-24" style={{ background: '#050505' }}>
-
-          {/* Portfolio Section */}
-          <HorizontalPortfolio />
-
-          {/* FAQ Section */}
-          <div className="py-16 md:py-24" style={{ background: '#050505' }}>
             <FAQSection />
           </div>
 
