@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 
 interface HeroTitleProps {
@@ -70,6 +71,31 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
       >
         Web Atelier — Mattia Intini
       </p>
+
+      <Link
+        to="/atelier"
+        className="inline-block mt-10 px-10 py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 hover:scale-[1.03]"
+        style={{
+          border: '1px solid rgba(212,165,116,0.35)',
+          color: '#d4a574',
+          background: 'rgba(212,165,116,0.04)',
+          backdropFilter: 'blur(10px)',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'translateY(0)' : 'translateY(20px)',
+          transition: 'opacity 1s ease 2s, transform 1s ease 2s, background 0.4s, box-shadow 0.4s, scale 0.3s',
+          boxShadow: '0 0 30px rgba(212,165,116,0)',
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = 'rgba(212,165,116,0.1)';
+          e.currentTarget.style.boxShadow = '0 0 40px rgba(212,165,116,0.12)';
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = 'rgba(212,165,116,0.04)';
+          e.currentTarget.style.boxShadow = '0 0 30px rgba(212,165,116,0)';
+        }}
+      >
+        Accedi all'Atelier
+      </Link>
     </div>
   );
 };
