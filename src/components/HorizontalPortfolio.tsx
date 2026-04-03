@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectImage from './ProjectImage';
+import bgPortfolio from '@/assets/bg-portfolio.jpg';
 
 import ripetiamo from '@/assets/projects/ripetiamo.jpg';
 import intinimonaco from '@/assets/projects/intinimonaco.jpg';
@@ -86,6 +87,9 @@ function ProjectCard({ project }: { project: Project }) {
           aspectRatio: '16/10',
           transform: hovered ? 'scale(0.98)' : 'scale(1)',
           transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
+          boxShadow: hovered
+            ? '0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(212,165,116,0.08)'
+            : '0 10px 30px rgba(0,0,0,0.3)',
         }}
       >
         <div className="absolute inset-0">
@@ -98,9 +102,20 @@ function ProjectCard({ project }: { project: Project }) {
 
         {/* Overlay gradient */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
           style={{
-            background: 'linear-gradient(180deg, transparent 40%, rgba(5,5,5,0.7) 100%)',
+            background: hovered
+              ? 'linear-gradient(180deg, transparent 30%, rgba(5,5,5,0.85) 100%)'
+              : 'linear-gradient(180deg, transparent 40%, rgba(5,5,5,0.7) 100%)',
+          }}
+        />
+
+        {/* Hover border glow */}
+        <div
+          className="absolute inset-0 pointer-events-none rounded-lg transition-opacity duration-500"
+          style={{
+            border: '1px solid rgba(212,165,116,0.15)',
+            opacity: hovered ? 1 : 0,
           }}
         />
       </div>
@@ -109,21 +124,33 @@ function ProjectCard({ project }: { project: Project }) {
       <div className="mt-6 flex items-end justify-between">
         <div>
           <h3
-            className="text-foreground text-2xl md:text-3xl mb-1"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 300 }}
+            className="text-2xl md:text-3xl mb-1"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontWeight: 300,
+              color: '#ffffff',
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+            }}
           >
             {project.title}
           </h3>
           <p
             className="text-[11px] tracking-[0.2em] uppercase"
-            style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.35)' }}
+            style={{
+              fontFamily: 'var(--font-body)',
+              color: 'rgba(220,218,214,0.45)',
+              textShadow: '0 1px 4px rgba(0,0,0,0.3)',
+            }}
           >
             {project.subtitle}
           </p>
         </div>
         <span
-          className="text-muted-foreground text-xs tracking-widest"
-          style={{ fontFamily: 'var(--font-body)' }}
+          className="text-xs tracking-widest"
+          style={{
+            fontFamily: 'var(--font-body)',
+            color: 'rgba(212,165,116,0.5)',
+          }}
         >
           {project.year}
         </span>
@@ -143,38 +170,27 @@ const HorizontalPortfolio = () => {
     const track = trackRef.current;
     const scrollWidth = track.scrollWidth - window.innerWidth;
 
-    // Heading fade in
     if (headingRef.current) {
       gsap.fromTo(
         headingRef.current,
         { opacity: 0, y: 40 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: 'power3.out',
+          opacity: 1, y: 0, duration: 1, ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 80%',
-            end: 'top 40%',
-            scrub: 1,
+            start: 'top 80%', end: 'top 40%', scrub: 1,
           },
         }
       );
     }
 
-    // Horizontal scroll
     const st = gsap.to(track, {
-      x: -scrollWidth,
-      ease: 'none',
+      x: -scrollWidth, ease: 'none',
       scrollTrigger: {
         trigger: sectionRef.current,
         start: 'top top',
         end: () => `+=${scrollWidth}`,
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
+        pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true,
       },
     });
 
@@ -187,17 +203,46 @@ const HorizontalPortfolio = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
+      {/* Photographic background */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `url(${bgPortfolio})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+
+      {/* Dark overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(180deg, rgba(5,5,5,0.88) 0%, rgba(5,5,5,0.75) 50%, rgba(5,5,5,0.9) 100%)',
+          backdropFilter: 'blur(1px)',
+        }}
+      />
+
       {/* Section heading */}
       <div ref={headingRef} className="absolute top-16 left-10 md:left-20 z-10">
         <p
           className="text-[11px] tracking-[0.4em] uppercase mb-3"
-          style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.35)' }}
+          style={{
+            fontFamily: 'var(--font-body)',
+            color: 'rgba(212,165,116,0.45)',
+            textShadow: '0 1px 6px rgba(0,0,0,0.5)',
+          }}
         >
           Portfolio Selezionato
         </p>
         <h2
-          className="text-foreground text-3xl md:text-5xl"
-          style={{ fontFamily: 'var(--font-display)', fontWeight: 300 }}
+          className="text-3xl md:text-5xl"
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontWeight: 300,
+            color: '#ffffff',
+            textShadow: '0 4px 20px rgba(0,0,0,0.6)',
+          }}
         >
           Lavori
         </h2>
@@ -206,7 +251,7 @@ const HorizontalPortfolio = () => {
       {/* Horizontal track */}
       <div
         ref={trackRef}
-        className="flex items-center gap-12 md:gap-20 h-screen pl-8 md:pl-16 pr-[20vw]"
+        className="relative z-[2] flex items-center gap-12 md:gap-20 h-screen pl-8 md:pl-16 pr-[20vw]"
         style={{ paddingTop: '8rem' }}
       >
         {projects.map((project) => (
@@ -215,10 +260,14 @@ const HorizontalPortfolio = () => {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 right-8 md:right-16">
+      <div className="absolute bottom-8 right-8 md:right-16 z-10">
         <p
-          className="text-muted-foreground text-[10px] tracking-[0.3em] uppercase"
-          style={{ fontFamily: 'var(--font-body)' }}
+          className="text-[10px] tracking-[0.3em] uppercase"
+          style={{
+            fontFamily: 'var(--font-body)',
+            color: 'rgba(212,165,116,0.4)',
+            textShadow: '0 1px 4px rgba(0,0,0,0.5)',
+          }}
         >
           Scorri →
         </p>

@@ -45,12 +45,12 @@ const Index = () => {
           </div>
 
           {/* FAQ Section */}
-          <div id="faq" className="py-16 md:py-24" style={{ background: '#050505' }}>
+          <div id="faq" className="py-16 md:py-24 relative">
             <FAQSection />
           </div>
 
           {/* Contact CTA */}
-          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center" style={{ background: '#050505' }}>
+          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center relative">
             <button
               onClick={() => setContactOpen(true)}
               className="px-12 py-5 text-[10px] tracking-[0.35em] uppercase rounded-md transition-all duration-300"
