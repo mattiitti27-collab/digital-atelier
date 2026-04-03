@@ -13,8 +13,11 @@ import bg10 from '@/assets/bg/bg-10.jpg';
 import bg11 from '@/assets/bg/bg-11.jpg';
 import bg12 from '@/assets/bg/bg-12.jpg';
 import bg13 from '@/assets/bg/bg-13.jpg';
+import bg14 from '@/assets/bg/bg-14.jpg';
+import bg15 from '@/assets/bg/bg-15.jpg';
+import bg16 from '@/assets/bg/bg-16.jpg';
 
-const imagePaths = [bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13];
+const imagePaths = [bg3, bg4, bg5, bg6, bg7, bg8, bg9, bg10, bg11, bg12, bg13, bg14, bg15, bg16];
 
 const vertexShader = `
   varying vec2 vUv;
