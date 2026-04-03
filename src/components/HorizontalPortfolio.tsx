@@ -192,7 +192,6 @@ const HorizontalPortfolio = () => {
         <p
           className="text-[11px] tracking-[0.4em] uppercase mb-3"
           style={{ fontFamily: 'var(--font-body)', color: 'rgba(255,255,255,0.35)' }}
-          style={{ fontFamily: 'var(--font-body)' }}
         >
           Portfolio Selezionato
         </p>
