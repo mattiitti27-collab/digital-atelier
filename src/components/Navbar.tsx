@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_ITEMS = [
-  { label: 'Atelier', href: '#hero' },
-  { label: 'Portfolio', href: '#portfolio' },
+  { label: 'Chi Siamo', href: '#hero' },
+  { label: 'I Nostri Lavori', href: '#portfolio' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contatti', href: '#contatti' },
 ];
@@ -40,7 +40,7 @@ const Navbar = () => {
           className="text-xs tracking-[0.4em] uppercase"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
-          IWA
+          INTINIWEBATELIER
         </button>
 
         {/* Desktop links */}
