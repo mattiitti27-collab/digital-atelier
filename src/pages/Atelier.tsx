@@ -38,7 +38,7 @@ const Atelier = () => {
       <AtelierScene />
 
       {/* Always show the HUD — locked state handled inside */}
-      <AtelierHUD locked={!hasAccess} onUnlockClick={() => setShowPaywall(true)} />
+      <AtelierHUD locked={false} onUnlockClick={() => setShowPaywall(true)} />
 
       {/* Lock overlay when no access */}
       <AnimatePresence>
