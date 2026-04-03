@@ -274,38 +274,36 @@ function SpotlightFixture({ position, target = [0, 0, 0], color = '#fff5e6', int
 function CinemaRig() {
   return (
     <>
-      {/* Front-left key light */}
-      <SpotlightFixture position={[-3.5, 3.5, 3]} target={[0, 0, 0]} color="#fff5e6" intensity={3} />
+      {/* Front-left key light — visible in frame */}
+      <SpotlightFixture position={[-2.2, 2, 2]} target={[0, 0, 0]} color="#fff5e6" intensity={3} />
       {/* Front-right fill */}
-      <SpotlightFixture position={[3.5, 3.5, 3]} target={[0, 0, 0]} color="#d4e5ff" intensity={1.8} />
+      <SpotlightFixture position={[2.2, 2, 2]} target={[0, 0, 0]} color="#d4e5ff" intensity={1.8} />
       {/* Back-left rim */}
-      <SpotlightFixture position={[-4, 3, -3]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
+      <SpotlightFixture position={[-2.5, 2.2, -2]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
       {/* Back-right rim */}
-      <SpotlightFixture position={[4, 3, -3]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
+      <SpotlightFixture position={[2.5, 2.2, -2]} target={[0, 0, 0]} color="#d4a574" intensity={2} />
       {/* Top center — hero spot */}
-      <SpotlightFixture position={[0, 5, 0.5]} target={[0, 0, 0]} color="#ffffff" intensity={2.5} />
-      {/* Low side accents */}
-      <SpotlightFixture position={[-5, 1.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
-      <SpotlightFixture position={[5, 1.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
+      <SpotlightFixture position={[0, 3.2, 0.5]} target={[0, 0, 0]} color="#ffffff" intensity={2.5} />
+      {/* Low side accents — on floor level */}
+      <SpotlightFixture position={[-3, 0.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
+      <SpotlightFixture position={[3, 0.5, 0]} target={[0, 0, 0]} color="#c084fc" intensity={0.8} />
 
-      {/* Ceiling rail (truss bar) */}
-      {[-3, 0, 3].map((z) => (
-        <mesh key={z} position={[0, 4.2, z]} rotation={[0, 0, Math.PI / 2]}>
-          <cylinderGeometry args={[0.025, 0.025, 10, 6]} />
+      {/* Ceiling truss — lower to be visible */}
+      {[-2, 0, 2].map((z) => (
+        <mesh key={z} position={[0, 3, z]} rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.02, 0.02, 7, 6]} />
           <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
         </mesh>
       ))}
-      {/* Cross bars */}
-      {[-4, -2, 0, 2, 4].map((x) => (
-        <mesh key={x} position={[x, 4.2, 0]} rotation={[Math.PI / 2, 0, 0]}>
-          <cylinderGeometry args={[0.02, 0.02, 6.5, 6]} />
+      {[-3, -1.5, 0, 1.5, 3].map((x) => (
+        <mesh key={x} position={[x, 3, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <cylinderGeometry args={[0.015, 0.015, 4.5, 6]} />
           <meshStandardMaterial color="#1a1a1a" metalness={0.9} roughness={0.3} />
         </mesh>
       ))}
 
-      {/* Floor bounce — subtle */}
+      {/* Floor bounce */}
       <pointLight position={[0, -2, 0]} intensity={0.1} color="#1a1a2e" />
-      {/* Ambient — very low */}
       <ambientLight intensity={0.04} />
     </>
   );
