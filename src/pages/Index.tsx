@@ -12,6 +12,7 @@ import ContactModal from '@/components/ContactModal';
 import FooterReveal from '@/components/FooterReveal';
 import FloatingButler from '@/components/FloatingButler';
 import Navbar from '@/components/Navbar';
+import AboutSection from '@/components/AboutSection';
 
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
