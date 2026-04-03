@@ -636,19 +636,17 @@ const AtelierHUD = ({ locked = false, onUnlockClick }: AtelierHUDProps) => {
       <PhaseNav />
 
       <motion.div
-        className="fixed right-6 top-1/2 -translate-y-1/2 z-30 w-[330px]"
+        className="fixed right-6 top-6 bottom-16 z-30 w-[330px] flex flex-col"
         initial={{ x: 60, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="relative p-5 rounded-2xl overflow-hidden"
+        <div className="relative p-5 rounded-2xl overflow-y-auto flex-1"
           style={{
             background: 'rgba(10,10,10,0.75)',
             border: '1px solid rgba(255,255,255,0.05)',
             backdropFilter: 'blur(40px)',
             boxShadow: '0 30px 60px rgba(0,0,0,0.5)',
-            maxHeight: '80vh',
-            overflowY: 'auto',
             scrollbarWidth: 'none',
           }}
         >
