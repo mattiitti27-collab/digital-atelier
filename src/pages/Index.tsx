@@ -26,13 +26,22 @@ const Index = () => {
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
       <CustomCursor />
+      <Navbar />
       <SmoothScroll>
         <main className="relative z-10">
           {/* Hero Section */}
-          <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+          <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
             <Hero3DScene />
             <HeroTitle visible={loaded} />
           </section>
+
+          {/* Portfolio Section */}
+          <div id="portfolio">
+            <HorizontalPortfolio />
+          </div>
+
+          {/* FAQ Section */}
+          <div id="faq" className="py-16 md:py-24" style={{ background: '#050505' }}>
 
           {/* Portfolio Section */}
           <HorizontalPortfolio />
