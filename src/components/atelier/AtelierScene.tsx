@@ -8,42 +8,17 @@ import { useAtelierStore, MaterialType } from '@/stores/atelierStore';
 function getMaterial(type: MaterialType) {
   switch (type) {
     case 'obsidian':
-      return (
-        <meshPhysicalMaterial
-          color="#0a0a0a"
-          metalness={0.9}
-          roughness={0.05}
-          clearcoat={1}
-          clearcoatRoughness={0.1}
-          reflectivity={1}
-          envMapIntensity={2}
-        />
-      );
+      return <meshPhysicalMaterial color="#0a0a0a" metalness={0.9} roughness={0.05} clearcoat={1} clearcoatRoughness={0.1} reflectivity={1} envMapIntensity={2} />;
     case 'frosted-glass':
-      return (
-        <meshPhysicalMaterial
-          color="#ffffff"
-          metalness={0}
-          roughness={0.15}
-          transmission={0.9}
-          thickness={0.5}
-          ior={1.5}
-          transparent
-          opacity={0.7}
-          envMapIntensity={1.5}
-        />
-      );
+      return <meshPhysicalMaterial color="#ffffff" metalness={0} roughness={0.15} transmission={0.9} thickness={0.5} ior={1.5} transparent opacity={0.7} envMapIntensity={1.5} />;
     case 'gold':
-      return (
-        <meshPhysicalMaterial
-          color="#d4a574"
-          metalness={1}
-          roughness={0.15}
-          clearcoat={0.5}
-          clearcoatRoughness={0.2}
-          envMapIntensity={2.5}
-        />
-      );
+      return <meshPhysicalMaterial color="#d4a574" metalness={1} roughness={0.15} clearcoat={0.5} clearcoatRoughness={0.2} envMapIntensity={2.5} />;
+    case 'marble':
+      return <meshPhysicalMaterial color="#f0ede8" metalness={0.05} roughness={0.3} clearcoat={0.8} clearcoatRoughness={0.15} envMapIntensity={1.2} />;
+    case 'carbon':
+      return <meshPhysicalMaterial color="#1a1a1a" metalness={0.7} roughness={0.4} clearcoat={1} clearcoatRoughness={0.05} envMapIntensity={1.8} />;
+    case 'holographic':
+      return <meshPhysicalMaterial color="#c084fc" metalness={0.3} roughness={0.1} clearcoat={1} clearcoatRoughness={0.05} iridescence={1} iridescenceIOR={1.3} envMapIntensity={3} />;
   }
 }
 
