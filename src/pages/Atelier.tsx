@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtelierStore } from '@/stores/atelierStore';
 import { supabase } from '@/integrations/supabase/client';
-import AtelierScene from '@/components/atelier/AtelierScene';
 import AtelierHUD from '@/components/atelier/AtelierHUD';
 import AtelierPaywall from '@/components/atelier/AtelierPaywall';
 import LiveSitePreview from '@/components/atelier/LiveSitePreview';
@@ -34,13 +33,28 @@ const Atelier = () => {
   }, [searchParams, setHasAccess, setEmail]);
 
   return (
-    <div className="relative w-full h-screen overflow-hidden" style={{ background: '#050505' }}>
-      {/* Always show the 3D scene */}
-      <AtelierScene />
-      <LiveSitePreview />
+    <div className="flex h-screen w-full overflow-hidden" style={{ background: '#050505' }}>
+      {/* Sidebar — fixed width, full height, scroll inside */}
       <AtelierHUD locked={false} onUnlockClick={() => setShowPaywall(true)} />
 
-      {/* Lock overlay when no access */}
+      {/* Main canvas area — live preview */}
+      <div className="flex-1 relative flex items-center justify-center overflow-hidden">
+        <LiveSitePreview />
+
+        {/* Bottom status bar */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-5">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#d4a574' }} />
+            <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: 'rgba(255,255,255,0.2)' }}>
+              CANVAS ATTIVO
+            </span>
+          </div>
+          <div className="w-[1px] h-3" style={{ background: 'rgba(255,255,255,0.08)' }} />
+          <span className="text-[8px] font-mono" style={{ color: 'rgba(255,255,255,0.15)' }}>INTINI.SYS.DIG v4.0</span>
+        </div>
+      </div>
+
+      {/* Lock overlay */}
       <AnimatePresence>
         {!hasAccess && !showPaywall && (
           <motion.div
@@ -80,7 +94,6 @@ const Atelier = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Backdrop */}
             <div
               className="absolute inset-0"
               style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(10px)' }}
