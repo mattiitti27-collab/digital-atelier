@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo3d from '@/assets/logo-3d.png';
+
 
 const NAV_ITEMS = [
   { label: 'Chi Siamo', href: '#chi-siamo' },
