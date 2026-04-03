@@ -14,6 +14,13 @@ const AboutSection = () => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
+      // Parallax on the gold orb
+      gsap.to('.about-orb', {
+        y: -120,
+        ease: 'none',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top bottom', end: 'bottom top', scrub: 2 },
+      });
+
       gsap.from(titleRef.current, {
         y: 60, opacity: 0, duration: 1.2, ease: 'power3.out',
         scrollTrigger: { trigger: titleRef.current, start: 'top 85%', once: true },
