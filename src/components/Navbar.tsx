@@ -49,7 +49,10 @@ const Navbar = () => {
       />
       <div className="relative max-w-7xl mx-auto flex items-center justify-between px-4 md:px-16 py-4 md:py-6">
         <button
-          onClick={() => handleNav({ label: 'Home', href: '#hero' })}
+          onClick={() => {
+            const el = document.querySelector('#hero');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
           className="text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
