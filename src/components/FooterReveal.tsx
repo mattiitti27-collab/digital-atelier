@@ -18,7 +18,7 @@ const FooterReveal = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        INTINIWEBATELIER
+        INTINI WEB ATELIER
       </motion.p>
 
       {/* Main info grid */}
@@ -35,6 +35,16 @@ const FooterReveal = () => {
           </p>
           <p className="text-sm leading-[1.8]" style={{ color: 'rgba(255,255,255,0.4)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
             Siti web su misura e di altissimo lusso per clienti esclusivi.
+            <br />
+            <a
+              href="mailto:intiniwebatelier@gmail.com"
+              className="transition-colors duration-300 mt-2 inline-block"
+              style={{ color: 'rgba(255,255,255,0.4)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+            >
+              intiniwebatelier@gmail.com
+            </a>
           </p>
         </div>
 
@@ -85,7 +95,7 @@ const FooterReveal = () => {
         transition={{ duration: 0.8, delay: 0.3 }}
       >
         <p className="text-[11px] tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-          © {new Date().getFullYear()} INTINIWEBATELIER · All Rights Reserved
+          © {new Date().getFullYear()} INTINI WEB ATELIER · Digital Experiences
         </p>
       </motion.div>
     </footer>

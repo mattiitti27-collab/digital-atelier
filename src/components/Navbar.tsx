@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 
 const NAV_ITEMS = [
   { label: 'Chi Siamo', href: '#chi-siamo' },
   { label: 'I Nostri Lavori', href: '#portfolio' },
+  { label: 'L\'Atelier', href: '/atelier', isRoute: true },
   { label: 'FAQ', href: '#faq' },
   { label: 'Contatti', href: '#contatti' },
 ];
@@ -19,10 +21,16 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const navigate = useNavigate();
+
+  const handleNav = (item: typeof NAV_ITEMS[0]) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    if ('isRoute' in item && item.isRoute) {
+      navigate(item.href);
+    } else {
+      const el = document.querySelector(item.href);
+      el?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -38,7 +46,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-8 md:px-16 py-6">
         {/* Logo */}
         <button
-          onClick={() => scrollTo('#hero')}
+          onClick={() => handleNav({ label: 'Home', href: '#hero' })}
           className="text-sm tracking-[0.4em] uppercase"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
@@ -50,7 +58,7 @@ const Navbar = () => {
           {NAV_ITEMS.map((item) => (
             <button
               key={item.label}
-              onClick={() => scrollTo(item.href)}
+              onClick={() => handleNav(item)}
               className="text-xs tracking-[0.25em] uppercase transition-colors duration-300"
               style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
@@ -104,7 +112,7 @@ const Navbar = () => {
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.label}
-                onClick={() => scrollTo(item.href)}
+                onClick={() => handleNav(item)}
                 className="text-xs tracking-[0.3em] uppercase"
                 style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
               >
