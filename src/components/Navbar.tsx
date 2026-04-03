@@ -46,7 +46,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-8 md:px-16 py-6">
         {/* Logo */}
         <button
-          onClick={() => scrollTo('#hero')}
+          onClick={() => handleNav({ label: 'Home', href: '#hero' })}
           className="text-sm tracking-[0.4em] uppercase"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
