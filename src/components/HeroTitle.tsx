@@ -1,29 +1,13 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 interface HeroTitleProps {
   visible: boolean;
 }
 
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-  angle: number;
-  distance: number;
-}
-
 const HeroTitle = ({ visible }: HeroTitleProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
-  const btnRef = useRef<HTMLAnchorElement>(null);
-  const [hovered, setHovered] = useState(false);
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const particleId = useRef(0);
 
   useEffect(() => {
     if (!visible || hasAnimated.current || !containerRef.current) return;
