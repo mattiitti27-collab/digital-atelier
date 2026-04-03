@@ -3,13 +3,12 @@ import { create } from 'zustand';
 export type MaterialType = 'obsidian' | 'frosted-glass' | 'gold' | 'marble' | 'carbon' | 'holographic';
 export type Phase =
   | 'identity' | 'template' | 'essence' | 'palette' | 'typography'
-  | 'animations' | 'layout' | 'arsenal' | 'budget' | 'signature' | 'finale';
+  | 'animations' | 'layout' | 'arsenal' | 'signature' | 'finale';
 
 export interface AtelierModule {
   id: string;
   name: string;
   description: string;
-  price: number;
   active: boolean;
 }
 
@@ -62,8 +61,6 @@ interface AtelierState {
   animationStyle: string;
   layoutStyle: string;
   modules: AtelierModule[];
-  budgetRange: number;
-  timeline: string;
   notes: string;
   hasAccess: boolean;
   email: string;
@@ -78,8 +75,6 @@ interface AtelierState {
   setAnimationStyle: (style: string) => void;
   setLayoutStyle: (style: string) => void;
   toggleModule: (id: string) => void;
-  setBudgetRange: (budget: number) => void;
-  setTimeline: (timeline: string) => void;
   setNotes: (notes: string) => void;
   setHasAccess: (access: boolean) => void;
   setEmail: (email: string) => void;
@@ -132,16 +127,16 @@ export const layoutStyles: LayoutStyle[] = [
 ];
 
 const defaultModules: AtelierModule[] = [
-  { id: 'ecommerce', name: 'E-COMMERCE IMMERSIVO 3D', description: 'Catalogo prodotti con viewer 3D integrato e checkout cinematografico', price: 2500, active: false },
-  { id: 'ai-concierge', name: 'PORTIERATO AI INTEGRATO', description: 'Assistente artificiale conversazionale con personalità su misura', price: 3000, active: false },
-  { id: 'parallax', name: 'SCROLL CINEMATOGRAFICO PARALLASSE', description: 'Navigazione narrativa con profondità e movimenti di camera', price: 1500, active: false },
-  { id: 'analytics', name: 'INTELLIGENCE DASHBOARD', description: 'Analytics avanzati con heatmap e comportamento utente in tempo reale', price: 2000, active: false },
-  { id: 'multilang', name: 'ARCHITETTURA MULTILINGUA', description: 'Localizzazione professionale con routing geografico automatico', price: 1800, active: false },
-  { id: 'cms', name: 'CMS HEADLESS ENTERPRISE', description: 'Gestione contenuti decentralizzata con API GraphQL', price: 2200, active: false },
-  { id: 'booking', name: 'SISTEMA PRENOTAZIONI', description: 'Calendario integrato con pagamento e conferma automatica', price: 1800, active: false },
-  { id: 'video', name: 'VIDEO HERO GENERATIVO', description: 'Background video con shader personalizzati e transizioni dinamiche', price: 1200, active: false },
-  { id: 'members', name: 'AREA MEMBRI ESCLUSIVA', description: 'Sezione riservata con login, contenuti premium e community', price: 2500, active: false },
-  { id: 'seo', name: 'SEO ARCHITETTURA AVANZATA', description: 'Schema markup, sitemap dinamica, Core Web Vitals ottimizzati', price: 1000, active: false },
+  { id: 'ecommerce', name: 'E-COMMERCE IMMERSIVO 3D', description: 'Catalogo prodotti con viewer 3D integrato e checkout cinematografico', active: false },
+  { id: 'ai-concierge', name: 'PORTIERATO AI INTEGRATO', description: 'Assistente artificiale conversazionale con personalità su misura', active: false },
+  { id: 'parallax', name: 'SCROLL CINEMATOGRAFICO PARALLASSE', description: 'Navigazione narrativa con profondità e movimenti di camera', active: false },
+  { id: 'analytics', name: 'INTELLIGENCE DASHBOARD', description: 'Analytics avanzati con heatmap e comportamento utente in tempo reale', active: false },
+  { id: 'multilang', name: 'ARCHITETTURA MULTILINGUA', description: 'Localizzazione professionale con routing geografico automatico', active: false },
+  { id: 'cms', name: 'CMS HEADLESS ENTERPRISE', description: 'Gestione contenuti decentralizzata con API GraphQL', active: false },
+  { id: 'booking', name: 'SISTEMA PRENOTAZIONI', description: 'Calendario integrato con pagamento e conferma automatica', active: false },
+  { id: 'video', name: 'VIDEO HERO GENERATIVO', description: 'Background video con shader personalizzati e transizioni dinamiche', active: false },
+  { id: 'members', name: 'AREA MEMBRI ESCLUSIVA', description: 'Sezione riservata con login, contenuti premium e community', active: false },
+  { id: 'seo', name: 'SEO ARCHITETTURA AVANZATA', description: 'Schema markup, sitemap dinamica, Core Web Vitals ottimizzati', active: false },
 ];
 
 export const useAtelierStore = create<AtelierState>((set) => ({
@@ -155,8 +150,6 @@ export const useAtelierStore = create<AtelierState>((set) => ({
   animationStyle: 'cinematic',
   layoutStyle: 'fullbleed',
   modules: defaultModules,
-  budgetRange: 5000,
-  timeline: '',
   notes: '',
   hasAccess: false,
   email: '',
@@ -176,8 +169,6 @@ export const useAtelierStore = create<AtelierState>((set) => ({
         m.id === id ? { ...m, active: !m.active } : m
       ),
     })),
-  setBudgetRange: (budgetRange) => set({ budgetRange }),
-  setTimeline: (timeline) => set({ timeline }),
   setNotes: (notes) => set({ notes }),
   setHasAccess: (hasAccess) => set({ hasAccess }),
   setEmail: (email) => set({ email }),
