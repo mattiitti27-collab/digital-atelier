@@ -18,7 +18,7 @@ const FooterReveal = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        INTINIWEBATELIER
+        INTINI WEB ATELIER
       </motion.p>
 
       {/* Main info grid */}
