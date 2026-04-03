@@ -453,7 +453,7 @@ function ArsenalPhase() {
   );
 }
 
-// ─── PHASE 10: SIGNATURE ───
+// ─── PHASE 9: SIGNATURE ───
 function SignaturePhase() {
   const setPhase = useAtelierStore((s) => s.setPhase);
   const brandName = useAtelierStore((s) => s.brandName);
@@ -465,10 +465,7 @@ function SignaturePhase() {
   const animationStyle = useAtelierStore((s) => s.animationStyle);
   const layoutStyle = useAtelierStore((s) => s.layoutStyle);
   const modules = useAtelierStore((s) => s.modules);
-  const budgetRange = useAtelierStore((s) => s.budgetRange);
-  const timeline = useAtelierStore((s) => s.timeline);
   const activeModules = modules.filter((m) => m.active);
-  const modulesTotal = activeModules.reduce((sum, m) => sum + m.price, 0);
 
   const templateLabel = templates.find((t) => t.id === template)?.name || '—';
   const materialLabel = materials.find((m) => m.id === material)?.name || '—';
@@ -486,8 +483,6 @@ function SignaturePhase() {
     ['TIPOGRAFIA', typoLabel],
     ['ANIMAZIONE', animLabel],
     ['LAYOUT', layoutLabel],
-    ['BUDGET', `€${budgetRange.toLocaleString()}`],
-    ['TIMELINE', timeline ? timeline.replace('-', ' ').toUpperCase() : '—'],
   ];
 
   return (
