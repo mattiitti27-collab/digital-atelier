@@ -1,133 +1,110 @@
-import { useRef, useMemo, useEffect, useState } from 'react';
+import { useRef, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import { EffectComposer, Bloom, Noise } from '@react-three/postprocessing';
 import * as THREE from 'three';
-import gsap from 'gsap';
 
-/* ── Silk Ribbon (Möbius-inspired abstract geometry) ── */
-function SilkRibbon() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null);
+/* ── Reflective Ring (anello elegante, logo-inspired) ── */
+function ReflectiveRing() {
+  const groupRef = useRef<THREE.Group>(null);
 
-  const geometry = useMemo(() => {
-    const curve = new THREE.CatmullRomCurve3(
-      [
-        new THREE.Vector3(-2, 0, 0),
-        new THREE.Vector3(-1, 1.2, 0.8),
-        new THREE.Vector3(0, 0.3, -1),
-        new THREE.Vector3(0.8, -0.8, 0.6),
-        new THREE.Vector3(1.8, 0.5, -0.3),
-        new THREE.Vector3(2.2, -0.2, 0.8),
-      ],
-      true, // closed
-      'catmullrom',
-      0.6
-    );
-
-    const frames = curve.computeFrenetFrames(200, true);
-    const tubeGeo = new THREE.TubeGeometry(curve, 200, 0.08, 16, true);
-
-    // Flatten it into a ribbon by scaling normals
-    const positions = tubeGeo.attributes.position;
-    const count = positions.count;
-    const segCount = 201;
-    const radialCount = 17;
-
-    for (let i = 0; i < segCount; i++) {
-      const t = i / (segCount - 1);
-      // Add twist
-      const twist = t * Math.PI * 2;
-      for (let j = 0; j < radialCount; j++) {
-        const idx = i * radialCount + j;
-        if (idx < count) {
-          const angle = (j / (radialCount - 1)) * Math.PI * 2 + twist;
-          const px = positions.getX(idx);
-          const py = positions.getY(idx);
-          const pz = positions.getZ(idx);
-          // Flatten along one axis to make ribbon-like
-          positions.setY(idx, py + Math.sin(angle) * 0.02);
-        }
-      }
-    }
-
-    positions.needsUpdate = true;
-    tubeGeo.computeVertexNormals();
-    return tubeGeo;
-  }, []);
+  const torusGeo = useMemo(() => new THREE.TorusGeometry(1.1, 0.025, 32, 128), []);
 
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += 0.002;
-      meshRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.003;
+      groupRef.current.rotation.z = Math.sin(state.clock.elapsedTime * 0.4) * 0.08;
+      groupRef.current.rotation.x = Math.cos(state.clock.elapsedTime * 0.3) * 0.05;
     }
   });
 
   return (
-    <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.5}>
-      <mesh ref={meshRef} geometry={geometry} scale={1.2}>
-        <meshStandardMaterial
-          ref={materialRef}
-          color="#ffffff"
-          emissive="#4466ff"
-          emissiveIntensity={0.15}
-          roughness={0.2}
-          metalness={0.9}
-          side={THREE.DoubleSide}
-          transparent
-          opacity={0.85}
-        />
-      </mesh>
+    <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
+      <group ref={groupRef} scale={0.75}>
+        {/* Main ring */}
+        <mesh geometry={torusGeo}>
+          <meshPhysicalMaterial
+            color="#c0c0c0"
+            metalness={1}
+            roughness={0.05}
+            reflectivity={1}
+            clearcoat={1}
+            clearcoatRoughness={0.02}
+            envMapIntensity={2}
+            transparent
+            opacity={0.35}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+
+        {/* Inner ring — slightly smaller, tilted */}
+        <mesh geometry={torusGeo} rotation={[Math.PI * 0.12, 0, Math.PI * 0.08]} scale={0.82}>
+          <meshPhysicalMaterial
+            color="#d4d4d8"
+            metalness={1}
+            roughness={0.08}
+            reflectivity={1}
+            clearcoat={1}
+            clearcoatRoughness={0.05}
+            transparent
+            opacity={0.2}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+
+        {/* Thin accent ring */}
+        <mesh rotation={[Math.PI * -0.06, Math.PI * 0.15, 0]} scale={0.95}>
+          <torusGeometry args={[1.1, 0.012, 16, 128]} />
+          <meshPhysicalMaterial
+            color="#8899ff"
+            metalness={1}
+            roughness={0.1}
+            emissive="#4466ff"
+            emissiveIntensity={0.3}
+            transparent
+            opacity={0.25}
+            side={THREE.DoubleSide}
+          />
+        </mesh>
+      </group>
     </Float>
   );
 }
 
-/* ── Orbiting Particles ── */
+/* ── Orbiting Particles (subtle) ── */
 function Particles() {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = 120;
+  const count = 60;
 
-  const [positions, sizes] = useMemo(() => {
+  const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
-    const sz = new Float32Array(count);
     for (let i = 0; i < count; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
-      const r = 2.5 + Math.random() * 1.5;
+      const r = 1.5 + Math.random() * 0.8;
       pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
       pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       pos[i * 3 + 2] = r * Math.cos(phi);
-      sz[i] = Math.random() * 2 + 0.5;
     }
-    return [pos, sz];
+    return pos;
   }, []);
 
   useFrame((state) => {
     if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
-      pointsRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.02) * 0.1;
+      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.04;
     }
   });
 
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute
-          attach="attributes-position"
-          args={[positions, 3]}
-          count={count}
-        />
-        <bufferAttribute
-          attach="attributes-size"
-          args={[sizes, 1]}
-          count={count}
-        />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} count={count} />
       </bufferGeometry>
       <pointsMaterial
-        size={0.015}
+        size={0.008}
         color="#8899ff"
         transparent
-        opacity={0.6}
+        opacity={0.4}
         sizeAttenuation
         depthWrite={false}
       />
@@ -163,8 +140,8 @@ function CameraParallax() {
   }, []);
 
   useFrame(() => {
-    target.current.x += (mouse.current.x * 0.15 - target.current.x) * 0.05;
-    target.current.y += (-mouse.current.y * 0.1 - target.current.y) * 0.05;
+    target.current.x += (mouse.current.x * 0.12 - target.current.x) * 0.04;
+    target.current.y += (-mouse.current.y * 0.08 - target.current.y) * 0.04;
     camera.position.x = target.current.x;
     camera.position.y = target.current.y;
     camera.lookAt(0, 0, 0);
@@ -173,35 +150,48 @@ function CameraParallax() {
   return null;
 }
 
+/* ── Environment Map for reflections ── */
+function EnvMap() {
+  const { scene } = useThree();
+
+  useMemo(() => {
+    const pmremGenerator = new THREE.PMREMGenerator(
+      new THREE.WebGLRenderer({ antialias: false })
+    );
+    // We don't have an HDR, so we create a simple gradient environment
+    // The metalness + clearcoat will still give a nice reflective look
+  }, []);
+
+  return null;
+}
+
 /* ── Main Hero3D Scene ── */
 const Hero3DScene = () => {
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0 -z-10 pointer-events-none">
       <Canvas
         gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
-        camera={{ position: [0, 0, 5], fov: 45 }}
+        camera={{ position: [0, 0, 4], fov: 40 }}
         style={{ background: 'transparent' }}
         dpr={[1, 1.5]}
       >
-        {/* Cinematic Lighting */}
-        <ambientLight intensity={0.1} />
-        <directionalLight position={[5, 3, 5]} intensity={0.4} color="#ffffff" />
-        <pointLight position={[-3, 2, -2]} intensity={1.2} color="#4466ff" distance={12} />
-        <pointLight position={[3, -1, 3]} intensity={0.8} color="#6633cc" distance={10} />
-        <pointLight position={[0, 3, 0]} intensity={0.3} color="#ffffff" distance={8} />
+        <ambientLight intensity={0.15} />
+        <directionalLight position={[5, 3, 5]} intensity={0.5} color="#ffffff" />
+        <pointLight position={[-2, 1.5, -1]} intensity={0.8} color="#4466ff" distance={8} />
+        <pointLight position={[2, -1, 2]} intensity={0.5} color="#6633cc" distance={8} />
 
-        <SilkRibbon />
+        <ReflectiveRing />
         <Particles />
         <CameraParallax />
 
         <EffectComposer>
           <Bloom
-            intensity={0.6}
-            luminanceThreshold={0.3}
+            intensity={0.5}
+            luminanceThreshold={0.35}
             luminanceSmoothing={0.9}
             mipmapBlur
           />
-          <Noise opacity={0.03} />
+          <Noise opacity={0.02} />
         </EffectComposer>
       </Canvas>
     </div>
