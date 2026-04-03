@@ -6,6 +6,7 @@ import { supabase } from '@/integrations/supabase/client';
 import AtelierScene from '@/components/atelier/AtelierScene';
 import AtelierHUD from '@/components/atelier/AtelierHUD';
 import AtelierPaywall from '@/components/atelier/AtelierPaywall';
+import LiveSitePreview from '@/components/atelier/LiveSitePreview';
 
 const Atelier = () => {
   const [searchParams] = useSearchParams();
