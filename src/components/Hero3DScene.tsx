@@ -39,7 +39,7 @@ const Hero3DScene = () => {
   }, []);
 
   return (
-    <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
+    <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none" style={{ marginTop: '-4vh' }}>
       <motion.div
         ref={containerRef}
         initial={{ opacity: 0, scale: 0.9 }}
