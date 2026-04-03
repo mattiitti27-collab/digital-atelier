@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useEditorStore, ElementType } from '@/stores/editorStore';
 import { Type, Image, Square, MousePointer, Navigation, Box } from 'lucide-react';
 
-const typeIcons: Record<ElementType, React.FC<{ size: number; style?: React.CSSProperties }>> = {
+const typeIcons: Record<ElementType, typeof Type> = {
   text: Type,
   button: MousePointer,
   section: Square,
