@@ -164,7 +164,7 @@ function DistortionPlane() {
 
 const WebGLBackground = () => {
   return (
-    <div className="fixed inset-0 -z-10">
+    <div className="fixed inset-0" style={{ zIndex: -20 }}>
       <Canvas
         gl={{ alpha: true, antialias: false, powerPreference: 'high-performance' }}
         camera={{ position: [0, 0, 1] }}
