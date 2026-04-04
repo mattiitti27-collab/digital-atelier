@@ -16,6 +16,25 @@ const AboutSection = () => {
         y: 40, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.12,
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
       });
+
+      // Scroll-triggered warm glow on about text
+      const glowEls = sectionRef.current!.querySelectorAll('.about-glow');
+      glowEls.forEach((el) => {
+        gsap.fromTo(el,
+          { textShadow: '0 0 0px rgba(212,165,116,0)' },
+          {
+            textShadow: '0 0 14px rgba(212,165,116,0.25), 0 0 30px rgba(212,165,116,0.08)',
+            duration: 1,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'top 35%',
+              scrub: 1.5,
+            },
+          }
+        );
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
