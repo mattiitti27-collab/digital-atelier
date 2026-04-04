@@ -87,6 +87,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const inputClass = "w-full text-white text-sm py-3 px-3 rounded-lg outline-none min-h-[44px]";
 
   return (
+    <>
     <AnimatePresence>
       {open && (
         <motion.div
