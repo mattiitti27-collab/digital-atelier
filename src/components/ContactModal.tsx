@@ -1,11 +1,13 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { useLanguage } from '@/i18n/LanguageContext';
 import LuxuryToast from '@/components/LuxuryToast';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Inserisci il tuo nome').max(100),
@@ -13,6 +15,7 @@ const contactSchema = z.object({
   phone: z.string().trim().max(30).optional(),
   service: z.string().optional(),
   message: z.string().trim().min(1, 'Inserisci un messaggio').max(1000),
+  privacy: z.literal(true, { errorMap: () => ({ message: 'Devi accettare la privacy policy per inviare il messaggio.' }) }),
 });
 
 const GOOGLE_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxDsbg-SpF1Lv-zO_4KR7GgJRklTpseiC_LKg2qBmBMcFT3SZdr59lyzXUj_ts6rktS8Q/exec';
@@ -28,6 +31,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const [phone, setPhone] = useState('');
   const [service, setService] = useState('');
   const [message, setMessage] = useState('');
+  const [privacy, setPrivacy] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
@@ -36,21 +40,19 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const parsed = contactSchema.safeParse({ name, email, phone, service, message });
+    const parsed = contactSchema.safeParse({ name, email, phone, service, message, privacy });
     if (!parsed.success) {
       toast.error(parsed.error.errors[0].message);
       return;
     }
     setLoading(true);
 
-    // Save to database
     await supabase.from('contact_submissions').insert({
       name: parsed.data.name,
       email: parsed.data.email,
       message: `[Tel: ${parsed.data.phone || 'N/A'}] [Servizio: ${parsed.data.service || 'N/A'}] ${parsed.data.message}`,
     });
 
-    // Send to Google Sheets
     try {
       const formData = new FormData();
       formData.append('name', parsed.data.name);
@@ -73,7 +75,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     setLoading(false);
     setSuccess(true);
     setToastVisible(true);
-    setName(''); setEmail(''); setPhone(''); setService(''); setMessage('');
+    setName(''); setEmail(''); setPhone(''); setService(''); setMessage(''); setPrivacy(false);
   };
 
   const handleClose = () => {
@@ -157,6 +159,20 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                     <label className={labelClass} style={labelStyle}>{t.contact.messageLabel}</label>
                     <textarea name="messaggio" value={message} onChange={(e) => setMessage(e.target.value)} placeholder={t.contact.messagePlaceholder} rows={3} className="w-full text-white text-sm py-3 px-3 rounded-lg outline-none resize-none" style={inputStyle} />
                   </div>
+
+                  {/* GDPR Privacy Checkbox */}
+                  <div className="flex items-start gap-3 pt-1">
+                    <Checkbox
+                      id="privacy-consent"
+                      checked={privacy}
+                      onCheckedChange={(checked) => setPrivacy(checked === true)}
+                      className="mt-0.5 border-white/20 data-[state=checked]:bg-[#d4a574] data-[state=checked]:border-[#d4a574]"
+                    />
+                    <label htmlFor="privacy-consent" className="text-[10px] leading-[1.6] cursor-pointer" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                      Ho letto e accetto l'<Link to="/privacy-policy" target="_blank" className="underline" style={{ color: '#d4a574' }} onClick={(e) => e.stopPropagation()}>Informativa sulla Privacy</Link> ai sensi del Reg. UE 2016/679 (GDPR). *
+                    </label>
+                  </div>
+
                   <motion.button
                     type="submit"
                     disabled={loading}

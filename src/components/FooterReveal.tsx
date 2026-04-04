@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const FooterReveal = () => {
@@ -70,6 +71,28 @@ const FooterReveal = () => {
               P.IVA 13419790012
             </p>
           </div>
+        </div>
+
+        {/* Legal links */}
+        <div className="flex justify-center gap-6 mb-4">
+          <Link
+            to="/privacy-policy"
+            className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase transition-colors duration-300"
+            style={{ color: 'rgba(255,255,255,0.3)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            to="/cookie-policy"
+            className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase transition-colors duration-300"
+            style={{ color: 'rgba(255,255,255,0.3)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          >
+            Cookie Policy
+          </Link>
         </div>
 
         <div className="w-full" style={{ height: '1px', background: 'rgba(255,255,255,0.04)' }} />

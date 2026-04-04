@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const CookieBanner = () => {
   const [visible, setVisible] = useState(false);
@@ -28,10 +29,11 @@ const CookieBanner = () => {
       }}
     >
       <p
-        className="text-[11px] leading-[1.7] mb-5"
+        className="text-[11px] leading-[1.7] mb-3"
         style={{ color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
       >
-        Utilizziamo cookie per migliorare la tua esperienza.
+        Utilizziamo cookie tecnici per il funzionamento del sito. Per maggiori informazioni consulta la nostra{' '}
+        <Link to="/cookie-policy" className="underline" style={{ color: '#d4a574' }}>Cookie Policy</Link>.
       </p>
       <div className="flex gap-3">
         <button
@@ -53,7 +55,7 @@ const CookieBanner = () => {
             e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
           }}
         >
-          Accetta
+          Accetta Tutti
         </button>
         <button
           onClick={() => accept('necessary')}
@@ -74,7 +76,7 @@ const CookieBanner = () => {
             e.currentTarget.style.color = 'rgba(255,255,255,0.35)';
           }}
         >
-          Necessari
+          Solo Necessari
         </button>
       </div>
     </div>
