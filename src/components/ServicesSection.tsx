@@ -84,6 +84,22 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
       onAction: scrollToContact,
       hasConfigurator: true,
     },
+    {
+      name: lang === 'it' ? 'Atelier Visuale' : 'Visual Atelier',
+      subtitle: lang === 'it' ? 'Revisione Grafica Completa' : 'Complete Graphic Review',
+      icon: Gem,
+      features: lang === 'it'
+        ? ['Revisione grafica completa del sito', 'Ottimizzazione UI/UX avanzata', 'Coerenza visiva su ogni pagina', 'Consulenza di design dedicata']
+        : ['Complete graphic site review', 'Advanced UI/UX optimization', 'Visual consistency across every page', 'Dedicated design consultancy'],
+      description: lang === 'it'
+        ? 'Un servizio esclusivo di revisione grafica per elevare ogni dettaglio del tuo sito.'
+        : 'An exclusive graphic review service to elevate every detail of your site.',
+      price: null,
+      showPrice: false,
+      cta: lang === 'it' ? 'Richiedi Revisione' : 'Request Review',
+      onAction: scrollToContact,
+      hasConfigurator: false,
+    },
   ];
 
   return (
