@@ -28,7 +28,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   ];
 
   return (
-    <section id="servizi" ref={sectionRef} className="relative py-20 md:py-40 px-4 md:px-16">
+    <section id="servizi" ref={sectionRef} className="relative py-16 md:py-40 px-4 md:px-16">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12 md:mb-20">
           <p
