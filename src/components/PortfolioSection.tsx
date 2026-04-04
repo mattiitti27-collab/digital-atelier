@@ -39,8 +39,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block overflow-hidden rounded-2xl flex-shrink-0"
-      style={{ width: '380px', height: '260px' }}
+      className="group relative block overflow-hidden rounded-2xl flex-shrink-0 w-[85vw] h-[55vw] max-w-[380px] max-h-[260px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

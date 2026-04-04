@@ -33,7 +33,7 @@ const Marquee = () => {
     gsap.set(track, { x: -totalWidth });
     gsap.to(track, {
       x: 0,
-      duration: 40,
+      duration: 20,
       ease: 'none',
       repeat: -1,
     });

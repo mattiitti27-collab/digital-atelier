@@ -103,7 +103,7 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
             const el = document.querySelector('#portfolio');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-6 md:px-10 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase transition-all duration-500 rounded-full min-h-[42px]"
+          className="px-5 md:px-10 py-2.5 md:py-4 text-[8px] md:text-[10px] tracking-[0.25em] uppercase transition-all duration-500 rounded-full min-h-[38px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
