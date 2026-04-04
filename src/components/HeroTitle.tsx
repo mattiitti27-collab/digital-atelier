@@ -50,11 +50,11 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
       </h1>
 
       <p
-        className="text-xs md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto"
+        className="text-[10px] md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto text-center"
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 300,
-          letterSpacing: '0.2em',
+          letterSpacing: '0.15em',
           color: 'rgba(255,255,255,0.35)',
           lineHeight: '1.8',
           opacity: visible ? 1 : 0,
