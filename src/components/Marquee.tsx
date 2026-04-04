@@ -38,11 +38,11 @@ const Marquee = ({ offset = 0, direction = 'left' }: MarqueeProps) => {
 
     if (direction === 'left') {
       gsap.set(track, { x: 0 });
-      const anim = gsap.to(track, { x: -totalWidth, duration: 40, ease: 'none', repeat: -1 });
+      const anim = gsap.to(track, { x: -totalWidth, duration: 16, ease: 'none', repeat: -1 });
       return () => { anim.kill(); };
     } else {
       gsap.set(track, { x: -totalWidth });
-      const anim = gsap.to(track, { x: 0, duration: 40, ease: 'none', repeat: -1 });
+      const anim = gsap.to(track, { x: 0, duration: 16, ease: 'none', repeat: -1 });
       return () => { anim.kill(); };
     }
   }, [direction]);
