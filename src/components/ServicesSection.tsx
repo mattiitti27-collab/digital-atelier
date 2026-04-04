@@ -13,9 +13,29 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
+      // Card entrance
       gsap.from('.service-card', {
         y: 50, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.15,
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
+      });
+
+      // Scroll-triggered warm glow tracing on text elements
+      const glowEls = sectionRef.current!.querySelectorAll('.glow-trace');
+      glowEls.forEach((el) => {
+        gsap.fromTo(el, 
+          { textShadow: '0 0 0px rgba(212,165,116,0)' },
+          {
+            textShadow: '0 0 18px rgba(212,165,116,0.35), 0 0 40px rgba(212,165,116,0.12)',
+            duration: 1.2,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'top 30%',
+              scrub: 1.5,
+            },
+          }
+        );
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -38,14 +58,14 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.label}
           </p>
           <h2
-            className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff', lineHeight: 1.1 }}
+            className="glow-trace text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6"
+            style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff', lineHeight: 1.1, wordSpacing: '0.25em' }}
           >
             {t.services.title}
           </h2>
           <p
-            className="text-xs md:text-base max-w-xl mx-auto"
-            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em', lineHeight: 1.8 }}
+            className="glow-trace text-xs md:text-base max-w-xl mx-auto"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em', lineHeight: 1.8, wordSpacing: '0.3em' }}
           >
             {t.services.subtitle}
           </p>
@@ -78,8 +98,8 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
                 {s.title}
               </h3>
               <p
-                className="text-xs md:text-[13px] leading-[1.8]"
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)' }}
+                className="glow-trace text-xs md:text-[13px] leading-[1.8]"
+                style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)', wordSpacing: '0.25em' }}
               >
                 {s.desc}
               </p>
@@ -89,8 +109,8 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
 
         <div className="text-center mt-4">
           <p
-            className="text-xs md:text-sm tracking-[0.15em] mb-0.5"
-            style={{ fontFamily: 'var(--font-body)', fontWeight: 400, color: '#d4a574' }}
+            className="glow-trace text-xs md:text-sm tracking-[0.15em] mb-0.5"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 400, color: '#d4a574', wordSpacing: '0.3em' }}
           >
             {t.services.delivery}
           </p>
@@ -107,7 +127,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.price}
           </p>
           <p
-            className="text-4xl md:text-5xl mb-3 md:mb-4"
+            className="glow-trace text-4xl md:text-5xl mb-3 md:mb-4"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#d4a574' }}
           >
             {t.services.priceValue}
