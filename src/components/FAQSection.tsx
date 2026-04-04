@@ -8,7 +8,7 @@ const FAQSection = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="py-16 md:py-20 px-4 md:px-6">
+    <section className="py-20 md:py-32 px-4 md:px-6">
       <div className="max-w-2xl mx-auto">
         <h2
           className="text-2xl md:text-3xl text-center mb-8 md:mb-12"

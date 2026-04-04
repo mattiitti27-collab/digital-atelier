@@ -24,7 +24,7 @@ const AtelierPreview = ({ onContact }: { onContact: () => void }) => {
   const featureIcons = [Sparkles, Star, Zap, Lock];
 
   return (
-    <section id="atelier" ref={sectionRef} className="relative py-16 md:py-40 px-4 md:px-16">
+    <section id="atelier" ref={sectionRef} className="relative py-20 md:py-32 px-4 md:px-16">
       <div className="max-w-4xl mx-auto text-center">
         <p
           className="atelier-reveal text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4"
