@@ -104,7 +104,7 @@ const Navbar = () => {
                 e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
               }}
             >
-              {lang === 'it' ? 'EN' : 'IT'}
+              {nextLangLabels[lang]}
             </button>
           </div>
 
@@ -119,7 +119,7 @@ const Navbar = () => {
                 fontWeight: 400,
               }}
             >
-              {lang === 'it' ? 'EN' : 'IT'}
+              {nextLangLabels[lang]}
             </button>
             <button
               className="flex flex-col gap-[5px] min-h-[44px] min-w-[44px] items-center justify-center relative z-[60]"

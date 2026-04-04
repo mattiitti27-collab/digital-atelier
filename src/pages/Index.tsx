@@ -66,6 +66,7 @@ const Index = () => {
 
   return (
     <>
+      <LanguageGate />
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
       <ParallaxElements />
