@@ -51,7 +51,7 @@ const Navbar = () => {
           className="text-xs md:text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase"
           style={{ color: '#d4a574', fontFamily: 'var(--font-display)', fontWeight: 400 }}
         >
-          ALI DELITE
+          INTINI WEB ATELIER
         </button>
 
         <div className="hidden md:flex items-center gap-8 lg:gap-10">
