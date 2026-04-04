@@ -13,9 +13,16 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.from('.package-card', {
-        y: 100, opacity: 0, scale: 0.95, duration: 1.4, ease: 'power3.out', stagger: 0.2,
-        scrollTrigger: { trigger: '.packages-grid', start: 'top 85%', once: true },
+      const cards = sectionRef.current!.querySelectorAll('.package-card');
+      cards.forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 60, opacity: 0, scale: 0.97 },
+          {
+            y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out',
+            delay: i * 0.15,
+            scrollTrigger: { trigger: card, start: 'top 95%', once: true },
+          }
+        );
       });
       const glowEls = sectionRef.current!.querySelectorAll('.glow-trace');
       glowEls.forEach((el) => {
