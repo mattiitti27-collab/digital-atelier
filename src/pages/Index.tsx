@@ -89,6 +89,8 @@ const Index = () => {
             <HeroTitle visible={loaded} onContact={openContact} />
           </motion.section>
 
+          <ScrollTransition />
+
           <div className="scroll-reveal-section">
             <Marquee />
           </div>
