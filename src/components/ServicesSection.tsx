@@ -124,9 +124,9 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
                 ...(i === packages.length - 1 ? { borderBottom: '1px solid rgba(255,255,255,0.06)' } : {}),
               }}
             >
-              <div className="py-10 md:py-14 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 transition-all duration-500">
-                {/* Left: number + icon */}
-                <div className="flex items-center gap-4 md:w-48 flex-shrink-0">
+              <div className="py-10 md:py-14 flex flex-col items-center text-center gap-4 transition-all duration-500">
+                {/* Number + icon */}
+                <div className="flex items-center gap-3">
                   <span
                     className="text-[10px] tracking-[0.3em] uppercase"
                     style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.3)' }}
@@ -136,84 +136,77 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
                   <pkg.icon size={20} style={{ color: '#d4a574', opacity: 0.6 }} />
                 </div>
 
-                {/* Center: content */}
-                <div className="flex-1">
-                  <h3
-                    className="text-xl md:text-2xl mb-1"
-                    style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff' }}
-                  >
-                    {pkg.name}
-                  </h3>
-                  <p
-                    className="text-[10px] tracking-[0.3em] uppercase mb-4"
-                    style={{ color: 'rgba(212,165,116,0.5)', fontFamily: 'var(--font-body)' }}
-                  >
-                    {pkg.subtitle}
-                  </p>
-                  <p
-                    className="text-sm mb-5 max-w-lg"
-                    style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', lineHeight: 1.8 }}
-                  >
-                    {pkg.description}
-                  </p>
+                <h3
+                  className="text-xl md:text-2xl mb-1"
+                  style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff' }}
+                >
+                  {pkg.name}
+                </h3>
+                <p
+                  className="text-[10px] tracking-[0.3em] uppercase mb-2"
+                  style={{ color: 'rgba(212,165,116,0.5)', fontFamily: 'var(--font-body)' }}
+                >
+                  {pkg.subtitle}
+                </p>
+                <p
+                  className="text-sm mb-4 max-w-lg mx-auto"
+                  style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', lineHeight: 1.8 }}
+                >
+                  {pkg.description}
+                </p>
 
-                  {/* Features inline */}
-                  <div className="flex flex-wrap gap-x-6 gap-y-2 mb-5">
-                    {pkg.features.map((feat, fi) => (
-                      <span key={fi} className="flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full" style={{ background: '#d4a574', opacity: 0.4 }} />
-                        <span
-                          className="text-[11px]"
-                          style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)' }}
-                        >
-                          {feat}
-                        </span>
+                <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-4">
+                  {pkg.features.map((feat, fi) => (
+                    <span key={fi} className="flex items-center gap-2">
+                      <span className="w-1 h-1 rounded-full" style={{ background: '#d4a574', opacity: 0.4 }} />
+                      <span
+                        className="text-[11px]"
+                        style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)' }}
+                      >
+                        {feat}
                       </span>
-                    ))}
+                    </span>
+                  ))}
+                </div>
+
+                {pkg.hasConfigurator && (
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <Settings size={11} style={{ color: '#d4a574', opacity: 0.7 }} />
+                    <span className="text-[9px] tracking-[0.2em] uppercase" style={{ color: '#d4a574', fontFamily: 'var(--font-body)' }}>
+                      {lang === 'it' ? 'Configuratore Incluso' : 'Configurator Included'}
+                    </span>
                   </div>
+                )}
 
-                  {pkg.hasConfigurator && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <Settings size={11} style={{ color: '#d4a574', opacity: 0.7 }} />
-                      <span className="text-[9px] tracking-[0.2em] uppercase" style={{ color: '#d4a574', fontFamily: 'var(--font-body)' }}>
-                        {lang === 'it' ? 'Configuratore Incluso' : 'Configurator Included'}
-                      </span>
-                    </div>
-                  )}
-                </div>
+                {pkg.showPrice ? (
+                  <p className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
+                    {pkg.price}
+                  </p>
+                ) : (
+                  <p className="text-[11px] italic" style={{ color: 'rgba(212,165,116,0.6)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                    {lang === 'it' ? 'Previa consulenza gratuita' : 'After free consultation'}
+                  </p>
+                )}
 
-                {/* Right: price + CTA */}
-                <div className="md:w-52 flex-shrink-0 flex flex-col items-start md:items-end gap-3">
-                  {pkg.showPrice ? (
-                    <p className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
-                      {pkg.price}
-                    </p>
-                  ) : (
-                    <p className="text-[11px] italic text-right" style={{ color: 'rgba(212,165,116,0.6)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                      {lang === 'it' ? 'Previa consulenza gratuita' : 'After free consultation'}
-                    </p>
-                  )}
-
-                  <button
-                    onClick={pkg.onAction}
-                    className="px-6 py-3 rounded-full text-[9px] md:text-[10px] tracking-[0.15em] uppercase transition-all duration-400 min-h-[44px] whitespace-nowrap"
-                    style={{
-                      border: '1px solid rgba(212,165,116,0.3)',
-                      color: '#d4a574',
-                      background: 'transparent',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = 'rgba(212,165,116,0.1)';
-                      e.currentTarget.style.borderColor = 'rgba(212,165,116,0.5)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
-                    }}
-                  >
-                    {pkg.cta}
-                  </button>
-                </div>
+                <button
+                  onClick={pkg.onAction}
+                  className="px-6 py-3 rounded-full text-[9px] md:text-[10px] tracking-[0.15em] uppercase transition-all duration-400 min-h-[44px] whitespace-nowrap"
+                  style={{
+                    border: '1px solid rgba(212,165,116,0.3)',
+                    color: '#d4a574',
+                    background: 'transparent',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'rgba(212,165,116,0.1)';
+                    e.currentTarget.style.borderColor = 'rgba(212,165,116,0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
+                  }}
+                >
+                  {pkg.cta}
+                </button>
               </div>
             </div>
           ))}
