@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Globe, Zap, Palette, Settings } from 'lucide-react';
+import { Globe, Zap, Palette, Settings, Gem } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
