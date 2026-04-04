@@ -14,7 +14,7 @@ const contactSchema = z.object({
   message: z.string().trim().min(1, 'Inserisci un messaggio').max(1000),
 });
 
-const GOOGLE_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbw9BG8HsIHAKHWBm32m_4qUCykvIg1nxDZ7GBBnVl2hkc0rBJgtFjKT_io2DTM-eL0F_Q/exec';
+const GOOGLE_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbyn7eHP95EOtuB1SvQINU81ngPD4deKGG9exe3j2ZKlxyU25XxL1tNwlADRdWEv3iMyzg/exec';
 
 interface ContactModalProps {
   open: boolean;
@@ -40,7 +40,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
     }
     setLoading(true);
 
-    // Save to Supabase
+    // Save to database
     await supabase.from('contact_submissions').insert({
       name: parsed.data.name,
       email: parsed.data.email,
@@ -55,6 +55,8 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
       formData.append('phone', parsed.data.phone || '');
       formData.append('service', parsed.data.service || '');
       formData.append('message', parsed.data.message);
+      formData.append('timestamp', new Date().toISOString());
+      formData.append('source', 'contact_form');
 
       await fetch(GOOGLE_SHEETS_WEBHOOK, {
         method: 'POST',
@@ -140,9 +142,10 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                       style={{ ...inputStyle, color: service ? '#fff' : 'rgba(255,255,255,0.3)' }}
                     >
                       <option value="" style={{ background: '#0a0a0a' }}>{t.contact.serviceDefault}</option>
-                      <option value="website" style={{ background: '#0a0a0a' }}>Website</option>
+                      <option value="base" style={{ background: '#0a0a0a' }}>Pacchetto Base</option>
+                      <option value="intermedio" style={{ background: '#0a0a0a' }}>Pacchetto Intermedio</option>
+                      <option value="completo" style={{ background: '#0a0a0a' }}>Pacchetto Completo</option>
                       <option value="social" style={{ background: '#0a0a0a' }}>Social Media</option>
-                      <option value="both" style={{ background: '#0a0a0a' }}>{t.contact.serviceBoth}</option>
                     </select>
                   </div>
                   <div>

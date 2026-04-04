@@ -1,5 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Preloader from '@/components/Preloader';
 import SmoothScroll from '@/components/SmoothScroll';
 import WebGLBackground from '@/components/WebGLBackground';
@@ -20,11 +22,14 @@ import AtelierPreview from '@/components/AtelierPreview';
 import EasterPopup from '@/components/EasterPopup';
 import { useLanguage } from '@/i18n/LanguageContext';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Index = () => {
   const [loaded, setLoaded] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const { t } = useLanguage();
+  const mainRef = useRef<HTMLElement>(null);
 
   const handlePreloaderComplete = useCallback(() => {
     setLoaded(true);
@@ -36,6 +41,24 @@ const Index = () => {
       return () => clearTimeout(timer);
     }
   }, [loaded]);
+
+  // Global scroll-triggered section reveals
+  useEffect(() => {
+    if (!revealed || !mainRef.current) return;
+    const ctx = gsap.context(() => {
+      const sections = mainRef.current!.querySelectorAll('.scroll-reveal-section');
+      sections.forEach((section) => {
+        gsap.fromTo(section,
+          { opacity: 0, y: 100 },
+          {
+            opacity: 1, y: 0, duration: 1.6, ease: 'power3.out',
+            scrollTrigger: { trigger: section, start: 'top 90%', once: true },
+          }
+        );
+      });
+    }, mainRef);
+    return () => ctx.revert();
+  }, [revealed]);
 
   const openContact = () => setContactOpen(true);
 
@@ -53,7 +76,7 @@ const Index = () => {
         <Navbar />
       </motion.div>
       <SmoothScroll>
-        <main className="relative z-10">
+        <main ref={mainRef} className="relative z-10">
           <motion.section
             id="hero"
             className="relative flex min-h-screen items-center justify-center overflow-hidden"
@@ -65,36 +88,38 @@ const Index = () => {
             <HeroTitle visible={loaded} onContact={openContact} />
           </motion.section>
 
-          <div className="-mt-4 md:-mt-8">
+          <div className="scroll-reveal-section">
             <Marquee />
           </div>
 
-          <div className="mobile-section-spacing">
+          <div className="scroll-reveal-section">
             <AboutSection />
           </div>
 
-          <Marquee />
+          <div className="scroll-reveal-section">
+            <Marquee />
+          </div>
 
-          <div className="mobile-section-spacing">
+          <div className="scroll-reveal-section">
             <PortfolioSection />
           </div>
 
-          <div className="mobile-section-spacing">
+          <div className="scroll-reveal-section">
             <ServicesSection onContact={openContact} />
           </div>
 
-          <div className="mobile-section-spacing">
+          <div className="scroll-reveal-section">
             <AtelierPreview onContact={openContact} />
           </div>
 
-          <div id="faq" className="relative mobile-section-spacing">
+          <div id="faq" className="scroll-reveal-section relative">
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-16 md:py-28 flex items-center justify-center relative">
+          <section id="contatti" className="scroll-reveal-section py-20 md:py-32 flex items-center justify-center relative">
             <button
               onClick={openContact}
-              className="w-fit px-3 md:px-4 py-2 md:py-2.5 text-[9px] md:text-[10px] tracking-[0.15em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
+              className="w-fit px-4 py-3 text-[9px] md:text-[10px] tracking-[0.15em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(212,165,116,0.3)',

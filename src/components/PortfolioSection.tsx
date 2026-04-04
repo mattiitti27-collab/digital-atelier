@@ -28,6 +28,9 @@ const projects: Project[] = [
   { title: 'Yacht Charter', subtitle: 'Premium Maritime Experience', url: 'https://yachtcharter.vercel.app', image: yachtImg, isActive: false },
 ];
 
+const row1 = projects.slice(0, 3);
+const row2 = projects.slice(3);
+
 const ProjectCard = ({ project }: { project: Project }) => {
   const [hovered, setHovered] = useState(false);
   const { t } = useLanguage();
@@ -39,7 +42,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative block overflow-hidden rounded-2xl flex-shrink-0 w-[85vw] h-[55vw] max-w-[380px] max-h-[260px]"
+      className="group relative block overflow-hidden rounded-2xl flex-shrink-0 w-[80vw] h-[50vw] max-w-[420px] max-h-[280px]"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -104,7 +107,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
 const PortfolioSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const track1Ref = useRef<HTMLDivElement>(null);
+  const track2Ref = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -112,30 +116,36 @@ const PortfolioSection = () => {
     const ctx = gsap.context(() => {
       if (headingRef.current) {
         gsap.fromTo(headingRef.current,
-          { opacity: 0, y: 50 },
-          { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: headingRef.current, start: 'top 85%', end: 'top 55%', scrub: 1 } }
+          { opacity: 0, y: 60 },
+          { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: headingRef.current, start: 'top 85%', end: 'top 55%', scrub: 1 } }
         );
       }
     }, sectionRef);
     return () => ctx.revert();
   }, []);
 
+  // Row 1: scroll left
   useEffect(() => {
-    if (!trackRef.current) return;
-    const track = trackRef.current;
+    if (!track1Ref.current) return;
+    const track = track1Ref.current;
     const totalWidth = track.scrollWidth / 2;
     gsap.set(track, { x: 0 });
-    const anim = gsap.to(track, { x: -totalWidth, duration: 50, ease: 'none', repeat: -1 });
+    const anim = gsap.to(track, { x: -totalWidth, duration: 45, ease: 'none', repeat: -1 });
     return () => { anim.kill(); };
   }, []);
 
-  const renderCards = () =>
-    projects.map((project, i) => (
-      <ProjectCard key={`${project.title}-${i}`} project={project} />
-    ));
+  // Row 2: scroll right (reverse)
+  useEffect(() => {
+    if (!track2Ref.current) return;
+    const track = track2Ref.current;
+    const totalWidth = track.scrollWidth / 2;
+    gsap.set(track, { x: -totalWidth });
+    const anim = gsap.to(track, { x: 0, duration: 50, ease: 'none', repeat: -1 });
+    return () => { anim.kill(); };
+  }, []);
 
   return (
-    <section id="portfolio" ref={sectionRef} className="relative py-16 md:py-44 overflow-hidden">
+    <section id="portfolio" ref={sectionRef} className="relative py-20 md:py-44 overflow-hidden">
       <div ref={headingRef} className="max-w-5xl mx-auto text-center mb-12 md:mb-20 px-4 md:px-16">
         <p
           className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4 md:mb-5"
@@ -156,10 +166,19 @@ const PortfolioSection = () => {
           {t.portfolio.subtitle}
         </p>
       </div>
-      <div ref={trackRef} className="flex items-center gap-6" style={{ width: 'max-content' }}>
-        {renderCards()}
-        {renderCards()}
+
+      {/* Row 1 - scrolls left */}
+      <div ref={track1Ref} className="flex items-center gap-6 mb-6" style={{ width: 'max-content' }}>
+        {row1.map((p, i) => <ProjectCard key={`r1a-${i}`} project={p} />)}
+        {row1.map((p, i) => <ProjectCard key={`r1b-${i}`} project={p} />)}
       </div>
+
+      {/* Row 2 - scrolls right */}
+      <div ref={track2Ref} className="flex items-center gap-6" style={{ width: 'max-content' }}>
+        {row2.map((p, i) => <ProjectCard key={`r2a-${i}`} project={p} />)}
+        {row2.map((p, i) => <ProjectCard key={`r2b-${i}`} project={p} />)}
+      </div>
+
       <style>{`
         @keyframes pulse-led {
           0%, 100% { opacity: 1; }
