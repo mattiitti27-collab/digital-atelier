@@ -34,8 +34,8 @@ const CookieBanner = () => {
         className="text-[11px] leading-[1.7] mb-3"
         style={{ color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
       >
-        Utilizziamo cookie tecnici per il funzionamento del sito. Per maggiori informazioni consulta la nostra{' '}
-        <Link to="/cookie-policy" className="underline" style={{ color: '#d4a574' }}>Cookie Policy</Link>.
+        {t.cookie.text}{' '}
+        <Link to="/cookie-policy" className="underline" style={{ color: '#d4a574' }}>{t.cookie.policy}</Link>.
       </p>
       <div className="flex gap-3">
         <button
