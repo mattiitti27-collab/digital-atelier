@@ -13,25 +13,13 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      const cards = sectionRef.current!.querySelectorAll('.package-card');
-      cards.forEach((card, i) => {
-        gsap.fromTo(card,
-          { y: 60, opacity: 0, scale: 0.97 },
+      const rows = sectionRef.current!.querySelectorAll('.pkg-row');
+      rows.forEach((row) => {
+        gsap.fromTo(row,
+          { y: 50, opacity: 0 },
           {
-            y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out',
-            delay: i * 0.15,
-            scrollTrigger: { trigger: card, start: 'top 95%', once: true },
-          }
-        );
-      });
-      const glowEls = sectionRef.current!.querySelectorAll('.glow-trace');
-      glowEls.forEach((el) => {
-        gsap.fromTo(el,
-          { textShadow: '0 0 0px rgba(212,165,116,0)' },
-          {
-            textShadow: '0 0 18px rgba(212,165,116,0.35), 0 0 40px rgba(212,165,116,0.12)',
-            duration: 1.2, ease: 'power2.inOut',
-            scrollTrigger: { trigger: el, start: 'top 85%', end: 'top 30%', scrub: 1.5 },
+            y: 0, opacity: 1, duration: 1.2, ease: 'power3.out',
+            scrollTrigger: { trigger: row, start: 'top 95%', once: true },
           }
         );
       });
@@ -49,7 +37,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
 
   const packages = [
     {
-      name: 'PERCORSO FONDAMENTALE',
+      name: lang === 'it' ? 'Percorso Fondamentale' : 'Fundamental Path',
       subtitle: lang === 'it' ? 'Sito Vetrina Standard' : 'Standard Showcase Website',
       icon: Globe,
       features: lang === 'it'
@@ -62,10 +50,10 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
       showPrice: true,
       cta: lang === 'it' ? 'Richiedi Preventivo' : 'Request Quote',
       onAction: onContact,
-      highlight: false,
+      hasConfigurator: false,
     },
     {
-      name: 'PERCORSO CRESCITA',
+      name: lang === 'it' ? 'Percorso Crescita' : 'Growth Path',
       subtitle: lang === 'it' ? 'Sito + Automazioni' : 'Website + Automations',
       icon: Zap,
       features: lang === 'it'
@@ -78,10 +66,10 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
       showPrice: false,
       cta: lang === 'it' ? 'Compila il Form per Info' : 'Fill the Form for Info',
       onAction: scrollToContact,
-      highlight: true,
+      hasConfigurator: true,
     },
     {
-      name: 'PERCORSO VISIONARIO',
+      name: lang === 'it' ? 'Percorso Visionario' : 'Visionary Path',
       subtitle: lang === 'it' ? 'Sito + Rebranding' : 'Website + Rebranding',
       icon: Palette,
       features: lang === 'it'
@@ -94,173 +82,145 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
       showPrice: false,
       cta: lang === 'it' ? 'Inizia la Trasformazione' : 'Start the Transformation',
       onAction: scrollToContact,
-      highlight: false,
+      hasConfigurator: true,
     },
   ];
 
   return (
     <section id="servizi" ref={sectionRef} className="relative py-24 md:py-40 px-4 md:px-16">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14 md:mb-24">
+        <div className="text-center mb-16 md:mb-24">
           <p
             className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4"
             style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.5)' }}
           >
-            {lang === 'it' ? 'I Nostri Servizi' : 'Our Services'}
+            {lang === 'it' ? 'Cosa Offriamo' : 'What We Offer'}
           </p>
           <h2
-            className="glow-trace text-3xl md:text-5xl lg:text-6xl mb-6 md:mb-8"
+            className="text-3xl md:text-5xl lg:text-6xl mb-6 md:mb-8"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff', lineHeight: 1.1 }}
           >
-            I NOSTRI PERCORSI
+            {lang === 'it' ? 'I Nostri Pacchetti' : 'Our Packages'}
           </h2>
           <p
-            className="text-sm md:text-base max-w-3xl mx-auto leading-relaxed"
-            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.03em', lineHeight: 1.9 }}
+            className="text-sm md:text-base max-w-2xl mx-auto"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.03em', lineHeight: 1.9 }}
           >
             {lang === 'it'
-              ? 'Ogni nostro progetto è creato al 100% su misura. Le configurazioni sottostanti sono solo esempi illustrativi delle nostre capacità tecniche e strategiche. Scegli quella più vicina alle tue esigenze per iniziare a dare forma alla tua visione, o contattaci per una consulenza totalmente personalizzata.'
-              : 'Every project is 100% bespoke. The configurations below are illustrative examples of our technical and strategic capabilities. Choose the one closest to your needs to start shaping your vision, or contact us for a fully personalized consultation.'}
+              ? 'Ogni nostro progetto è creato al 100% su misura. I pacchetti sottostanti sono solo esempi illustrativi delle nostre capacità.'
+              : 'Every project is 100% bespoke. The packages below are illustrative examples of our capabilities.'}
           </p>
         </div>
 
-        {/* Package cards grid */}
-        <div className="packages-grid grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-12">
+        {/* Package rows */}
+        <div className="space-y-0">
           {packages.map((pkg, i) => (
             <div
               key={i}
-              className="package-card relative rounded-2xl p-7 md:p-9 flex flex-col transition-all duration-500"
+              className="pkg-row group"
               style={{
-                background: pkg.highlight
-                  ? 'linear-gradient(145deg, rgba(212,165,116,0.1), rgba(212,165,116,0.03))'
-                  : 'rgba(255,255,255,0.03)',
-                border: `1px solid ${pkg.highlight ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.06)'}`,
-                backdropFilter: 'blur(24px)',
-                WebkitBackdropFilter: 'blur(24px)',
-                boxShadow: pkg.highlight
-                  ? '0 8px 60px rgba(212,165,116,0.08), inset 0 1px 0 rgba(212,165,116,0.1)'
-                  : 'inset 0 1px 0 rgba(255,255,255,0.04)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
-                e.currentTarget.style.boxShadow = '0 16px 60px rgba(212,165,116,0.1)';
-                e.currentTarget.style.transform = 'translateY(-6px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = pkg.highlight ? 'rgba(212,165,116,0.25)' : 'rgba(255,255,255,0.06)';
-                e.currentTarget.style.boxShadow = pkg.highlight
-                  ? '0 8px 60px rgba(212,165,116,0.08), inset 0 1px 0 rgba(212,165,116,0.1)'
-                  : 'inset 0 1px 0 rgba(255,255,255,0.04)';
-                e.currentTarget.style.transform = 'translateY(0)';
+                borderTop: '1px solid rgba(255,255,255,0.06)',
+                ...(i === packages.length - 1 ? { borderBottom: '1px solid rgba(255,255,255,0.06)' } : {}),
               }}
             >
-              {pkg.highlight && (
-                <div
-                  className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[8px] tracking-[0.3em] uppercase"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(212,165,116,0.3), rgba(212,165,116,0.15))',
-                    border: '1px solid rgba(212,165,116,0.4)',
-                    color: '#d4a574',
-                  }}
-                >
-                  {lang === 'it' ? 'Più Richiesto' : 'Most Popular'}
-                </div>
-              )}
-
-              <pkg.icon size={24} className="mb-4" style={{ color: '#d4a574', opacity: 0.7 }} />
-
-              <h3
-                className="text-base md:text-lg mb-1 tracking-wide"
-                style={{ fontFamily: 'var(--font-display)', fontWeight: 400, color: '#ffffff', letterSpacing: '0.08em' }}
-              >
-                {pkg.name}
-              </h3>
-              <p
-                className="text-[10px] tracking-[0.3em] uppercase mb-4"
-                style={{ color: 'rgba(212,165,116,0.6)', fontFamily: 'var(--font-body)' }}
-              >
-                {pkg.subtitle}
-              </p>
-
-              {/* Description */}
-              <p
-                className="text-xs leading-relaxed mb-5"
-                style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', lineHeight: 1.7 }}
-              >
-                {pkg.description}
-              </p>
-
-              {/* Features */}
-              <ul className="space-y-3 mb-6 flex-1">
-                {pkg.features.map((feat, fi) => (
-                  <li key={fi} className="flex items-start gap-2.5">
-                    <span className="mt-1.5 w-1 h-1 rounded-full flex-shrink-0" style={{ background: '#d4a574', opacity: 0.6 }} />
-                    <span
-                      className="text-xs leading-relaxed"
-                      style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.5)' }}
-                    >
-                      {feat}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Configurator badge for non-base */}
-              {i > 0 && (
-                <div
-                  className="flex items-center gap-2 mb-5 px-3 py-2 rounded-lg"
-                  style={{ background: 'rgba(212,165,116,0.06)', border: '1px solid rgba(212,165,116,0.12)' }}
-                >
-                  <Settings size={12} style={{ color: '#d4a574' }} />
-                  <span className="text-[10px] tracking-wider uppercase" style={{ color: '#d4a574', fontFamily: 'var(--font-body)' }}>
-                    {lang === 'it' ? 'Configuratore Incluso' : 'Configurator Included'}
+              <div className="py-10 md:py-14 flex flex-col md:flex-row md:items-start gap-6 md:gap-12 transition-all duration-500">
+                {/* Left: number + icon */}
+                <div className="flex items-center gap-4 md:w-48 flex-shrink-0">
+                  <span
+                    className="text-[10px] tracking-[0.3em] uppercase"
+                    style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.3)' }}
+                  >
+                    0{i + 1}
                   </span>
+                  <pkg.icon size={20} style={{ color: '#d4a574', opacity: 0.6 }} />
                 </div>
-              )}
 
-              {/* Price */}
-              <div className="mt-auto">
-                {pkg.showPrice ? (
-                  <p className="glow-trace text-4xl font-bold mb-5" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
-                    {pkg.price}
+                {/* Center: content */}
+                <div className="flex-1">
+                  <h3
+                    className="text-xl md:text-2xl mb-1"
+                    style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff' }}
+                  >
+                    {pkg.name}
+                  </h3>
+                  <p
+                    className="text-[10px] tracking-[0.3em] uppercase mb-4"
+                    style={{ color: 'rgba(212,165,116,0.5)', fontFamily: 'var(--font-body)' }}
+                  >
+                    {pkg.subtitle}
                   </p>
-                ) : (
-                  <p className="text-[11px] mb-5 leading-relaxed italic" style={{ color: 'rgba(212,165,116,0.7)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
-                    {lang === 'it' ? 'Disponibile previa consulenza gratuita' : 'Available after free consultation'}
+                  <p
+                    className="text-sm mb-5 max-w-lg"
+                    style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', lineHeight: 1.8 }}
+                  >
+                    {pkg.description}
                   </p>
-                )}
 
-                <button
-                  onClick={pkg.onAction}
-                  className="w-full py-3.5 rounded-full text-[9px] md:text-[10px] tracking-[0.2em] uppercase transition-all duration-500 min-h-[48px]"
-                  style={{
-                    border: '1px solid rgba(212,165,116,0.4)',
-                    color: '#d4a574',
-                    background: pkg.highlight
-                      ? 'linear-gradient(135deg, rgba(212,165,116,0.15), rgba(212,165,116,0.05))'
-                      : 'rgba(212,165,116,0.06)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(212,165,116,0.15)';
-                    e.currentTarget.style.boxShadow = '0 0 30px rgba(212,165,116,0.1)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = pkg.highlight
-                      ? 'linear-gradient(135deg, rgba(212,165,116,0.15), rgba(212,165,116,0.05))'
-                      : 'rgba(212,165,116,0.06)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                >
-                  {pkg.cta}
-                </button>
+                  {/* Features inline */}
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 mb-5">
+                    {pkg.features.map((feat, fi) => (
+                      <span key={fi} className="flex items-center gap-2">
+                        <span className="w-1 h-1 rounded-full" style={{ background: '#d4a574', opacity: 0.4 }} />
+                        <span
+                          className="text-[11px]"
+                          style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)' }}
+                        >
+                          {feat}
+                        </span>
+                      </span>
+                    ))}
+                  </div>
+
+                  {pkg.hasConfigurator && (
+                    <div className="flex items-center gap-2 mb-2">
+                      <Settings size={11} style={{ color: '#d4a574', opacity: 0.7 }} />
+                      <span className="text-[9px] tracking-[0.2em] uppercase" style={{ color: '#d4a574', fontFamily: 'var(--font-body)' }}>
+                        {lang === 'it' ? 'Configuratore Incluso' : 'Configurator Included'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Right: price + CTA */}
+                <div className="md:w-52 flex-shrink-0 flex flex-col items-start md:items-end gap-3">
+                  {pkg.showPrice ? (
+                    <p className="text-3xl md:text-4xl font-bold" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
+                      {pkg.price}
+                    </p>
+                  ) : (
+                    <p className="text-[11px] italic text-right" style={{ color: 'rgba(212,165,116,0.6)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+                      {lang === 'it' ? 'Previa consulenza gratuita' : 'After free consultation'}
+                    </p>
+                  )}
+
+                  <button
+                    onClick={pkg.onAction}
+                    className="px-6 py-3 rounded-full text-[9px] md:text-[10px] tracking-[0.15em] uppercase transition-all duration-400 min-h-[44px] whitespace-nowrap"
+                    style={{
+                      border: '1px solid rgba(212,165,116,0.3)',
+                      color: '#d4a574',
+                      background: 'transparent',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(212,165,116,0.1)';
+                      e.currentTarget.style.borderColor = 'rgba(212,165,116,0.5)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'transparent';
+                      e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
+                    }}
+                  >
+                    {pkg.cta}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-[10px] tracking-wider" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-body)' }}>
-          {lang === 'it' ? 'Percorso Fondamentale pronto in 72 ore' : 'Fundamental Path ready in 72 hours'} · {lang === 'it' ? 'Per gli altri percorsi, consegna rapidissima in base al progetto.' : 'For other paths, ultra-fast delivery based on project scope.'}
+        <p className="text-center text-[10px] tracking-wider mt-12" style={{ color: 'rgba(255,255,255,0.2)', fontFamily: 'var(--font-body)' }}>
+          {lang === 'it' ? 'Percorso Fondamentale pronto in 72 ore' : 'Fundamental Path ready in 72 hours'} · {lang === 'it' ? 'Per gli altri percorsi, tempi in base al progetto.' : 'Other paths: timeline based on project scope.'}
         </p>
       </div>
     </section>
