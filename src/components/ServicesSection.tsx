@@ -89,7 +89,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
 
         <div className="text-center mt-4">
           <p
-            className="text-xs md:text-sm tracking-[0.15em] mb-1"
+            className="text-xs md:text-sm tracking-[0.15em] mb-0.5"
             style={{ fontFamily: 'var(--font-body)', fontWeight: 400, color: '#d4a574' }}
           >
             {t.services.delivery}

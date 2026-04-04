@@ -51,7 +51,7 @@ const Marquee = () => {
         <img
           src={logo.src}
           alt={logo.alt}
-          className="h-20 md:h-28 lg:h-32 w-auto object-contain transition-opacity duration-500 hover:opacity-100"
+          className="h-24 md:h-32 lg:h-40 w-auto object-contain transition-opacity duration-500 hover:opacity-100"
           style={{ filter: 'brightness(0.9) contrast(1.1)', opacity: 0.9 }}
           loading="lazy"
         />

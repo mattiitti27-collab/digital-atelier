@@ -64,7 +64,7 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
         {t.hero.subtitle}
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center mt-6 md:mt-10">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-4 md:mt-8">
         <button
           onClick={() => {
             const footer = document.querySelector('#contatti');
