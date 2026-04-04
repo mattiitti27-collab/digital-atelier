@@ -50,7 +50,7 @@ const AtelierPreview = ({ onContact }: { onContact: () => void }) => {
             {t.atelier.features.map((feature, i) => {
               const Icon = featureIcons[i];
               return (
-                <div key={i} className="flex items-start gap-3 text-left">
+                <div key={i} className="flex items-center gap-3 justify-center text-center">
                   <Icon size={16} className="mt-0.5 flex-shrink-0" style={{ color: '#d4a574', opacity: 0.6 }} />
                   <p
                     className="text-xs md:text-sm"
