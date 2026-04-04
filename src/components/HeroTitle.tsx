@@ -4,9 +4,10 @@ import { useLanguage } from '@/i18n/LanguageContext';
 
 interface HeroTitleProps {
   visible: boolean;
+  onContact?: () => void;
 }
 
-const HeroTitle = ({ visible }: HeroTitleProps) => {
+const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
   const { t } = useLanguage();
@@ -65,10 +66,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
 
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mt-8 md:mt-10">
         <button
-          onClick={() => {
-            const el = document.querySelector('#chi-siamo');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
+          onClick={() => onContact?.()}
           className="px-8 md:px-10 py-3.5 md:py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
@@ -77,7 +75,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             backdropFilter: 'blur(10px)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 1s ease 2s, transform 1s ease 2s',
+            transition: 'opacity 1s ease 2s, transform 1s ease 2s, background 0.3s, border-color 0.3s, box-shadow 0.3s',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'rgba(212,165,116,0.12)';
@@ -105,7 +103,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
             backdropFilter: 'blur(10px)',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(20px)',
-            transition: 'opacity 1s ease 2.2s, transform 1s ease 2.2s',
+            transition: 'opacity 1s ease 2.2s, transform 1s ease 2.2s, background 0.3s, border-color 0.3s, box-shadow 0.3s',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = 'rgba(212,165,116,0.12)';

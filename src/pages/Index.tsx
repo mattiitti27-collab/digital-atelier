@@ -17,6 +17,7 @@ import Marquee from '@/components/Marquee';
 import ParallaxElements from '@/components/ParallaxElements';
 import ServicesSection from '@/components/ServicesSection';
 import AtelierPreview from '@/components/AtelierPreview';
+import EasterPopup from '@/components/EasterPopup';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const Index = () => {
@@ -36,11 +37,14 @@ const Index = () => {
     }
   }, [loaded]);
 
+  const openContact = () => setContactOpen(true);
+
   return (
     <>
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
       <ParallaxElements />
+      <EasterPopup onGetDiscount={openContact} />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={revealed ? { opacity: 1, y: 0 } : {}}
@@ -58,7 +62,7 @@ const Index = () => {
             transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
           >
             <Hero3DScene />
-            <HeroTitle visible={loaded} />
+            <HeroTitle visible={loaded} onContact={openContact} />
           </motion.section>
 
           <Marquee />
@@ -69,9 +73,9 @@ const Index = () => {
 
           <PortfolioSection />
 
-          <ServicesSection onContact={() => setContactOpen(true)} />
+          <ServicesSection onContact={openContact} />
 
-          <AtelierPreview onContact={() => setContactOpen(true)} />
+          <AtelierPreview onContact={openContact} />
 
           <div id="faq" className="py-12 md:py-24 relative">
             <FAQSection />
@@ -79,7 +83,7 @@ const Index = () => {
 
           <section id="contatti" className="py-12 md:py-20 flex items-center justify-center relative">
             <button
-              onClick={() => setContactOpen(true)}
+              onClick={openContact}
               className="px-10 md:px-12 py-4 md:py-5 text-[10px] tracking-[0.35em] uppercase rounded-full transition-all duration-300 min-h-[48px]"
               style={{
                 background: 'transparent',
