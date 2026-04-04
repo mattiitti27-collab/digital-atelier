@@ -58,8 +58,8 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.label}
           </p>
           <h2
-            className="text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6"
-            style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff', lineHeight: 1.1 }}
+            className="glow-trace text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6"
+            style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff', lineHeight: 1.1, wordSpacing: '0.25em' }}
           >
             {t.services.title}
           </h2>
