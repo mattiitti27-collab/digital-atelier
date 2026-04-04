@@ -45,7 +45,7 @@ const Navbar = () => {
           maskImage: 'linear-gradient(to bottom, black 0%, black 40%, transparent 100%)',
         }}
       />
-      <div className="relative max-w-7xl mx-auto flex items-center justify-between px-4 md:px-16 py-4 md:py-6">
+      <div className="relative max-w-7xl mx-auto flex items-center justify-between px-4 md:px-16 py-5 md:py-8">
         <button
           onClick={() => {
             const el = document.querySelector('#hero');
