@@ -29,7 +29,9 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
   const { t } = useLanguage();
+  const dismissToast = useCallback(() => setToastVisible(false), []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
