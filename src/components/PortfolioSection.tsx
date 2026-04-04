@@ -25,7 +25,7 @@ const projects: Project[] = [
   { title: 'Monaco Luxury Experience', subtitle: 'Premium Brand Demo', url: 'https://intinimonacodemo.vercel.app', image: monacoImg, isActive: false },
   { title: 'Marchetti Concessionario', subtitle: 'Automotive Dealership', url: 'https://marchetticoncessionario.vercel.app', image: marchettiImg, isActive: false },
   { title: 'Lumière', subtitle: 'Luxury Wellness & Spa', url: 'https://lumieredemo.vercel.app', image: lumiereImg, isActive: false },
-  { title: 'Yacht Charter', subtitle: 'Premium Maritime Experience', url: 'https://yachtcharter.vercel.app', image: yachtImg, isActive: false },
+  { title: 'Yacht Charter', subtitle: 'Premium Maritime Experience', url: 'https://yachtcharterdemo.vercel.app/', image: yachtImg, isActive: false },
 ];
 
 const row1 = projects.slice(0, 3);
