@@ -41,8 +41,8 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
       subtitle: lang === 'it' ? 'Sito Vetrina Standard' : 'Standard Showcase Website',
       icon: Globe,
       features: lang === 'it'
-        ? ['Design responsive essenziale', '5 pagine standard', 'Configurazione SEO di base', 'Modulo di contatto', 'Consegna in 72 ore']
-        : ['Essential responsive design', '5 standard pages', 'Basic SEO setup', 'Contact form', 'Delivery in 72 hours'],
+        ? ['Design responsive essenziale', '5 pagine standard', 'Configurazione SEO di base', 'Modulo di contatto', 'Consegna entro 48 ore']
+        : ['Essential responsive design', '5 standard pages', 'Basic SEO setup', 'Contact form', 'Delivery within 48 hours'],
       description: lang === 'it'
         ? 'Ideale per una prima presenza professionale online.'
         : 'Ideal for a first professional online presence.',
