@@ -139,8 +139,8 @@ export const translations = {
     },
     about: {
       label: 'About Us',
-      title1: 'The Art of Digital,',
-      title2: 'the Precision of Engineering',
+      title1: 'The Art of Digital',
+      title2: '',
       p1: "Behind every great digital experience lies a perfect balance between creativity and logic. I'm ",
       p1Name: 'Mattia Intini',
       p1b: ", founder of Intini Web Atelier. My path combines a strong analytical foundation rooted in engineering studies with a deep vocation for business development and enterprise strategy. This background has forged a unique mindset: the precision of data and performance optimization applied to luxury design.",
