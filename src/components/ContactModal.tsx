@@ -155,7 +155,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.messageLabel}</label>
-                    <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder={t.contact.messagePlaceholder} rows={3} className="w-full text-white text-sm py-3 px-3 rounded-lg outline-none resize-none" style={inputStyle} />
+                    <textarea name="messaggio" value={message} onChange={(e) => setMessage(e.target.value)} placeholder={t.contact.messagePlaceholder} rows={3} className="w-full text-white text-sm py-3 px-3 rounded-lg outline-none resize-none" style={inputStyle} />
                   </div>
                   <motion.button
                     type="submit"
