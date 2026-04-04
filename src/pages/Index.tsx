@@ -69,21 +69,29 @@ const Index = () => {
             <Marquee />
           </div>
 
-          <AboutSection />
+          <div className="mobile-section-spacing">
+            <AboutSection />
+          </div>
 
           <Marquee />
 
-          <PortfolioSection />
+          <div className="mobile-section-spacing">
+            <PortfolioSection />
+          </div>
 
-          <ServicesSection onContact={openContact} />
+          <div className="mobile-section-spacing">
+            <ServicesSection onContact={openContact} />
+          </div>
 
-          <AtelierPreview onContact={openContact} />
+          <div className="mobile-section-spacing">
+            <AtelierPreview onContact={openContact} />
+          </div>
 
-          <div id="faq" className="relative">
+          <div id="faq" className="relative mobile-section-spacing">
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-20 md:py-28 flex items-center justify-center relative">
+          <section id="contatti" className="py-16 md:py-28 flex items-center justify-center relative">
             <button
               onClick={openContact}
               className="w-fit px-3 md:px-4 py-2 md:py-2.5 text-[9px] md:text-[10px] tracking-[0.15em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
