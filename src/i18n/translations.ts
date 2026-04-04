@@ -134,7 +134,7 @@ export const translations = {
       contatti: 'Contact',
     },
     hero: {
-      title: "No compromise, only premium aesthetics and tangible results.",
+      title: "Elite Digital Experiences",
       subtitle: 'We craft bespoke digital presences for those who accept no compromise',
       cta1: 'Request FREE Info',
       cta2: 'Our Works',
