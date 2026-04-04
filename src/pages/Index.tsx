@@ -65,7 +65,9 @@ const Index = () => {
             <HeroTitle visible={loaded} onContact={openContact} />
           </motion.section>
 
-          <Marquee />
+          <div className="-mt-4 md:-mt-8">
+            <Marquee />
+          </div>
 
           <AboutSection />
 
