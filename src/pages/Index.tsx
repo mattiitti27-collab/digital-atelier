@@ -77,7 +77,7 @@ const Index = () => {
 
           <AtelierPreview onContact={openContact} />
 
-          <div id="faq" className="py-12 md:py-24 relative">
+          <div id="faq" className="relative">
             <FAQSection />
           </div>
 
