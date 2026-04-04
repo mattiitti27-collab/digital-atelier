@@ -11,7 +11,7 @@ export const translations = {
       contatti: 'Contatti',
     },
     hero: {
-      title: "Nessun compromesso, solo estetica premium e risultati tangibili.",
+      title: "Esperienze Digitali d'Élite",
       subtitle: 'Creiamo presenze digitali su misura per chi non accetta compromessi',
       cta1: 'Richiedi INFO gratuite',
       cta2: 'I Nostri Lavori',
