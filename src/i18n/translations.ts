@@ -22,7 +22,7 @@ export const translations = {
       title2: "",
       p1: "Dietro ogni grande esperienza digitale c'è un equilibrio perfetto tra creatività e logica. Sono ",
       p1Name: 'Mattia Intini',
-      p1b: ", fondatore di Intini Web Atelier. Il mio percorso unisce un forte imprinting analitico, radicato negli studi di ingegneria, a una profonda vocazione per lo sviluppo business e le strategie d'impresa. Questo background mi ha forgiato una mentalità unica: la precisione del dato e l'ottimizzazione delle performance, applicate al design di lusso.",
+      p1b: ", fondatore di Intini Web Atelier.",
       p2: 'Intini Web Atelier è una ',
       p2Bold: 'boutique digitale',
       p2b: " nata con una missione chiara: rivoluzionare la presenza online dei brand attraverso esperienze web cinematiche, immersive e dal forte impatto visivo. Creiamo siti web che non si limitano a farsi guardare, ma che si fanno vivere.",
