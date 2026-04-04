@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 const CookieBanner = () => {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
