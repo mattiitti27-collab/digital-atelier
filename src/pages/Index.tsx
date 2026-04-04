@@ -19,6 +19,7 @@ import Marquee from '@/components/Marquee';
 import ParallaxElements from '@/components/ParallaxElements';
 import ServicesSection from '@/components/ServicesSection';
 import AtelierPreview from '@/components/AtelierPreview';
+import ScrollTransition from '@/components/ScrollTransition';
 import EasterPopup from '@/components/EasterPopup';
 import { useLanguage } from '@/i18n/LanguageContext';
 
