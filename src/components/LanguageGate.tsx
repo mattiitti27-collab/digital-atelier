@@ -18,7 +18,7 @@ const LanguageGate = () => {
         <motion.div
           className="fixed inset-0 z-[200] flex items-center justify-center"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(8,6,3,0.97) 0%, rgba(2,2,2,0.99) 100%)',
+            background: 'rgba(2,2,2,0.96)',
           }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -58,16 +58,14 @@ const LanguageGate = () => {
                 <motion.button
                   key={l.code}
                   onClick={() => setLang(l.code)}
-                  className="group relative w-full py-4 md:py-5 rounded-sm overflow-hidden min-h-[56px] flex items-center justify-center"
+                  className="group relative w-full py-4 md:py-5 overflow-hidden min-h-[56px] flex items-center justify-center"
                   style={{
                     background: 'transparent',
-                    border: '1px solid rgba(212,165,116,0.15)',
                   }}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                   whileHover={{
-                    borderColor: 'rgba(212,165,116,0.5)',
                     background: 'rgba(212,165,116,0.04)',
                   }}
                   whileTap={{ scale: 0.98 }}
