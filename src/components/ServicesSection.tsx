@@ -89,7 +89,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
 
         <div className="text-center mt-4">
           <p
-            className="text-xs md:text-sm tracking-[0.15em] mb-1"
+            className="text-xs md:text-sm tracking-[0.15em] mb-0.5"
             style={{ fontFamily: 'var(--font-body)', fontWeight: 400, color: '#d4a574' }}
           >
             {t.services.delivery}
@@ -101,20 +101,20 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.deliveryNote}
           </p>
           <p
-            className="text-[11px] md:text-xs tracking-[0.3em] uppercase mb-1"
+            className="text-[11px] md:text-xs tracking-[0.3em] uppercase mb-0.5"
             style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.5)' }}
           >
             {t.services.price}
           </p>
           <p
-            className="text-4xl md:text-5xl mb-4 md:mb-6"
+            className="text-4xl md:text-5xl mb-3 md:mb-4"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#d4a574' }}
           >
             {t.services.priceValue}
           </p>
           <button
             onClick={onContact}
-            className="px-4 md:px-6 py-2.5 md:py-3 text-[9px] md:text-[10px] tracking-[0.2em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
+            className="w-fit mx-auto px-3 md:px-4 py-2 md:py-2.5 text-[9px] md:text-[10px] tracking-[0.15em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
             style={{
               border: '1px solid rgba(212,165,116,0.4)',
               color: '#d4a574',

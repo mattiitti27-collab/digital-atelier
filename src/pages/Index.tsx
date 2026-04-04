@@ -65,7 +65,9 @@ const Index = () => {
             <HeroTitle visible={loaded} onContact={openContact} />
           </motion.section>
 
-          <Marquee />
+          <div className="-mt-4 md:-mt-8">
+            <Marquee />
+          </div>
 
           <AboutSection />
 
@@ -81,10 +83,10 @@ const Index = () => {
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-24 md:py-32 flex items-center justify-center relative">
+          <section id="contatti" className="py-20 md:py-28 flex items-center justify-center relative">
             <button
               onClick={openContact}
-              className="px-4 md:px-6 py-2.5 md:py-3 text-[9px] md:text-[10px] tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
+              className="w-fit px-3 md:px-4 py-2 md:py-2.5 text-[9px] md:text-[10px] tracking-[0.15em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(212,165,116,0.3)',
