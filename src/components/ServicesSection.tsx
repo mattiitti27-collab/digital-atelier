@@ -13,9 +13,29 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
+      // Card entrance
       gsap.from('.service-card', {
         y: 50, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.15,
         scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
+      });
+
+      // Scroll-triggered warm glow tracing on text elements
+      const glowEls = sectionRef.current!.querySelectorAll('.glow-trace');
+      glowEls.forEach((el) => {
+        gsap.fromTo(el, 
+          { textShadow: '0 0 0px rgba(212,165,116,0)' },
+          {
+            textShadow: '0 0 18px rgba(212,165,116,0.35), 0 0 40px rgba(212,165,116,0.12)',
+            duration: 1.2,
+            ease: 'power2.inOut',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'top 30%',
+              scrub: 1.5,
+            },
+          }
+        );
       });
     }, sectionRef);
     return () => ctx.revert();
