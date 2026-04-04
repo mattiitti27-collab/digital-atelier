@@ -81,7 +81,7 @@ const Index = () => {
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-12 md:py-20 flex items-center justify-center relative">
+          <section id="contatti" className="py-16 md:py-20 flex items-center justify-center relative">
             <button
               onClick={openContact}
               className="px-10 md:px-12 py-4 md:py-5 text-[10px] tracking-[0.35em] uppercase rounded-full transition-all duration-300 min-h-[48px]"
