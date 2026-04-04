@@ -42,51 +42,60 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
 
   const packages = [
     {
-      name: lang === 'it' ? 'Base' : 'Base',
-      subtitle: lang === 'it' ? 'Sito Vetrina' : 'Showcase Website',
+      name: 'PERCORSO FONDAMENTALE',
+      subtitle: lang === 'it' ? 'Sito Vetrina Standard' : 'Standard Showcase Website',
       icon: Globe,
       features: lang === 'it'
-        ? ['Sito vetrina standard, responsive', 'Design cinematico su misura', 'SEO & performance ottimizzate', 'Consegna in 72 ore']
-        : ['Standard responsive showcase site', 'Bespoke cinematic design', 'SEO & performance optimized', 'Delivery in 72 hours'],
-      price: lang === 'it' ? 'A partire da 299€' : 'Starting from €299',
+        ? ['Design responsive essenziale', '5 pagine standard', 'Configurazione SEO di base', 'Modulo di contatto', 'Consegna in 72 ore']
+        : ['Essential responsive design', '5 standard pages', 'Basic SEO setup', 'Contact form', 'Delivery in 72 hours'],
+      description: lang === 'it'
+        ? 'Ideale per una prima presenza professionale online.'
+        : 'Ideal for a first professional online presence.',
+      price: lang === 'it' ? 'Da 299€' : 'From €299',
       showPrice: true,
-      cta: lang === 'it' ? 'Richiedi Info' : 'Request Info',
+      cta: lang === 'it' ? 'Richiedi Preventivo' : 'Request Quote',
       onAction: onContact,
       highlight: false,
     },
     {
-      name: lang === 'it' ? 'Medio' : 'Medium',
-      subtitle: lang === 'it' ? 'Automazioni' : 'Automations',
+      name: 'PERCORSO CRESCITA',
+      subtitle: lang === 'it' ? 'Sito + Automazioni' : 'Website + Automations',
       icon: Zap,
       features: lang === 'it'
-        ? ['Sito web completo', 'Integrazione CRM base', 'Automazioni e flussi avanzati', 'Configuratore Visuale Incluso']
-        : ['Complete website', 'Basic CRM integration', 'Advanced automations & flows', 'Visual Configurator Included'],
+        ? ['Sito web avanzato', 'Integrazione CRM di base', 'Sistemi di automazione flussi', 'Newsletter automatiche', 'Configuratore Visuale Incluso']
+        : ['Advanced website', 'Basic CRM integration', 'Flow automation systems', 'Automatic newsletters', 'Visual Configurator Included'],
+      description: lang === 'it'
+        ? 'Per chi vuole far crescere il proprio business digitale.'
+        : 'For those who want to grow their digital business.',
       price: null,
       showPrice: false,
-      cta: lang === 'it' ? 'Compila il form per info' : 'Fill the form for info',
+      cta: lang === 'it' ? 'Compila il Form per Info' : 'Fill the Form for Info',
       onAction: scrollToContact,
       highlight: true,
     },
     {
-      name: lang === 'it' ? 'Alto' : 'Premium',
-      subtitle: lang === 'it' ? 'Rebranding' : 'Rebranding',
+      name: 'PERCORSO VISIONARIO',
+      subtitle: lang === 'it' ? 'Sito + Rebranding' : 'Website + Rebranding',
       icon: Palette,
       features: lang === 'it'
-        ? ['Sito web avanzato', 'Creazione Loghi & Visual Identity', 'Setup Profili Social', 'Rebranding completo']
-        : ['Advanced website', 'Logo & Visual Identity creation', 'Social Profile Setup', 'Complete rebranding'],
+        ? ['Sito web di alto livello', 'Creazione logo professionale', 'Setup profili social', 'Rebranding completo identità digitale', 'Pacchetto chiavi in mano']
+        : ['High-end website', 'Professional logo creation', 'Social profile setup', 'Complete digital identity rebranding', 'Turnkey package'],
+      description: lang === 'it'
+        ? 'Un pacchetto chiavi in mano per una trasformazione radicale.'
+        : 'A turnkey package for a radical transformation.',
       price: null,
       showPrice: false,
-      cta: lang === 'it' ? 'Compila il form per info' : 'Fill the form for info',
+      cta: lang === 'it' ? 'Inizia la Trasformazione' : 'Start the Transformation',
       onAction: scrollToContact,
       highlight: false,
     },
   ];
 
   return (
-    <section id="servizi" ref={sectionRef} className="relative py-20 md:py-32 px-4 md:px-16">
+    <section id="servizi" ref={sectionRef} className="relative py-24 md:py-40 px-4 md:px-16">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12 md:mb-20">
+        <div className="text-center mb-14 md:mb-24">
           <p
             className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4"
             style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.5)' }}
@@ -94,27 +103,27 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {lang === 'it' ? 'I Nostri Servizi' : 'Our Services'}
           </p>
           <h2
-            className="glow-trace text-3xl md:text-5xl lg:text-6xl mb-4 md:mb-6"
+            className="glow-trace text-3xl md:text-5xl lg:text-6xl mb-6 md:mb-8"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#ffffff', lineHeight: 1.1 }}
           >
-            {lang === 'it' ? 'I Nostri Percorsi' : 'Our Paths'}
+            I NOSTRI PERCORSI
           </h2>
           <p
-            className="text-sm md:text-lg max-w-2xl mx-auto leading-relaxed"
-            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.03em' }}
+            className="text-sm md:text-base max-w-3xl mx-auto leading-relaxed"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.03em', lineHeight: 1.9 }}
           >
             {lang === 'it'
-              ? 'Ogni nostro progetto è 100% su misura. I pacchetti sottostanti rappresentano solo degli esempi illustrativi delle nostre potenzialità.'
-              : 'Every project is 100% bespoke. The packages below are illustrative examples of our capabilities.'}
+              ? 'Ogni nostro progetto è creato al 100% su misura. Le configurazioni sottostanti sono solo esempi illustrativi delle nostre capacità tecniche e strategiche. Scegli quella più vicina alle tue esigenze per iniziare a dare forma alla tua visione, o contattaci per una consulenza totalmente personalizzata.'
+              : 'Every project is 100% bespoke. The configurations below are illustrative examples of our technical and strategic capabilities. Choose the one closest to your needs to start shaping your vision, or contact us for a fully personalized consultation.'}
           </p>
         </div>
 
         {/* Package cards grid */}
-        <div className="packages-grid grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-10">
+        <div className="packages-grid grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-12">
           {packages.map((pkg, i) => (
             <div
               key={i}
-              className="package-card relative rounded-2xl p-6 md:p-8 flex flex-col transition-all duration-500"
+              className="package-card relative rounded-2xl p-7 md:p-9 flex flex-col transition-all duration-500"
               style={{
                 background: pkg.highlight
                   ? 'linear-gradient(145deg, rgba(212,165,116,0.1), rgba(212,165,116,0.03))'
@@ -155,16 +164,24 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
               <pkg.icon size={24} className="mb-4" style={{ color: '#d4a574', opacity: 0.7 }} />
 
               <h3
-                className="text-xl md:text-2xl mb-1"
-                style={{ fontFamily: 'var(--font-display)', fontWeight: 400, color: '#ffffff' }}
+                className="text-base md:text-lg mb-1 tracking-wide"
+                style={{ fontFamily: 'var(--font-display)', fontWeight: 400, color: '#ffffff', letterSpacing: '0.08em' }}
               >
                 {pkg.name}
               </h3>
               <p
-                className="text-[10px] tracking-[0.3em] uppercase mb-5"
+                className="text-[10px] tracking-[0.3em] uppercase mb-4"
                 style={{ color: 'rgba(212,165,116,0.6)', fontFamily: 'var(--font-body)' }}
               >
                 {pkg.subtitle}
+              </p>
+
+              {/* Description */}
+              <p
+                className="text-xs leading-relaxed mb-5"
+                style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', lineHeight: 1.7 }}
+              >
+                {pkg.description}
               </p>
 
               {/* Features */}
@@ -198,7 +215,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
               {/* Price */}
               <div className="mt-auto">
                 {pkg.showPrice ? (
-                  <p className="glow-trace text-3xl font-bold mb-5" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
+                  <p className="glow-trace text-4xl font-bold mb-5" style={{ fontFamily: 'var(--font-display)', color: '#d4a574' }}>
                     {pkg.price}
                   </p>
                 ) : (
@@ -236,7 +253,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
         </div>
 
         <p className="text-center text-[10px] tracking-wider" style={{ color: 'rgba(255,255,255,0.25)', fontFamily: 'var(--font-body)' }}>
-          {lang === 'it' ? 'Pacchetto Base pronto in 72 ore' : 'Base Package ready in 72 hours'} · {lang === 'it' ? 'Per gli altri pacchetti, consegna rapidissima in base al progetto.' : 'For other packages, ultra-fast delivery based on project scope.'}
+          {lang === 'it' ? 'Percorso Fondamentale pronto in 72 ore' : 'Fundamental Path ready in 72 hours'} · {lang === 'it' ? 'Per gli altri percorsi, consegna rapidissima in base al progetto.' : 'For other paths, ultra-fast delivery based on project scope.'}
         </p>
       </div>
     </section>

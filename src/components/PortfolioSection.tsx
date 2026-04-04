@@ -168,13 +168,13 @@ const PortfolioSection = () => {
       </div>
 
       {/* Row 1 - scrolls left */}
-      <div ref={track1Ref} className="flex items-center gap-6 mb-6" style={{ width: 'max-content' }}>
+      <div ref={track1Ref} className="flex items-center gap-8 mb-16 md:mb-24" style={{ width: 'max-content' }}>
         {row1.map((p, i) => <ProjectCard key={`r1a-${i}`} project={p} />)}
         {row1.map((p, i) => <ProjectCard key={`r1b-${i}`} project={p} />)}
       </div>
 
       {/* Row 2 - scrolls right */}
-      <div ref={track2Ref} className="flex items-center gap-6" style={{ width: 'max-content' }}>
+      <div ref={track2Ref} className="flex items-center gap-8" style={{ width: 'max-content' }}>
         {row2.map((p, i) => <ProjectCard key={`r2a-${i}`} project={p} />)}
         {row2.map((p, i) => <ProjectCard key={`r2b-${i}`} project={p} />)}
       </div>

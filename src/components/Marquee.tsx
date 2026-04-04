@@ -33,7 +33,7 @@ const Marquee = () => {
     gsap.set(track, { x: -totalWidth });
     gsap.to(track, {
       x: 0,
-      duration: 20,
+      duration: 40,
       ease: 'none',
       repeat: -1,
     });
@@ -64,7 +64,7 @@ const Marquee = () => {
 
   return (
     <div className="relative py-4 md:py-12 overflow-hidden pointer-events-none select-none">
-      <div ref={trackRef} className="flex items-center" style={{ width: 'max-content' }}>
+      <div ref={trackRef} className="flex items-center" style={{ width: 'max-content', willChange: 'transform' }}>
         {renderItems()}
         {renderItems()}
       </div>
