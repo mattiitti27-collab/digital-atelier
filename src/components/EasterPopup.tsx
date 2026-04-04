@@ -38,7 +38,7 @@ const EasterPopup = ({ onGetDiscount }: EasterPopupProps) => {
         >
           <div
             className="absolute inset-0"
-            style={{ background: 'rgba(0,0,0,0.6)' }}
+            style={{ background: 'rgba(0,0,0,0.5)' }}
             onClick={close}
           />
           <motion.div
