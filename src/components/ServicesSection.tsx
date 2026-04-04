@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useLanguage } from '@/i18n/LanguageContext';
-import { Globe, Zap, Palette, Settings } from 'lucide-react';
+import { Globe, Zap, Palette, Settings, Gem } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,6 +83,22 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
       cta: lang === 'it' ? 'Inizia la Trasformazione' : 'Start the Transformation',
       onAction: scrollToContact,
       hasConfigurator: true,
+    },
+    {
+      name: lang === 'it' ? 'Atelier Visuale' : 'Visual Atelier',
+      subtitle: lang === 'it' ? 'Revisione Grafica Completa' : 'Complete Graphic Review',
+      icon: Gem,
+      features: lang === 'it'
+        ? ['Revisione grafica completa del sito', 'Ottimizzazione UI/UX avanzata', 'Coerenza visiva su ogni pagina', 'Consulenza di design dedicata']
+        : ['Complete graphic site review', 'Advanced UI/UX optimization', 'Visual consistency across every page', 'Dedicated design consultancy'],
+      description: lang === 'it'
+        ? 'Un servizio esclusivo di revisione grafica per elevare ogni dettaglio del tuo sito.'
+        : 'An exclusive graphic review service to elevate every detail of your site.',
+      price: null,
+      showPrice: false,
+      cta: lang === 'it' ? 'Richiedi Revisione' : 'Request Review',
+      onAction: scrollToContact,
+      hasConfigurator: false,
     },
   ];
 

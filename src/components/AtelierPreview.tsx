@@ -45,21 +45,8 @@ const AtelierPreview = ({ onContact }: { onContact: () => void }) => {
           {t.atelier.subtitle}
         </p>
 
-        <div
-          className="atelier-reveal relative p-6 md:p-10 rounded-2xl mb-10 md:mb-14 overflow-hidden"
-          style={{
-            background: 'linear-gradient(135deg, rgba(212,165,116,0.04), rgba(212,165,116,0.01))',
-            border: '1px solid rgba(212,165,116,0.12)',
-            backdropFilter: 'blur(24px)',
-          }}
-        >
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'radial-gradient(circle at 50% 0%, rgba(212,165,116,0.06), transparent 60%)',
-            }}
-          />
-          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+        <div className="atelier-reveal relative mb-10 md:mb-14">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
             {t.atelier.features.map((feature, i) => {
               const Icon = featureIcons[i];
               return (

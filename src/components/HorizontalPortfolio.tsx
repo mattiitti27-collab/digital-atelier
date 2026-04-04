@@ -190,7 +190,7 @@ const HorizontalPortfolio = () => {
         trigger: sectionRef.current,
         start: 'top top',
         end: () => `+=${scrollWidth}`,
-        pin: true, scrub: 0.45, anticipatePin: 1, invalidateOnRefresh: true,
+        pin: true, scrub: 0.3, anticipatePin: 1, invalidateOnRefresh: true,
       },
     });
 
