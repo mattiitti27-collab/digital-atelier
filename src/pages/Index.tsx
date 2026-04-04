@@ -77,14 +77,14 @@ const Index = () => {
 
           <AtelierPreview onContact={openContact} />
 
-          <div id="faq" className="py-12 md:py-24 relative">
+          <div id="faq" className="relative">
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-12 md:py-20 flex items-center justify-center relative">
+          <section id="contatti" className="py-16 md:py-20 flex items-center justify-center relative">
             <button
               onClick={openContact}
-              className="px-10 md:px-12 py-4 md:py-5 text-[10px] tracking-[0.35em] uppercase rounded-full transition-all duration-300 min-h-[48px]"
+              className="px-7 md:px-12 py-3 md:py-5 text-[9px] md:text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(212,165,116,0.3)',

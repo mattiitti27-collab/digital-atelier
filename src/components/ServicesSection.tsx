@@ -28,7 +28,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   ];
 
   return (
-    <section id="servizi" ref={sectionRef} className="relative py-20 md:py-40 px-4 md:px-16">
+    <section id="servizi" ref={sectionRef} className="relative py-16 md:py-40 px-4 md:px-16">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-12 md:mb-20">
           <p
@@ -114,7 +114,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
           </p>
           <button
             onClick={onContact}
-            className="px-8 md:px-12 py-3.5 md:py-4 text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-500 min-h-[48px]"
+            className="px-6 md:px-12 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
             style={{
               border: '1px solid rgba(212,165,116,0.4)',
               color: '#d4a574',

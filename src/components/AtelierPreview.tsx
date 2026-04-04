@@ -24,7 +24,7 @@ const AtelierPreview = ({ onContact }: { onContact: () => void }) => {
   const featureIcons = [Sparkles, Star, Zap, Lock];
 
   return (
-    <section id="atelier" ref={sectionRef} className="relative py-20 md:py-40 px-4 md:px-16">
+    <section id="atelier" ref={sectionRef} className="relative py-16 md:py-40 px-4 md:px-16">
       <div className="max-w-4xl mx-auto text-center">
         <p
           className="atelier-reveal text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4"
@@ -80,7 +80,7 @@ const AtelierPreview = ({ onContact }: { onContact: () => void }) => {
         <div className="atelier-reveal flex flex-col items-center gap-3">
           <button
             onClick={onContact}
-            className="px-8 md:px-12 py-3.5 md:py-4 text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-500 min-h-[48px]"
+            className="px-6 md:px-12 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
             style={{
               background: 'linear-gradient(135deg, rgba(212,165,116,0.12), rgba(212,165,116,0.04))',
               border: '1px solid rgba(212,165,116,0.4)',
