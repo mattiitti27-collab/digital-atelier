@@ -19,7 +19,7 @@ const EasterPopup = ({ onGetDiscount }: EasterPopupProps) => {
 
   const close = () => {
     setOpen(false);
-    sessionStorage.setItem('easter26_dismissed', '1');
+    sessionStorage.setItem('easter26_v2_dismissed', '1');
   };
 
   const handleGetDiscount = () => {
