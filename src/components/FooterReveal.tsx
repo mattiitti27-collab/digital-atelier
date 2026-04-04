@@ -43,7 +43,7 @@ const FooterReveal = () => {
             <p className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(212,165,116,0.5)' }}>
               {t.footer.contatti}
             </p>
-            <p className="text-[11px] md:text-xs leading-[1.7]" style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               <a
                 href="https://wa.me/393345415707"
                 target="_blank"
