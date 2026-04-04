@@ -58,12 +58,13 @@ const AboutSection = () => {
         </p>
 
         <h2
-          className="about-anim leading-[1.15] mb-6"
+          className="about-anim about-glow leading-[1.15] mb-6"
           style={{
             fontFamily: 'var(--font-display)',
             fontWeight: 300,
             fontSize: 'clamp(1.6rem, 4.5vw, 3.2rem)',
             color: '#ffffff',
+            wordSpacing: '0.2em',
           }}
         >
           {t.about.title1}
