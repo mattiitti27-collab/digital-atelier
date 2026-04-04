@@ -145,7 +145,7 @@ export const translations = {
       title2: '',
       p1: "Behind every great digital experience lies a perfect balance between creativity and logic. I'm ",
       p1Name: 'Mattia Intini',
-      p1b: ", founder of Intini Web Atelier. My path combines a strong analytical foundation rooted in engineering studies with a deep vocation for business development and enterprise strategy. This background has forged a unique mindset: the precision of data and performance optimization applied to luxury design.",
+      p1b: ", founder of Intini Web Atelier.",
       p2: 'Intini Web Atelier is a ',
       p2Bold: 'digital boutique',
       p2b: " born with a clear mission: to revolutionize the online presence of brands through cinematic, immersive web experiences with strong visual impact. We create websites that aren't just seen—they're experienced.",
