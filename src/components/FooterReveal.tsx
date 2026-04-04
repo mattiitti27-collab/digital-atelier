@@ -74,7 +74,7 @@ const FooterReveal = () => {
 
         <div className="w-full" style={{ height: '1px', background: 'rgba(255,255,255,0.04)' }} />
 
-        <p className="text-center pt-4 md:pt-5 text-[9px] md:text-[10px] tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.15)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+        <p className="text-center pt-4 md:pt-5 text-[10px] md:text-xs tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
           © {new Date().getFullYear()} {t.footer.copyright}
         </p>
       </motion.div>

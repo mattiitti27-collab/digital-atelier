@@ -96,7 +96,7 @@ const EasterPopup = ({ onGetDiscount }: EasterPopupProps) => {
               className="text-xs mb-6 leading-relaxed"
               style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.4)' }}
             >
-              quando ci contatti per ottenere un ulteriore <strong style={{ color: '#d4a574' }}>30% di sconto</strong> sui nostri servizi.
+              quando ci contatti per ottenere un ulteriore <strong style={{ color: '#d4a574' }}>25% di sconto</strong> sui nostri servizi.
               <br />
               <span className="text-[10px] tracking-wider uppercase mt-2 inline-block" style={{ color: 'rgba(212,165,116,0.5)' }}>
                 Offerta valida solo fino all'8 Aprile 2026
