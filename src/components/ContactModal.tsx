@@ -173,6 +173,8 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
         </motion.div>
       )}
     </AnimatePresence>
+    <LuxuryToast visible={toastVisible} message={t.contact.success} onDismiss={dismissToast} />
+    </>
   );
 };
 
