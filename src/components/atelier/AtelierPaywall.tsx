@@ -14,12 +14,9 @@ const AtelierPaywall = () => {
     if (!email) return;
     setChecking(true);
     const { data } = await supabase
-      .from('atelier_access')
-      .select('id')
-      .eq('email', email)
-      .limit(1);
+      .rpc('check_atelier_access', { _email: email });
 
-    if (data && data.length > 0) {
+    if (data === true) {
       setStoreEmail(email);
       setHasAccess(true);
     } else {

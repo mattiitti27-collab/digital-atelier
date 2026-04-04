@@ -19,12 +19,9 @@ const Atelier = () => {
     const email = searchParams.get('email');
     if (access === 'granted' && email) {
       supabase
-        .from('atelier_access')
-        .select('id')
-        .eq('email', email)
-        .limit(1)
+        .rpc('check_atelier_access', { _email: email })
         .then(({ data }) => {
-          if (data && data.length > 0) {
+          if (data === true) {
             setHasAccess(true);
             setEmail(email);
           }
