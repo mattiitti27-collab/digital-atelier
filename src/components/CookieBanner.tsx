@@ -57,7 +57,7 @@ const CookieBanner = () => {
             e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
           }}
         >
-          Accetta Tutti
+           {t.cookie.acceptAll}
         </button>
         <button
           onClick={() => accept('necessary')}
@@ -78,7 +78,7 @@ const CookieBanner = () => {
             e.currentTarget.style.color = 'rgba(255,255,255,0.35)';
           }}
         >
-          Solo Necessari
+          {t.cookie.onlyNecessary}
         </button>
       </div>
     </div>
