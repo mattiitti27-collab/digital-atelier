@@ -101,7 +101,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.deliveryNote}
           </p>
           <p
-            className="text-[11px] md:text-xs tracking-[0.3em] uppercase mb-1"
+            className="text-[11px] md:text-xs tracking-[0.3em] uppercase mb-0.5"
             style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.5)' }}
           >
             {t.services.price}
