@@ -81,10 +81,10 @@ const Index = () => {
             <FAQSection />
           </div>
 
-          <section id="contatti" className="py-16 md:py-20 flex items-center justify-center relative">
+          <section id="contatti" className="py-20 md:py-28 flex items-center justify-center relative">
             <button
               onClick={openContact}
-              className="px-7 md:px-12 py-3 md:py-5 text-[9px] md:text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
+              className="px-4 md:px-6 py-2.5 md:py-3 text-[9px] md:text-[10px] tracking-[0.2em] uppercase rounded-full transition-all duration-300 min-h-[44px]"
               style={{
                 background: 'transparent',
                 border: '1px solid rgba(212,165,116,0.3)',
