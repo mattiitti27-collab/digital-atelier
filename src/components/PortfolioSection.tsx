@@ -136,7 +136,7 @@ const PortfolioSection = () => {
     ));
 
   return (
-    <section id="portfolio" ref={sectionRef} className="relative py-20 md:py-44 overflow-hidden">
+    <section id="portfolio" ref={sectionRef} className="relative py-16 md:py-44 overflow-hidden">
       <div ref={headingRef} className="max-w-5xl mx-auto text-center mb-12 md:mb-20 px-4 md:px-16">
         <p
           className="text-[10px] md:text-[11px] tracking-[0.5em] uppercase mb-4 md:mb-5"
