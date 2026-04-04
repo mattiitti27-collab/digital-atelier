@@ -128,7 +128,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.nameLabel}</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.contact.namePlaceholder} className={inputClass} style={inputStyle} />
+                    <input type="text" name="nome" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.contact.namePlaceholder} className={inputClass} style={inputStyle} />
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.emailLabel}</label>
