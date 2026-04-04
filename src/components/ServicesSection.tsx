@@ -95,7 +95,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.delivery}
           </p>
           <p
-            className="text-[10px] md:text-xs tracking-wider mb-4"
+            className="text-[10px] md:text-xs tracking-wider mb-2"
             style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)' }}
           >
             {t.services.deliveryNote}

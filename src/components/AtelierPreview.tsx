@@ -80,7 +80,7 @@ const AtelierPreview = ({ onContact }: { onContact: () => void }) => {
         <div className="atelier-reveal flex flex-col items-center gap-3">
           <button
             onClick={onContact}
-            className="px-6 md:px-12 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
+            className="px-4 md:px-6 py-2.5 md:py-3 text-[9px] md:text-[10px] tracking-[0.2em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
             style={{
               background: 'linear-gradient(135deg, rgba(212,165,116,0.12), rgba(212,165,116,0.04))',
               border: '1px solid rgba(212,165,116,0.4)',
