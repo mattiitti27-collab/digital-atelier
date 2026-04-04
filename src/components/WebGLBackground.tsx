@@ -12,9 +12,8 @@ import bg12 from '@/assets/bg/bg-12.jpg';
 import bg13 from '@/assets/bg/bg-13.jpg';
 import bg16 from '@/assets/bg/bg-16.jpg';
 import bgYacht from '@/assets/bg/bg-yacht.jpg';
-import bgLeopard from '@/assets/bg/bg-leopard-rotated.jpg';
 
-const imagePaths = [bg3, bg7, bg8, bg9, bg10, bg11, bg12, bg13, bg16, bgYacht, bgLeopard];
+const imagePaths = [bg3, bg7, bg8, bg9, bg10, bg11, bg12, bg13, bg16, bgYacht];
 
 const vertexShader = `
   varying vec2 vUv;

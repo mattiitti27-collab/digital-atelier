@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import ripetiamoLogo from '@/assets/logos/ripetiamo.png';
 import lumiereLogo from '@/assets/logos/lumiere.png';
@@ -8,8 +7,6 @@ import marchettiLogo from '@/assets/logos/marchetti.png';
 import monacoLogo from '@/assets/logos/monaco.png';
 import intiniJournalLogo from '@/assets/logos/intini-journal.png';
 import yachtLogo from '@/assets/logos/yacht.png';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const LOGOS = [
   { src: ripetiamoLogo, alt: 'Ripetiamo Online' },
@@ -20,8 +17,18 @@ const LOGOS = [
   { src: yachtLogo, alt: 'Yacht Charter' },
 ];
 
-const Marquee = () => {
+interface MarqueeProps {
+  /** Shift the logo order by N positions so the two strips show different logos first */
+  offset?: number;
+  /** Scroll direction: 'left' (default) or 'right' */
+  direction?: 'left' | 'right';
+}
+
+const Marquee = ({ offset = 0, direction = 'left' }: MarqueeProps) => {
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // Rotate logos by offset
+  const logos = [...LOGOS.slice(offset % LOGOS.length), ...LOGOS.slice(0, offset % LOGOS.length)];
 
   useEffect(() => {
     if (!trackRef.current) return;
@@ -29,24 +36,19 @@ const Marquee = () => {
     const track = trackRef.current;
     const totalWidth = track.scrollWidth / 2;
 
-    // Scroll to RIGHT → positive x direction, start from -totalWidth
-    gsap.set(track, { x: -totalWidth });
-    gsap.to(track, {
-      x: 0,
-      duration: 40,
-      ease: 'none',
-      repeat: -1,
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => {
-        if (st.trigger === track) st.kill();
-      });
-    };
-  }, []);
+    if (direction === 'left') {
+      gsap.set(track, { x: 0 });
+      const anim = gsap.to(track, { x: -totalWidth, duration: 40, ease: 'none', repeat: -1 });
+      return () => { anim.kill(); };
+    } else {
+      gsap.set(track, { x: -totalWidth });
+      const anim = gsap.to(track, { x: 0, duration: 40, ease: 'none', repeat: -1 });
+      return () => { anim.kill(); };
+    }
+  }, [direction]);
 
   const renderItems = () =>
-    LOGOS.map((logo, i) => (
+    logos.map((logo, i) => (
       <span key={i} className="flex items-center gap-16 md:gap-24 whitespace-nowrap px-8 md:px-14">
         <img
           src={logo.src}
