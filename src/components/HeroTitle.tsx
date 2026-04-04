@@ -75,7 +75,7 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
               onContact?.();
             }
           }}
-          className="px-8 md:px-10 py-3.5 md:py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
+          className="px-6 md:px-10 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase transition-all duration-500 rounded-full min-h-[42px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
