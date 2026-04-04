@@ -119,7 +119,7 @@ const Navbar = () => {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="md:hidden flex flex-col items-center gap-6 pb-8"
+            className="md:hidden flex flex-col items-center gap-6 pb-8 overflow-hidden"
             style={{ background: 'rgba(5,5,5,0.95)', backdropFilter: 'blur(20px)' }}
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
