@@ -34,7 +34,7 @@ export const translations = {
     portfolio: {
       label: 'Portfolio',
       title: 'Opere Selezionate',
-      subtitle: "L'ingegneria incontra l'estetica: esplora le nostre esperienze digitali.",
+      subtitle: "Clicca ed Esplora le nostre esperienze digitali.",
       cta: 'Esplora il progetto',
       active: 'Sito Attivo',
       demo: 'Demo',
