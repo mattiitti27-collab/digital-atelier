@@ -69,7 +69,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
     },
   ];
 
-  const { lang } = useLanguage();
+  
 
   return (
     <section id="servizi" ref={sectionRef} className="relative py-20 md:py-32 px-4 md:px-16">
