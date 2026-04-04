@@ -18,7 +18,7 @@ const LanguageGate = () => {
         <motion.div
           className="fixed inset-0 z-[200] flex items-center justify-center"
           style={{
-            background: 'radial-gradient(ellipse at center, rgba(8,6,3,0.97) 0%, rgba(2,2,2,0.99) 100%)',
+            background: 'rgba(2,2,2,0.96)',
           }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
