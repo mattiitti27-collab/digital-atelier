@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, CheckCircle } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { useLanguage } from '@/i18n/LanguageContext';
+import LuxuryToast from '@/components/LuxuryToast';
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, 'Inserisci il tuo nome').max(100),
@@ -29,7 +30,9 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
   const { t } = useLanguage();
+  const dismissToast = useCallback(() => setToastVisible(false), []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +72,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
     setLoading(false);
     setSuccess(true);
+    setToastVisible(true);
     setName(''); setEmail(''); setPhone(''); setService(''); setMessage('');
   };
 
@@ -83,6 +87,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
   const inputClass = "w-full text-white text-sm py-3 px-3 rounded-lg outline-none min-h-[44px]";
 
   return (
+    <>
     <AnimatePresence>
       {open && (
         <motion.div
@@ -169,6 +174,8 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
         </motion.div>
       )}
     </AnimatePresence>
+    <LuxuryToast visible={toastVisible} message={t.contact.success} onDismiss={dismissToast} />
+    </>
   );
 };
 
