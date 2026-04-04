@@ -21,6 +21,7 @@ import ServicesSection from '@/components/ServicesSection';
 import AtelierPreview from '@/components/AtelierPreview';
 import ScrollTransition from '@/components/ScrollTransition';
 import EasterPopup from '@/components/EasterPopup';
+import LanguageGate from '@/components/LanguageGate';
 import { useLanguage } from '@/i18n/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
