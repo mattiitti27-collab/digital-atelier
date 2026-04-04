@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const ServicesSection = ({ onContact }: { onContact: () => void }) => {
   const sectionRef = useRef<HTMLElement>(null);
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   useEffect(() => {
     if (!sectionRef.current) return;
