@@ -64,8 +64,8 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.title}
           </h2>
           <p
-            className="text-xs md:text-base max-w-xl mx-auto"
-            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em', lineHeight: 1.8 }}
+            className="glow-trace text-xs md:text-base max-w-xl mx-auto"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.05em', lineHeight: 1.8, wordSpacing: '0.3em' }}
           >
             {t.services.subtitle}
           </p>
