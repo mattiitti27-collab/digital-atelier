@@ -92,7 +92,7 @@ const Index = () => {
           <ScrollTransition />
 
           <div className="scroll-reveal-section">
-            <Marquee />
+            <Marquee offset={0} direction="left" />
           </div>
 
           <div className="scroll-reveal-section">
@@ -100,7 +100,7 @@ const Index = () => {
           </div>
 
           <div className="scroll-reveal-section">
-            <Marquee />
+            <Marquee offset={3} direction="right" />
           </div>
 
           <div className="scroll-reveal-section">
