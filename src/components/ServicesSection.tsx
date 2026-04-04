@@ -114,7 +114,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
           </p>
           <button
             onClick={onContact}
-            className="px-4 md:px-6 py-2.5 md:py-3 text-[9px] md:text-[10px] tracking-[0.2em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
+            className="w-fit mx-auto px-3 md:px-4 py-2 md:py-2.5 text-[9px] md:text-[10px] tracking-[0.15em] uppercase rounded-full transition-all duration-500 min-h-[42px]"
             style={{
               border: '1px solid rgba(212,165,116,0.4)',
               color: '#d4a574',
