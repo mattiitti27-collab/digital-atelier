@@ -71,6 +71,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
 
     setLoading(false);
     setSuccess(true);
+    setToastVisible(true);
     setName(''); setEmail(''); setPhone(''); setService(''); setMessage('');
   };
 
