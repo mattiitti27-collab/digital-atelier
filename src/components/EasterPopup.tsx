@@ -10,7 +10,7 @@ const EasterPopup = ({ onGetDiscount }: EasterPopupProps) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const dismissed = sessionStorage.getItem('easter26_dismissed');
+    const dismissed = sessionStorage.getItem('easter26_v2_dismissed');
     if (!dismissed) {
       const timer = setTimeout(() => setOpen(true), 4000);
       return () => clearTimeout(timer);
