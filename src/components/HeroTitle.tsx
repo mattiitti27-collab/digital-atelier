@@ -5,7 +5,7 @@ interface HeroTitleProps {
   onContact?: () => void;
 }
 
-const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
+const HeroTitle = ({ visible }: HeroTitleProps) => {
   const { t } = useLanguage();
 
   return (
@@ -15,9 +15,9 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
         style={{
           fontFamily: 'var(--font-display)',
           fontWeight: 300,
-          fontSize: 'clamp(2rem, 7vw, 6rem)',
+          fontSize: 'clamp(2.2rem, 8vw, 6.5rem)',
           opacity: visible ? 1 : 0,
-          transition: 'opacity 1.2s ease 0.3s',
+          transition: 'opacity 1.6s ease 0.3s',
         }}
       >
         {t.hero.title}
@@ -32,76 +32,30 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
           color: 'rgba(255,255,255,0.35)',
           lineHeight: '1.8',
           opacity: visible ? 1 : 0,
-          transition: 'opacity 1.2s ease 0.8s',
+          transition: 'opacity 1.6s ease 0.8s',
         }}
       >
         {t.hero.subtitle}
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mt-4 md:mt-8">
-        <button
-          onClick={() => {
-            const footer = document.querySelector('#contatti');
-            if (footer) {
-              const y = footer.getBoundingClientRect().top + window.scrollY;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-              setTimeout(() => onContact?.(), 1200);
-            } else {
-              onContact?.();
-            }
-          }}
-          className="w-fit px-3 md:px-4 py-2 md:py-2.5 text-[8px] md:text-[10px] tracking-[0.15em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
-          style={{
-            border: '1px solid rgba(212,165,116,0.35)',
-            color: '#d4a574',
-            background: 'rgba(212,165,116,0.04)',
-            backdropFilter: 'blur(10px)',
-            opacity: visible ? 1 : 0,
-            transition: 'opacity 1.2s ease 1.2s, background 0.3s, border-color 0.3s, box-shadow 0.3s',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(212,165,116,0.12)';
-            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.6)';
-            e.currentTarget.style.boxShadow = '0 0 40px rgba(212,165,116,0.15)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(212,165,116,0.04)';
-            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
+      {/* Scroll indicator */}
+      <div
+        className="mt-12 md:mt-16 flex flex-col items-center gap-2"
+        style={{
+          opacity: visible ? 1 : 0,
+          transition: 'opacity 1.6s ease 1.4s',
+        }}
+      >
+        <p
+          className="text-[8px] tracking-[0.4em] uppercase"
+          style={{ color: 'rgba(212,165,116,0.4)', fontFamily: 'var(--font-body)' }}
         >
-          {t.hero.cta1}
-        </button>
-        <button
-          onClick={() => {
-            const el = document.querySelector('#portfolio');
-            if (el) {
-              const y = el.getBoundingClientRect().top + window.scrollY;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-            }
-          }}
-          className="w-fit px-3 md:px-4 py-2 md:py-2.5 text-[8px] md:text-[10px] tracking-[0.15em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
-          style={{
-            border: '1px solid rgba(212,165,116,0.35)',
-            color: '#d4a574',
-            background: 'rgba(212,165,116,0.04)',
-            backdropFilter: 'blur(10px)',
-            opacity: visible ? 1 : 0,
-            transition: 'opacity 1.2s ease 1.5s, background 0.3s, border-color 0.3s, box-shadow 0.3s',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = 'rgba(212,165,116,0.12)';
-            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.6)';
-            e.currentTarget.style.boxShadow = '0 0 40px rgba(212,165,116,0.15)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = 'rgba(212,165,116,0.04)';
-            e.currentTarget.style.borderColor = 'rgba(212,165,116,0.35)';
-            e.currentTarget.style.boxShadow = 'none';
-          }}
-        >
-          {t.hero.cta2}
-        </button>
+          Scroll
+        </p>
+        <div
+          className="w-px h-8 animate-pulse"
+          style={{ background: 'linear-gradient(to bottom, rgba(212,165,116,0.4), transparent)' }}
+        />
       </div>
     </div>
   );
