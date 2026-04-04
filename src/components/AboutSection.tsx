@@ -21,7 +21,7 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="chi-siamo" ref={sectionRef} className="relative py-16 md:py-40 px-4 md:px-16 overflow-hidden">
+    <section id="chi-siamo" ref={sectionRef} className="relative py-20 md:py-32 px-4 md:px-16 overflow-hidden">
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{
