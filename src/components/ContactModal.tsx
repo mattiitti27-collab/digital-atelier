@@ -132,7 +132,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.emailLabel}</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t.contact.emailPlaceholder} className={inputClass} style={inputStyle} />
+                    <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t.contact.emailPlaceholder} className={inputClass} style={inputStyle} />
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.phoneLabel}</label>
