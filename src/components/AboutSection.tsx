@@ -48,8 +48,12 @@ const AboutSection = () => {
           }}
         >
           {t.about.title1}
-          <br />
-          <span style={{ color: '#d4a574' }}>{t.about.title2}</span>
+          {t.about.title2 && (
+            <>
+              <br />
+              <span style={{ color: '#d4a574' }}>{t.about.title2}</span>
+            </>
+          )}
         </h2>
 
         <div

@@ -12,7 +12,7 @@ const EasterPopup = ({ onGetDiscount }: EasterPopupProps) => {
   useEffect(() => {
     const dismissed = sessionStorage.getItem('easter26_dismissed');
     if (!dismissed) {
-      const timer = setTimeout(() => setOpen(true), 1500);
+      const timer = setTimeout(() => setOpen(true), 4000);
       return () => clearTimeout(timer);
     }
   }, []);
@@ -38,7 +38,7 @@ const EasterPopup = ({ onGetDiscount }: EasterPopupProps) => {
         >
           <div
             className="absolute inset-0"
-            style={{ background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(12px)' }}
+            style={{ background: 'rgba(0,0,0,0.6)' }}
             onClick={close}
           />
           <motion.div

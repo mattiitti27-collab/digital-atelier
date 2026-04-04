@@ -89,7 +89,19 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
 
         <div className="text-center">
           <p
-            className="text-[11px] md:text-xs tracking-[0.3em] uppercase mb-2"
+            className="text-xs md:text-sm tracking-[0.15em] mb-1"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 400, color: '#d4a574' }}
+          >
+            {t.services.delivery}
+          </p>
+          <p
+            className="text-[10px] md:text-xs tracking-wider mb-4"
+            style={{ fontFamily: 'var(--font-body)', fontWeight: 300, color: 'rgba(255,255,255,0.35)' }}
+          >
+            {t.services.deliveryNote}
+          </p>
+          <p
+            className="text-[11px] md:text-xs tracking-[0.3em] uppercase mb-1"
             style={{ fontFamily: 'var(--font-body)', color: 'rgba(212,165,116,0.5)' }}
           >
             {t.services.price}

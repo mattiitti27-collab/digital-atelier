@@ -52,7 +52,7 @@ const Marquee = () => {
           src={logo.src}
           alt={logo.alt}
           className="h-14 md:h-20 lg:h-24 w-auto object-contain transition-opacity duration-500 hover:opacity-100"
-          style={{ filter: 'brightness(0.8) contrast(1.1)', opacity: 0.5 }}
+          style={{ filter: 'brightness(0.9) contrast(1.1)', opacity: 0.9 }}
           loading="lazy"
         />
         <span
