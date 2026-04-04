@@ -18,8 +18,8 @@ export const translations = {
     },
     about: {
       label: 'Chi Siamo',
-      title1: "L'Arte del Digitale,",
-      title2: "la Precisione dell'Ingegneria",
+      title1: "L'Arte del Digitale",
+      title2: "",
       p1: "Dietro ogni grande esperienza digitale c'è un equilibrio perfetto tra creatività e logica. Sono ",
       p1Name: 'Mattia Intini',
       p1b: ", fondatore di Intini Web Atelier. Il mio percorso unisce un forte imprinting analitico, radicato negli studi di ingegneria, a una profonda vocazione per lo sviluppo business e le strategie d'impresa. Questo background mi ha forgiato una mentalità unica: la precisione del dato e l'ottimizzazione delle performance, applicate al design di lusso.",
