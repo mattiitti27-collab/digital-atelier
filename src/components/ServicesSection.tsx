@@ -107,7 +107,7 @@ const ServicesSection = ({ onContact }: { onContact: () => void }) => {
             {t.services.price}
           </p>
           <p
-            className="text-4xl md:text-5xl mb-4 md:mb-6"
+            className="text-4xl md:text-5xl mb-3 md:mb-4"
             style={{ fontFamily: 'var(--font-display)', fontWeight: 300, color: '#d4a574' }}
           >
             {t.services.priceValue}
