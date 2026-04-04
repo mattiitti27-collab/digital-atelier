@@ -66,7 +66,15 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
 
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mt-8 md:mt-10">
         <button
-          onClick={() => onContact?.()}
+          onClick={() => {
+            const footer = document.querySelector('#contatti');
+            if (footer) {
+              footer.scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => onContact?.(), 1200);
+            } else {
+              onContact?.();
+            }
+          }}
           className="px-8 md:px-10 py-3.5 md:py-4 text-[10px] tracking-[0.35em] uppercase transition-all duration-500 rounded-full min-h-[44px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
