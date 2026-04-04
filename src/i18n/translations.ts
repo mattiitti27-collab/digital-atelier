@@ -49,6 +49,8 @@ export const translations = {
       socialDesc: 'Pacchetto completo per curare la tua identità digitale a 360°: creazione profili, strategia contenuti, visual identity coordinata e gestione continuativa.',
       support: 'Supporto Dedicato',
       supportDesc: 'Assistenza tecnica continua, aggiornamenti e consulenza strategica per la crescita del tuo brand.',
+      delivery: 'Pacchetto Base pronto in 72 ore',
+      deliveryNote: 'Per gli altri pacchetti, consegna rapidissima in base al progetto.',
       price: 'Prezzi a partire da',
       priceValue: '299€',
       cta: 'Richiedi INFO gratuite',
