@@ -6,6 +6,8 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { lang, t, toggleLang } = useLanguage();
+  const langLabels: Record<string, string> = { it: 'IT', en: 'EN', fr: 'FR', de: 'DE' };
+  const nextLangLabels: Record<string, string> = { it: 'EN', en: 'FR', fr: 'DE', de: 'IT' };
 
   const NAV_ITEMS = [
     { label: t.nav.chiSiamo, href: '#chi-siamo' },
@@ -102,7 +104,7 @@ const Navbar = () => {
                 e.currentTarget.style.borderColor = 'rgba(212,165,116,0.3)';
               }}
             >
-              {lang === 'it' ? 'EN' : 'IT'}
+              {nextLangLabels[lang]}
             </button>
           </div>
 
@@ -117,7 +119,7 @@ const Navbar = () => {
                 fontWeight: 400,
               }}
             >
-              {lang === 'it' ? 'EN' : 'IT'}
+              {nextLangLabels[lang]}
             </button>
             <button
               className="flex flex-col gap-[5px] min-h-[44px] min-w-[44px] items-center justify-center relative z-[60]"
