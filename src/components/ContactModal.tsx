@@ -136,7 +136,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.phoneLabel}</label>
-                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t.contact.phonePlaceholder} className={inputClass} style={inputStyle} />
+                    <input type="tel" name="telefono" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t.contact.phonePlaceholder} className={inputClass} style={inputStyle} />
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.serviceLabel}</label>
