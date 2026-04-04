@@ -35,14 +35,17 @@ const Marquee = ({ offset = 0, direction = 'left' }: MarqueeProps) => {
 
     const track = trackRef.current;
     const totalWidth = track.scrollWidth / 2;
+    // Pixel-per-second speed for smooth linear scroll; 30% slower than before
+    const speed = 60; // px/s
+    const duration = totalWidth / speed;
 
     if (direction === 'left') {
       gsap.set(track, { x: 0 });
-      const anim = gsap.to(track, { x: -totalWidth, duration: 4, ease: 'none', repeat: -1 });
+      const anim = gsap.to(track, { x: -totalWidth, duration, ease: 'none', repeat: -1 });
       return () => { anim.kill(); };
     } else {
       gsap.set(track, { x: -totalWidth });
-      const anim = gsap.to(track, { x: 0, duration: 4, ease: 'none', repeat: -1 });
+      const anim = gsap.to(track, { x: 0, duration, ease: 'none', repeat: -1 });
       return () => { anim.kill(); };
     }
   }, [direction]);

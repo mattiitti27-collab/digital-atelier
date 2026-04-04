@@ -128,15 +128,15 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.nameLabel}</label>
-                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.contact.namePlaceholder} className={inputClass} style={inputStyle} />
+                    <input type="text" name="nome" value={name} onChange={(e) => setName(e.target.value)} placeholder={t.contact.namePlaceholder} className={inputClass} style={inputStyle} />
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.emailLabel}</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t.contact.emailPlaceholder} className={inputClass} style={inputStyle} />
+                    <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t.contact.emailPlaceholder} className={inputClass} style={inputStyle} />
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.phoneLabel}</label>
-                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t.contact.phonePlaceholder} className={inputClass} style={inputStyle} />
+                    <input type="tel" name="telefono" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t.contact.phonePlaceholder} className={inputClass} style={inputStyle} />
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.serviceLabel}</label>
@@ -155,7 +155,7 @@ const ContactModal = ({ open, onClose }: ContactModalProps) => {
                   </div>
                   <div>
                     <label className={labelClass} style={labelStyle}>{t.contact.messageLabel}</label>
-                    <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder={t.contact.messagePlaceholder} rows={3} className="w-full text-white text-sm py-3 px-3 rounded-lg outline-none resize-none" style={inputStyle} />
+                    <textarea name="messaggio" value={message} onChange={(e) => setMessage(e.target.value)} placeholder={t.contact.messagePlaceholder} rows={3} className="w-full text-white text-sm py-3 px-3 rounded-lg outline-none resize-none" style={inputStyle} />
                   </div>
                   <motion.button
                     type="submit"
