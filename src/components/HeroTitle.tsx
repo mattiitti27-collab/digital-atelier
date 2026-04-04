@@ -50,11 +50,11 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
       </h1>
 
       <p
-        className="text-xs md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto"
+        className="text-[10px] md:text-base tracking-widest uppercase mt-2 max-w-lg mx-auto text-center"
         style={{
           fontFamily: 'var(--font-body)',
           fontWeight: 300,
-          letterSpacing: '0.2em',
+          letterSpacing: '0.15em',
           color: 'rgba(255,255,255,0.35)',
           lineHeight: '1.8',
           opacity: visible ? 1 : 0,
@@ -64,7 +64,7 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
         {t.hero.subtitle}
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mt-8 md:mt-10">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center mt-6 md:mt-10">
         <button
           onClick={() => {
             const footer = document.querySelector('#contatti');
@@ -75,7 +75,7 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
               onContact?.();
             }
           }}
-          className="px-6 md:px-10 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase transition-all duration-500 rounded-full min-h-[42px]"
+          className="px-5 md:px-10 py-2.5 md:py-4 text-[8px] md:text-[10px] tracking-[0.25em] uppercase transition-all duration-500 rounded-full min-h-[38px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
@@ -103,7 +103,7 @@ const HeroTitle = ({ visible, onContact }: HeroTitleProps) => {
             const el = document.querySelector('#portfolio');
             el?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="px-6 md:px-10 py-3 md:py-4 text-[9px] md:text-[10px] tracking-[0.3em] uppercase transition-all duration-500 rounded-full min-h-[42px]"
+          className="px-5 md:px-10 py-2.5 md:py-4 text-[8px] md:text-[10px] tracking-[0.25em] uppercase transition-all duration-500 rounded-full min-h-[38px]"
           style={{
             border: '1px solid rgba(212,165,116,0.35)',
             color: '#d4a574',
