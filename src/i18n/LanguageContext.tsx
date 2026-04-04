@@ -15,7 +15,7 @@ const LanguageContext = createContext<LanguageContextType | null>(null);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const stored = typeof window !== 'undefined' ? localStorage.getItem('iwa_lang') : null;
-  const [lang, setLangState] = useState<Lang>((stored as Lang) || 'it');
+  const [lang, setLangState] = useState<Lang>((stored as Lang) || 'en');
   const [langChosen, setLangChosen] = useState(!!stored);
 
   const setLang = useCallback((l: Lang) => {
