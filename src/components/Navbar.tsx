@@ -25,7 +25,10 @@ const Navbar = () => {
   const handleNav = (item: typeof NAV_ITEMS[0]) => {
     setMobileOpen(false);
     const el = document.querySelector(item.href);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
   };
 
   return (
