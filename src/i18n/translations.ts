@@ -172,6 +172,8 @@ export const translations = {
       socialDesc: 'Complete package for your 360° digital identity: profile creation, content strategy, coordinated visual identity and ongoing management.',
       support: 'Dedicated Support',
       supportDesc: 'Continuous technical assistance, updates and strategic consulting for your brand growth.',
+      delivery: 'Base Package ready in 72 hours',
+      deliveryNote: 'For other packages, ultra-fast delivery based on project scope.',
       price: 'Prices starting from',
       priceValue: '€299',
       cta: 'Request FREE Info',
