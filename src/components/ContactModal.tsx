@@ -15,7 +15,7 @@ const contactSchema = z.object({
   message: z.string().trim().min(1, 'Inserisci un messaggio').max(1000),
 });
 
-const GOOGLE_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbxdmX73MFT6udfEF-uHcJt200_Cc0BR83AMARx9Yb4m628V0pqlaIMM2w-ouXJBqBEH2Q/exec';
+const GOOGLE_SHEETS_WEBHOOK = 'https://script.google.com/macros/s/AKfycbwHQCg_6oZiZyc1RAsOfzC7fzv1whCdrggSJ15phu_jTjS8DIrSrYEDcHMm9uibJiEq-A/exec';
 
 interface ContactModalProps {
   open: boolean;
