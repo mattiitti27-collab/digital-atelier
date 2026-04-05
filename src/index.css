@@ -69,6 +69,27 @@
     padding-right: env(safe-area-inset-right);
     overflow-x: hidden;
   }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 8vw, 6.5rem);
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.6rem, 4.5vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+    line-height: 1.2;
+  }
 }
 
 /* Uniform mobile section spacing */

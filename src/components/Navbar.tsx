@@ -79,9 +79,9 @@ const Navbar = () => {
                 key={item.label}
                 onClick={() => handleNav(item)}
                 className="text-xs tracking-[0.25em] uppercase transition-colors duration-300"
-                style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
+                style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
               >
                 {item.label}
               </button>
@@ -153,12 +153,12 @@ const Navbar = () => {
                 key={item.label}
                 onClick={() => handleNav(item)}
                 className="text-sm tracking-[0.35em] uppercase min-h-[48px] flex items-center"
-                style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-display)', fontWeight: 300 }}
+                style={{ color: 'rgba(255,255,255,0.7)', fontFamily: 'var(--font-display)', fontWeight: 300 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
                 onTouchStart={(e) => (e.currentTarget.style.color = '#d4a574')}
-                onTouchEnd={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
+                onTouchEnd={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
               >
                 {item.label}
               </motion.button>

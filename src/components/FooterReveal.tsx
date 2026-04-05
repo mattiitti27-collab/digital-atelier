@@ -25,15 +25,15 @@ const FooterReveal = () => {
             <p className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(212,165,116,0.5)' }}>
               {t.footer.sartoria}
             </p>
-            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               {t.footer.sartoriaDesc}
               <br />
               <a
                 href="mailto:intiniwebatelier@gmail.com"
                 className="transition-colors duration-300 mt-1 inline-block"
-                style={{ color: 'rgba(255,255,255,0.35)' }}
+                style={{ color: 'rgba(255,255,255,0.5)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
               >
                 intiniwebatelier@gmail.com
               </a>
@@ -44,15 +44,15 @@ const FooterReveal = () => {
             <p className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(212,165,116,0.5)' }}>
               {t.footer.contatti}
             </p>
-            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               <a
                 href="https://wa.me/393345415707"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors duration-300"
-                style={{ color: 'rgba(255,255,255,0.35)' }}
+                style={{ color: 'rgba(255,255,255,0.5)' }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
               >
                 +39 334 541 5707 · WhatsApp
               </a>
@@ -65,7 +65,7 @@ const FooterReveal = () => {
             <p className="text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-2" style={{ color: 'rgba(212,165,116,0.5)' }}>
               {t.footer.datiLegali}
             </p>
-            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.55)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+            <p className="text-xs md:text-sm leading-[1.7]" style={{ color: 'rgba(255,255,255,0.65)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
               Mattia Intini · {t.footer.libero}
               <br />
               P.IVA 13419790012
@@ -97,7 +97,7 @@ const FooterReveal = () => {
 
         <div className="w-full" style={{ height: '1px', background: 'rgba(255,255,255,0.04)' }} />
 
-        <p className="text-center pt-4 md:pt-5 text-[10px] md:text-xs tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.3)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
+        <p className="text-center pt-4 md:pt-5 text-[10px] md:text-xs tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.45)', fontFamily: 'var(--font-body)', fontWeight: 300 }}>
           © {new Date().getFullYear()} {t.footer.copyright}
         </p>
       </motion.div>
