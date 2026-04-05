@@ -29,7 +29,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
           fontFamily: 'var(--font-body)',
           fontWeight: 300,
           letterSpacing: '0.15em',
-          color: 'rgba(255,255,255,0.35)',
+          color: 'rgba(255,255,255,0.5)',
           lineHeight: '1.8',
           opacity: visible ? 1 : 0,
           transition: 'opacity 1.6s ease 0.8s',
@@ -48,7 +48,7 @@ const HeroTitle = ({ visible }: HeroTitleProps) => {
       >
         <p
           className="text-[8px] tracking-[0.4em] uppercase"
-          style={{ color: 'rgba(212,165,116,0.4)', fontFamily: 'var(--font-body)' }}
+          style={{ color: 'rgba(212,165,116,0.55)', fontFamily: 'var(--font-body)' }}
         >
           Scroll
         </p>

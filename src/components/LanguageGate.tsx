@@ -34,7 +34,7 @@ const LanguageGate = () => {
             <div className="text-center mb-2">
               <p
                 className="text-[10px] md:text-xs tracking-[0.5em] uppercase mb-3"
-                style={{ color: 'rgba(212,165,116,0.4)', fontFamily: 'var(--font-body)' }}
+                style={{ color: 'rgba(212,165,116,0.55)', fontFamily: 'var(--font-body)' }}
               >
                 INTINI WEB ATELIER
               </p>
@@ -47,7 +47,7 @@ const LanguageGate = () => {
             {/* Prompt */}
             <p
               className="text-[11px] md:text-xs tracking-[0.3em] uppercase text-center"
-              style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
+              style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-body)', fontWeight: 300 }}
             >
               Select Your Language
             </p>
@@ -81,7 +81,7 @@ const LanguageGate = () => {
                     <span
                       className="text-sm md:text-base tracking-[0.25em] uppercase transition-colors duration-300 group-hover:text-[#d4a574]"
                       style={{
-                        color: 'rgba(255,255,255,0.7)',
+                        color: 'rgba(255,255,255,0.8)',
                         fontFamily: 'var(--font-display)',
                         fontWeight: 300,
                       }}
@@ -91,7 +91,7 @@ const LanguageGate = () => {
                     <span
                       className="text-[9px] tracking-[0.2em] uppercase transition-colors duration-300"
                       style={{
-                        color: 'rgba(212,165,116,0.3)',
+                        color: 'rgba(212,165,116,0.5)',
                         fontFamily: 'var(--font-body)',
                         fontWeight: 300,
                       }}

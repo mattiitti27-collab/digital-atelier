@@ -27,7 +27,7 @@ const FAQSection = () => {
                 onClick={() => setOpenId(openId === i ? null : i)}
                 className="w-full flex items-center justify-between p-4 text-left min-h-[48px]"
               >
-                <span className="text-sm pr-4" style={{ color: openId === i ? '#d4a574' : 'rgba(255,255,255,0.6)' }}>
+                <span className="text-sm pr-4" style={{ color: openId === i ? '#d4a574' : 'rgba(255,255,255,0.7)' }}>
                   {faq.question}
                 </span>
                 <motion.div animate={{ rotate: openId === i ? 180 : 0 }} transition={{ duration: 0.2 }}>
@@ -43,7 +43,7 @@ const FAQSection = () => {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <p className="px-4 pb-4 text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    <p className="px-4 pb-4 text-[13px] leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
                       {faq.answer}
                     </p>
                   </motion.div>
