@@ -20,7 +20,7 @@ import ParallaxElements from '@/components/ParallaxElements';
 import ServicesSection from '@/components/ServicesSection';
 import AtelierPreview from '@/components/AtelierPreview';
 import ScrollTransition from '@/components/ScrollTransition';
-import EasterPopup from '@/components/EasterPopup';
+
 import LanguageGate from '@/components/LanguageGate';
 import { useLanguage } from '@/i18n/LanguageContext';
 
@@ -70,7 +70,7 @@ const Index = () => {
       <Preloader onComplete={handlePreloaderComplete} />
       <WebGLBackground />
       <ParallaxElements />
-      <EasterPopup onGetDiscount={openContact} />
+      
       <motion.div
         initial={{ opacity: 0 }}
         animate={revealed ? { opacity: 1 } : {}}
