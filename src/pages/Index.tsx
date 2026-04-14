@@ -9,7 +9,7 @@ import WebGLBackground from '@/components/WebGLBackground';
 import Hero3DScene from '@/components/Hero3DScene';
 import HeroTitle from '@/components/HeroTitle';
 import PortfolioSection from '@/components/PortfolioSection';
-import CookieBanner from '@/components/CookieBanner';
+
 import FAQSection from '@/components/FAQSection';
 import ContactModal from '@/components/ContactModal';
 import FooterReveal from '@/components/FooterReveal';
@@ -148,7 +148,7 @@ const Index = () => {
         </main>
       </SmoothScroll>
       <FloatingButler />
-      <CookieBanner />
+      
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );
