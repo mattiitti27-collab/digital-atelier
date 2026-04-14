@@ -1,6 +1,86 @@
 <!doctype html>
 <html lang="it">
   <head>
+    <link rel="stylesheet" href="/silktide-consent-manager.css">
+    <script src="/silktide-consent-manager.js"></script>
+    <script>
+    silktideCookieBannerManager.updateCookieBannerConfig({
+      background: {
+        showBackground: false
+      },
+      cookieIcon: {
+        position: "bottomLeft"
+      },
+      cookieTypes: [
+        {
+          id: "necessary",
+          name: "Necessari",
+          description: "<p>Questi cookie sono necessari per il funzionamento del sito e non possono essere disattivati.</p>",
+          required: true,
+          onAccept: function() {}
+        },
+        {
+          id: "analytics",
+          name: "Analitici",
+          description: "<p>Questi cookie ci aiutano a capire come i visitatori usano il sito, permettendoci di migliorarlo.</p>",
+          defaultValue: true,
+          onAccept: function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('consent', 'update', { analytics_storage: 'granted' });
+            }
+          },
+          onReject: function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('consent', 'update', { analytics_storage: 'denied' });
+            }
+          }
+        },
+        {
+          id: "advertising",
+          name: "Pubblicitari",
+          description: "<p>Questi cookie vengono usati per mostrarti annunci più pertinenti ai tuoi interessi.</p>",
+          onAccept: function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('consent', 'update', {
+                ad_storage: 'granted',
+                ad_user_data: 'granted',
+                ad_personalization: 'granted'
+              });
+            }
+          },
+          onReject: function() {
+            if (typeof gtag !== 'undefined') {
+              gtag('consent', 'update', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied'
+              });
+            }
+          }
+        }
+      ],
+      text: {
+        banner: {
+          description: "<p>Utilizziamo i cookie per migliorare la tua esperienza sul sito. <a href='/cookie-policy' target='_blank'>Cookie Policy</a></p>",
+          acceptAllButtonText: "Accetta tutti",
+          acceptAllButtonAccessibleLabel: "Accetta tutti i cookie",
+          rejectNonEssentialButtonText: "Rifiuta",
+          rejectNonEssentialButtonAccessibleLabel: "Rifiuta i cookie non essenziali",
+          preferencesButtonText: "Preferenze",
+          preferencesButtonAccessibleLabel: "Apri preferenze cookie"
+        },
+        preferences: {
+          title: "Personalizza le tue preferenze cookie",
+          description: "<p>Rispettiamo il tuo diritto alla privacy. Puoi scegliere quali tipi di cookie consentire.</p>",
+          creditLinkText: "Banner gratuito di Silktide",
+          creditLinkAccessibleLabel: "Banner gratuito di Silktide"
+        }
+      },
+      position: {
+        banner: "bottomCenter"
+      }
+    });
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- TODO: Set the document title to the name of your application -->
