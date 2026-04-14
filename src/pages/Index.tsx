@@ -148,7 +148,7 @@ const Index = () => {
         </main>
       </SmoothScroll>
       <FloatingButler />
-      <CookieBanner />
+      
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
     </>
   );
