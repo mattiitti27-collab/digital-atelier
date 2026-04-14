@@ -1,7 +1,68 @@
 <!doctype html>
 <html lang="it">
   <head>
+    <meta name="google-site-verification" content="ro3Wy3Z3mHvXxH3HoZqi3-H47hLHgaml5YlMBP1jSr0" />
     <link rel="stylesheet" href="/silktide-consent-manager.css">
+    <style>
+      /* Pallino cookie più piccolo */
+      .silktide-consent-manager__cookie-icon {
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+      }
+      .silktide-consent-manager__cookie-icon svg {
+        width: 20px !important;
+        height: 20px !important;
+      }
+
+      /* Banner compatto su mobile */
+      @media (max-width: 768px) {
+        .silktide-consent-manager__banner {
+          padding: 10px 14px !important;
+          font-size: 12px !important;
+          max-width: 100vw !important;
+          box-sizing: border-box !important;
+        }
+        .silktide-consent-manager__banner-title {
+          font-size: 14px !important;
+          margin-bottom: 4px !important;
+        }
+        .silktide-consent-manager__banner-description {
+          font-size: 12px !important;
+          margin-bottom: 8px !important;
+          line-height: 1.4 !important;
+        }
+        .silktide-consent-manager__banner-description p {
+          margin: 0 !important;
+        }
+        .silktide-consent-manager__banner-buttons {
+          flex-wrap: wrap !important;
+          gap: 6px !important;
+        }
+        .silktide-consent-manager__banner-buttons button {
+          padding: 7px 12px !important;
+          font-size: 11px !important;
+          flex: 1 1 auto !important;
+          min-width: 0 !important;
+        }
+        /* Modale preferenze compatta su mobile */
+        .silktide-consent-manager__preferences {
+          width: 95vw !important;
+          max-width: 95vw !important;
+          max-height: 80vh !important;
+          padding: 14px !important;
+          font-size: 13px !important;
+          overflow-y: auto !important;
+        }
+        .silktide-consent-manager__preferences-title {
+          font-size: 16px !important;
+        }
+        .silktide-consent-manager__preferences-description {
+          font-size: 12px !important;
+        }
+      }
+    </style>
     <script src="/silktide-consent-manager.js"></script>
     <script>
     silktideCookieBannerManager.updateCookieBannerConfig({
@@ -61,7 +122,7 @@
       ],
       text: {
         banner: {
-          description: "<p>Utilizziamo i cookie per migliorare la tua esperienza sul sito. <a href='/cookie-policy' target='_blank'>Cookie Policy</a></p>",
+          description: "<p>Utilizziamo i cookie per migliorare la tua esperienza sul sito. <a href='https://intiniwebatelier.com/cookie-policy' target='_blank'>Cookie Policy</a></p>",
           acceptAllButtonText: "Accetta tutti",
           acceptAllButtonAccessibleLabel: "Accetta tutti i cookie",
           rejectNonEssentialButtonText: "Rifiuta",
@@ -72,8 +133,8 @@
         preferences: {
           title: "Personalizza le tue preferenze cookie",
           description: "<p>Rispettiamo il tuo diritto alla privacy. Puoi scegliere quali tipi di cookie consentire.</p>",
-          creditLinkText: "Banner gratuito di Silktide",
-          creditLinkAccessibleLabel: "Banner gratuito di Silktide"
+          creditLinkText: "",
+          creditLinkAccessibleLabel: ""
         }
       },
       position: {
@@ -83,13 +144,9 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
     <title>Siti Web Esclusivi e su Misura | Intini Web Atelier</title>
     <meta name="description" content="Come in una vera sartoria digitale, Intini Web Atelier progetta e sviluppa siti web su misura per il tuo brand. Design esclusivo e prestazioni d&#39;eccellenza.">
     <meta name="author" content="Lovable" />
-
-    <!-- TODO: Update og:title to match your application name -->
-    
     
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/R4MEAcjvrlOyz9ZO7p2ccPImeVC3/social-images/social-1775314602790-Schermata_2026-04-04_alle_16.40.25_1.webp">
@@ -98,18 +155,11 @@
     <meta name="twitter:site" content="@Lovable" />
     <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/R4MEAcjvrlOyz9ZO7p2ccPImeVC3/social-images/social-1775314602790-Schermata_2026-04-04_alle_16.40.25_1.webp">
     
-  
-  
-  
-  
-  
-  
-  
-  <meta property="og:title" content="Siti Web Esclusivi e su Misura | Intini Web Atelier">
-  <meta name="twitter:title" content="Siti Web Esclusivi e su Misura | Intini Web Atelier">
-  <meta property="og:description" content="Come in una vera sartoria digitale, Intini Web Atelier progetta e sviluppa siti web su misura per il tuo brand. Design esclusivo e prestazioni d&#39;eccellenza.">
-  <meta name="twitter:description" content="Come in una vera sartoria digitale, Intini Web Atelier progetta e sviluppa siti web su misura per il tuo brand. Design esclusivo e prestazioni d&#39;eccellenza.">
-</head>
+    <meta property="og:title" content="Siti Web Esclusivi e su Misura | Intini Web Atelier">
+    <meta name="twitter:title" content="Siti Web Esclusivi e su Misura | Intini Web Atelier">
+    <meta property="og:description" content="Come in una vera sartoria digitale, Intini Web Atelier progetta e sviluppa siti web su misura per il tuo brand. Design esclusivo e prestazioni d&#39;eccellenza.">
+    <meta name="twitter:description" content="Come in una vera sartoria digitale, Intini Web Atelier progetta e sviluppa siti web su misura per il tuo brand. Design esclusivo e prestazioni d&#39;eccellenza.">
+  </head>
 
   <body>
     <div id="root"></div>
