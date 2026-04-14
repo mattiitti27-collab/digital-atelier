@@ -93,6 +93,15 @@ const FooterReveal = () => {
           >
             Cookie Policy
           </Link>
+          <Link
+            to="/termini-e-condizioni"
+            className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase transition-colors duration-300"
+            style={{ color: 'rgba(255,255,255,0.3)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = '#d4a574')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
+          >
+            Termini e Condizioni
+          </Link>
         </div>
 
         <div className="w-full" style={{ height: '1px', background: 'rgba(255,255,255,0.04)' }} />
